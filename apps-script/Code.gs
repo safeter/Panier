@@ -8,8 +8,9 @@
  * Colonnes K à M : ID Panier (évite les doublons), catégorie IPC, source (manuel / import).
  */
 
-// Colle ici le jeton affiché dans Panier → Réglages → Google Sheet.
-const JETON = 'COLLE_ICI_LE_JETON_DE_PANIER';
+// Sécurité : au premier envoi, le script retient le jeton de ton téléphone (Panier → Réglages).
+// Ensuite, seuls les envois portant ce jeton sont acceptés. Pour changer de téléphone,
+// exécute la fonction oublierJeton() dans l'éditeur, puis renvoie depuis le nouvel appareil.
 const FEUILLE = '📊 Historique';
 const PREMIERE_LIGNE = 3; // ligne 1 : titre, ligne 2 : en-têtes
 
@@ -20,8 +21,12 @@ function doGet() {
 function doPost(e) {
   try {
     const corps = JSON.parse(e.postData.contents);
-    if (!JETON || JETON.indexOf('COLLE_ICI') === 0 || corps.token !== JETON) {
-      return reponse({ ok: false, erreur: 'Jeton refusé : vérifie le jeton dans le script et dans Panier.' });
+    const proprietes = PropertiesService.getScriptProperties();
+    const jeton = proprietes.getProperty('JETON_PANIER');
+    if (!corps.token || String(corps.token).length < 16) return reponse({ ok: false, erreur: 'Jeton manquant.' });
+    if (!jeton) proprietes.setProperty('JETON_PANIER', corps.token);
+    else if (corps.token !== jeton) {
+      return reponse({ ok: false, erreur: 'Jeton refusé : ce Sheet est déjà relié à un autre appareil (voir oublierJeton dans le script).' });
     }
     const verrou = LockService.getScriptLock();
     verrou.waitLock(20000);
@@ -37,6 +42,17 @@ function doPost(e) {
   } catch (err) {
     return reponse({ ok: false, erreur: String(err) });
   }
+}
+
+/** À exécuter dans l'éditeur pour relier le Sheet à un nouvel appareil. */
+function oublierJeton() {
+  PropertiesService.getScriptProperties().deleteProperty('JETON_PANIER');
+}
+
+/** Exécuté une fois depuis l'éditeur pour accorder les autorisations au script. */
+function verifier() {
+  const feuille = SpreadsheetApp.getActive().getSheetByName(FEUILLE);
+  Logger.log(feuille ? 'OK : ' + (feuille.getLastRow() - 2) + ' lignes dans ' + FEUILLE : 'Feuille introuvable');
 }
 
 function preparerEntetes(feuille) {

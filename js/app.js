@@ -510,10 +510,6 @@ function viewSettings() {
       if (state.settings.sheetUrl) { await trySync({ quiet: false }); render(); }
     });
     $('#sync-now')?.addEventListener('click', async () => { await trySync({ quiet: false }); render(); });
-    $('#copy-token').addEventListener('click', async () => {
-      try { await navigator.clipboard.writeText(state.settings.sheetToken); toast('Jeton copié.', 'ok'); }
-      catch { toast('Copie impossible : sélectionne le jeton à la main.', 'error'); }
-    });
     $('#x-json').addEventListener('click', () => exportJSON(state.data));
     $('#x-xlsx').addEventListener('click', async () => {
       try {
@@ -548,7 +544,6 @@ function viewSettings() {
     <h2>Google Sheet</h2>
     <p class="hint">Chaque reçu enregistré est ajouté à la feuille « Historique » de Suivi_depenses_V2. Installation : voir le guide dans le dépôt (apps-script/INSTALLATION.md).</p>
     <label>Adresse du script (se termine par /exec)<input name="sheetUrl" type="url" value="${esc(state.settings.sheetUrl)}" placeholder="https://script.google.com/macros/s/…/exec"></label>
-    <label>Jeton à coller dans le script<span class="token-row"><input readonly value="${esc(state.settings.sheetToken)}" aria-label="Jeton"><button type="button" class="btn" id="copy-token">Copier</button></span></label>
     <p class="hint">${state.settings.sheetUrl ? `${pendingLines(state.data).length} ligne(s) en attente d’envoi${state.sync.last ? ` · dernier envoi ${new Date(state.sync.last).toLocaleString('fr-CA')}` : ''}${state.sync.error ? ` · erreur : ${esc(state.sync.error)}` : ''}.` : 'Pas encore configuré : les données restent seulement sur ce téléphone.'}</p>
     ${state.settings.sheetUrl ? '<button type="button" class="btn" id="sync-now">Envoyer maintenant</button>' : ''}
     <h2 class="mt">Profil</h2>
