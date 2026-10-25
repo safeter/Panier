@@ -224,3 +224,7 @@ fieldset.line.low { border-left: 3px solid var(--warn); padding-left: 10px; }
 .chips .hint { width: 100%; margin: 0 0 2px; }
 .chip { min-height: 36px; padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font-size: 0.88rem; cursor: pointer; }
 .chip:active { border-color: var(--me); }
+.token-row { display: flex; gap: 8px; margin-top: 4px; }
+.token-row input { margin: 0; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.token-row .btn { flex: none; }
+h2.mt { margin-top: 18px; }

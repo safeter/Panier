@@ -4,6 +4,7 @@ import { CATEGORIES, CAT, IN_SCOPE } from './categories.js';
 import { $, $$, esc, fmtMoney, fmtPct, fmtMonth, fmtDate, today, uid, slug, toast, num, parseSize, fmtSize } from './util.js';
 import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
 import { planImport } from './importer.js';
+import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
@@ -11,7 +12,8 @@ const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteill
 const state = {
   data: { stores: [], products: [], receipts: [], lines: [] },
   official: { points: [] },
-  settings: { region: '' },
+  settings: { region: '', sheetUrl: '', sheetToken: '' },
+  sync: { last: null, error: null, busy: false },
   view: null,
   draft: null,
 };
@@ -46,6 +48,27 @@ function derive() {
 async function reload() {
   state.data = await db.loadAll();
   derive();
+}
+
+async function trySync({ quiet = true } = {}) {
+  if (!state.settings.sheetUrl || state.sync.busy || !navigator.onLine) return null;
+  state.sync.busy = true;
+  try {
+    const added = await pushPending(state.data, state.settings);
+    if (added !== null) {
+      state.data = await db.loadAll();
+      derive();
+      state.sync = { last: new Date().toISOString(), error: null, busy: false };
+      if (added > 0 || !quiet) toast(added > 0 ? `${added} ligne(s) ajoutée(s) au Google Sheet.` : 'Google Sheet à jour.', 'ok');
+    }
+    return added;
+  } catch (err) {
+    state.sync = { ...state.sync, error: err.message, busy: false };
+    if (!quiet) toast(`Envoi au Google Sheet impossible : ${err.message}`, 'error');
+    return null;
+  } finally {
+    state.sync.busy = false;
+  }
 }
 
 const storeName = (id) => state.data.stores.find((s) => s.id === id)?.name || id;
@@ -311,6 +334,7 @@ async function onImportFile(e) {
     await db.put('lines', plan.lines);
     await reload();
     toast(`${plan.receipts.length} reçu(s) importé(s).`, 'ok');
+    trySync();
     location.hash = '#/';
   } catch (err) {
     status.textContent = err instanceof SyntaxError ? 'Ce fichier n’est pas un fichier de reçus valide.' : err.message;
@@ -350,6 +374,7 @@ async function saveDraft() {
   state.draft = null;
   await reload();
   toast(`Reçu enregistré : ${outLines.length} articles, ${fmtMoney(outLines.reduce((a, l) => a + l.amount, 0))}.`, 'ok');
+  trySync();
   location.hash = '#/';
 }
 
@@ -454,6 +479,7 @@ function viewReceipt(id) {
   state.after = () => {
     $('#del-r').addEventListener('click', async () => {
       if (!confirm('Supprimer ce reçu et ses articles ?')) return;
+      try { await pushDelete(ls, state.settings); } catch (err) { toast(`Reçu supprimé ici, mais pas dans le Google Sheet : ${err.message}`, 'error'); }
       await db.del('lines', ls.map((l) => l.id));
       await db.del('receipts', id);
       await reload();
@@ -478,9 +504,15 @@ function viewSettings() {
     $('#sform').addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = new FormData(e.target);
-      state.settings = { region: f.get('region').trim().toUpperCase().slice(0, 3) };
+      state.settings = { ...state.settings, region: f.get('region').trim().toUpperCase().slice(0, 3), sheetUrl: f.get('sheetUrl').trim() };
       await db.setMeta('settings', state.settings);
       toast('Réglages enregistrés.', 'ok');
+      if (state.settings.sheetUrl) { await trySync({ quiet: false }); render(); }
+    });
+    $('#sync-now')?.addEventListener('click', async () => { await trySync({ quiet: false }); render(); });
+    $('#copy-token').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(state.settings.sheetToken); toast('Jeton copié.', 'ok'); }
+      catch { toast('Copie impossible : sélectionne le jeton à la main.', 'error'); }
     });
     $('#x-json').addEventListener('click', () => exportJSON(state.data));
     $('#x-xlsx').addEventListener('click', async () => {
@@ -513,7 +545,13 @@ function viewSettings() {
   const added = d.receipts.filter((r) => r.source !== 'migration').length;
   return `<header class="page-head"><h1>Réglages</h1></header>
   <form id="sform" class="block" autocomplete="off">
-    <h2>Profil</h2>
+    <h2>Google Sheet</h2>
+    <p class="hint">Chaque reçu enregistré est ajouté à la feuille « Historique » de Suivi_depenses_V2. Installation : voir le guide dans le dépôt (apps-script/INSTALLATION.md).</p>
+    <label>Adresse du script (se termine par /exec)<input name="sheetUrl" type="url" value="${esc(state.settings.sheetUrl)}" placeholder="https://script.google.com/macros/s/…/exec"></label>
+    <label>Jeton à coller dans le script<span class="token-row"><input readonly value="${esc(state.settings.sheetToken)}" aria-label="Jeton"><button type="button" class="btn" id="copy-token">Copier</button></span></label>
+    <p class="hint">${state.settings.sheetUrl ? `${pendingLines(state.data).length} ligne(s) en attente d’envoi${state.sync.last ? ` · dernier envoi ${new Date(state.sync.last).toLocaleString('fr-CA')}` : ''}${state.sync.error ? ` · erreur : ${esc(state.sync.error)}` : ''}.` : 'Pas encore configuré : les données restent seulement sur ce téléphone.'}</p>
+    ${state.settings.sheetUrl ? '<button type="button" class="btn" id="sync-now">Envoyer maintenant</button>' : ''}
+    <h2 class="mt">Profil</h2>
     <label>Code régional (3 premiers caractères du code postal)<input name="region" value="${esc(state.settings.region)}" maxlength="3" placeholder="H4L"></label>
     <button class="btn primary" type="submit">Enregistrer les réglages</button>
   </form>
@@ -539,6 +577,10 @@ async function start() {
     const seeded = await db.ensureSeeded();
     await db.persist();
     state.settings = { ...state.settings, ...(await db.getMeta('settings', {})) };
+    if (!state.settings.sheetToken) {
+      state.settings.sheetToken = newToken();
+      await db.setMeta('settings', state.settings);
+    }
     state.official = await fetch('./data/ipc-quebec.json', { cache: 'no-cache' }).then((r) => r.json()).catch(() => ({ points: [] }));
     await reload();
     if (seeded) toast(`Historique importé : ${state.data.lines.length} articles depuis ${fmtMonth(state.derived.series[0]?.month || '2023-12')}.`, 'ok');
@@ -548,6 +590,8 @@ async function start() {
   }
   window.addEventListener('hashchange', render);
   render();
+  window.addEventListener('online', () => trySync());
+  trySync();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
