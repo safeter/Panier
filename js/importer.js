@@ -26,7 +26,7 @@ function parseSize(s) {
  * Un reçu déjà présent (même date, même magasin, même total à 1 cent près) est ignoré.
  * Retourne uniquement les nouveaux enregistrements à écrire, plus un résumé.
  */
-export function planImport(data, payload, makeId) {
+export function planImport(data, payload, makeId, aliases = {}) {
   const list = Array.isArray(payload) ? payload : payload?.receipts;
   if (!Array.isArray(list) || !list.length) throw new Error('Ce fichier ne contient aucun reçu à importer.');
 
@@ -75,6 +75,8 @@ export function planImport(data, payload, makeId) {
       const cands = products.get(slug(name)) || [];
       // Sinon, même nom à la casse, aux accents, au pluriel ou au format près (« Bleuets 170g » = « Bleuets »).
       let p = cands.find((x) => x.unit === unit) || (byKey.get(nameKey(name)) || []).find((x) => x.unit === unit);
+      // Ancien nom d'un produit renommé ou fusionné (retenu par l'app)
+      if (!p && aliases[slug(name)]) p = data.products.find((x) => x.id === aliases[slug(name)]);
       if (!p) {
         p = { id: `${slug(name)}--${slug(unit)}`, name, unit, category: CAT[l.category] ? l.category : (cands[0]?.category || 'autres'), type: slug(name) };
         products.set(slug(name), [...cands, p]);
@@ -83,7 +85,7 @@ export function planImport(data, payload, makeId) {
       }
       const size = parseSize(l.size);
       out.lines.push({
-        id: makeId('l'), receiptId: receipt.id, productId: p.id,
+        id: makeId('l'), receiptId: receipt.id, pos: lines.indexOf(l), productId: p.id,
         qty: n(l.qty) > 0 ? n(l.qty) : 1, amount: Math.round(n(l.amount) * 100) / 100,
         regularPrice: n(l.regularPrice), sizeQty: size?.qty ?? null, sizeUnit: size?.unit ?? null,
       });

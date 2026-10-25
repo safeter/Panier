@@ -16,6 +16,9 @@ function words(name, { keepParens = true } = {}) {
   }).filter((w) => w.k && !/^\d+(?:[.,]\d+)?(kg|g|ml|l|lb|oz)?$/.test(w.k));
 }
 
+/** Marque entre parenthèses (« Yogourt grec (Oikos) » → « oikos »), ou ''. */
+const brandOf = (name) => norm((String(name).match(/\(([^)]*)\)/) || [])[1] || '').replace(/[^a-z0-9]+/g, '');
+
 /** Clé de nom : minuscules, sans accents ni ponctuation ni format (500 g), pluriels au singulier. */
 export function nameKey(name, opts) {
   return words(name, opts).map((w) => w.k).join(' ');
@@ -34,7 +37,7 @@ function onlyBrandOrQualifier(extra) {
  */
 export function similarProducts(products, counts = new Map(), dismissed = new Set()) {
   const items = products.filter((p) => p.category !== 'hors' && (counts.get(p.id) || 0) > 0)
-    .map((p) => ({ p, n: counts.get(p.id) || 0, full: nameKey(p.name), bare: nameKey(p.name, { keepParens: false }), w: words(p.name, { keepParens: false }) }))
+    .map((p) => ({ p, n: counts.get(p.id) || 0, full: nameKey(p.name), bare: nameKey(p.name, { keepParens: false }), w: words(p.name, { keepParens: false }), brand: brandOf(p.name) }))
     .filter((x) => x.full);
   const pairs = [];
   for (let i = 0; i < items.length; i++) {
@@ -43,6 +46,8 @@ export function similarProducts(products, counts = new Map(), dismissed = new Se
       if (a.p.unit !== b.p.unit) continue;
       let kind = null;
       if (a.full === b.full) kind = 'meme-nom';
+      // « Jus (Oasis) » et « Jus (Tropicana) » : deux marques, deux séries de prix.
+      else if (a.brand && b.brand && a.brand !== b.brand) continue;
       else if (a.p.category === b.p.category) {
         if (a.bare === b.bare) kind = 'variante';
         else {

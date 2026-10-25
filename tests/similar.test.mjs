@@ -38,3 +38,13 @@ test('paire déclarée différente : plus proposée', () => {
   const key = [ps[0].id, ps[1].id].sort().join('|');
   assert.equal(similarProducts(ps, counts(ps), new Set([key])).length, 0);
 });
+
+test('deux marques différentes du même produit : pas un doublon ; marque et nom générique : à confirmer', () => {
+  const ps = [P('Jus (Oasis)', 'carton', 'fruits'), P('Jus (Tropicana)', 'carton', 'fruits'),
+    P('Tisane', 'boite', 'autres'), P('Tisane (Twinings)', 'boite', 'autres'),
+    P('Yogourt grec (Oikos)', 'pot', 'laitiers'), P('Yogourt grec nature (Oikos)', 'pot', 'laitiers')];
+  const names = similarProducts(ps, counts(ps)).map((x) => x.drop.name).sort();
+  assert.ok(!names.some((n) => n.startsWith('Jus')), 'Oasis et Tropicana restent séparés');
+  assert.ok(names.includes('Tisane (Twinings)') || names.includes('Tisane'));
+  assert.ok(names.some((n) => n.startsWith('Yogourt grec')), 'même marque, précision « nature »');
+});

@@ -6,10 +6,11 @@ import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
 import { planImport } from './importer.js';
 import { parseReceiptText, guessCategory } from './pdfparse.js';
 import { similarProducts, nameKey } from './similar.js';
+import { planCatalogue } from './catalogue.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
-export const APP_VERSION = '2.6.0';
+export const APP_VERSION = '2.7.0';
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
 
 const state = {
@@ -19,6 +20,8 @@ const state = {
   sync: { last: null, error: null, busy: false },
   view: null,
   draft: null,
+  aliases: {},   // ancien libellé (slug) -> id du produit : noms corrigés, renommés ou fusionnés
+  notSame: [],   // paires « idA|idB » déclarées différentes
 };
 
 // ---------- Données dérivées ----------
@@ -29,15 +32,23 @@ function derive() {
   // jusqu'à ce que l'utilisateur les corrige ou les valide dans « À vérifier ». Les dépenses les gardent.
   const flags = calc.auditLines(joined);
   const indexed = joined.filter((l) => !flags.has(l.id));
-  const panel = calc.monthlyPanel(indexed);
-  const series = calc.chainedIndex(panel);
+  // Indice : fenêtres mobiles de 6 mois comparées entre elles produit par produit (multilatéral, sans dérive).
+  const monthly = calc.monthlyPanel(indexed);
+  const panel = calc.rollingPanel(monthly);
+  const series = calc.multilateralIndex(panel);
   // Le résumé s'arrête au dernier mois assez complet : un mois qui commence (1 ou 2 reçus)
-  // compte trop peu de produits comparables pour un chiffre fiable.
+  // a trop peu de produits déjà achetés dans les 12 mois précédents pour peser sur le chiffre.
+  const months = [...monthly.keys()];
+  const ownMatched = (mo) => {
+    const before = new Set(months.filter((m) => m < mo && calc.monthsBetween(m, mo) <= 12).flatMap((m) => [...monthly.get(m).keys()]));
+    return [...monthly.get(mo).keys()].filter((id) => before.has(id)).length;
+  };
   let end = series.length - 1;
-  while (end > 0 && !series[end].reliable) end--;
+  while (end > 0 && ownMatched(series[end].month) < calc.MIN_MATCHED) end--;
   const head = calc.headlineInflation(series.slice(0, end + 1));
-  const pending = end < series.length - 1 ? series.slice(end + 1) : [];
-  const official = state.official.points || [];
+  const pending = series.slice(end + 1).map((p) => ({ month: p.month, matched: ownMatched(p.month) }));
+  // Série officielle lissée sur les mêmes fenêtres de 6 mois
+  const official = calc.smoothOfficial(state.official.points || []);
   const P = new Map(d.products.map((p) => [p.id, p]));
   const byProduct = new Map();
   for (const l of indexed) {
@@ -45,19 +56,38 @@ function derive() {
     byProduct.get(l.productId).push(l);
   }
   const alerts = [];
+  // Alertes : seulement pour les produits achetés récemment (un prix de 2024 n'aide pas l'épicerie de cette semaine).
+  const latest = indexed.reduce((a, l) => (l.date > a ? l.date : a), '');
+  const recent = latest ? new Date(Date.parse(latest) - 120 * 864e5).toISOString().slice(0, 10) : '';
   for (const [id] of byProduct) {
     const h = calc.priceHistory(indexed, id);
+    if (!h.length || h.at(-1).date < recent) continue;
     for (const a of calc.alertsFor(h)) alerts.push({ productId: id, name: P.get(id)?.name, ...a, last: h.at(-1) });
+  }
+  // Tous les achats valides, hors périmètre et douteux compris : liste des produits, nombre d'achats.
+  const all = calc.joinLines(d, { inScopeOnly: false });
+  const byProductAll = new Map();
+  for (const l of all) {
+    if (!byProductAll.has(l.productId)) byProductAll.set(l.productId, []);
+    byProductAll.get(l.productId).push(l);
   }
   const counts = new Map();
   for (const l of d.lines) counts.set(l.productId, (counts.get(l.productId) || 0) + 1);
   const twins = similarProducts(d.products, counts, new Set(state.notSame || []));
-  state.derived = { twins, joined, indexed, flags, panel, series, head, pending, official, byProduct, alerts, alertIds: new Set(alerts.map((a) => a.productId)) };
+  state.derived = { twins, joined, indexed, flags, panel, series, head, pending, official, byProduct, byProductAll, alerts, alertIds: new Set(alerts.map((a) => a.productId)) };
 }
 
 async function reload() {
   state.data = await db.loadAll();
+  state.aliases = await db.getMeta('aliases', {});
+  state.notSame = await db.getMeta('notSame', []);
   derive();
+}
+
+/** Met à jour l'état de l'envoi affiché dans Réglages, sans redessiner la page (ni perdre la saisie). */
+function refreshSyncStatus() {
+  const el = $('#sync-status');
+  if (el) el.outerHTML = syncStatus();
 }
 
 async function trySync({ quiet = true } = {}) {
@@ -80,16 +110,18 @@ async function trySync({ quiet = true } = {}) {
     return null;
   } finally {
     state.sync.busy = false;
+    refreshSyncStatus();
   }
 }
 
 function syncStatus() {
   const pending = pendingLines(state.data).length;
   const { last, error } = state.sync;
-  if (!state.settings.sheetUrl) return `<p class="status off">Non relié · ${pending} ligne(s) à envoyer. Tes données restent seulement sur ce téléphone.</p>`;
-  if (error) return `<p class="status bad">Erreur au dernier envoi : ${esc(error)} · ${pending} ligne(s) en attente.</p>`;
-  if (pending) return `<p class="status off">${pending} ligne(s) en attente d'envoi${navigator.onLine ? '' : ' (hors ligne)'}.</p>`;
-  return `<p class="status good">Relié et à jour${last ? ` · dernier envoi ${esc(new Date(last).toLocaleString('fr-CA', { dateStyle: 'medium', timeStyle: 'short' }))}` : ''}.</p>`;
+  const p = (cls, html) => `<p id="sync-status" class="status ${cls}" role="status">${html}</p>`;
+  if (!state.settings.sheetUrl) return p('off', `Non relié · ${pending} ligne(s) à envoyer. Tes données restent seulement sur ce téléphone.`);
+  if (error) return p('bad', `Erreur au dernier envoi : ${esc(error)} · ${pending} ligne(s) en attente.`);
+  if (pending) return p('off', `${pending} ligne(s) en attente d'envoi${navigator.onLine ? '' : ' (hors ligne)'}.`);
+  return p('good', `Relié et à jour${last ? ` · dernier envoi ${esc(new Date(last).toLocaleString('fr-CA', { dateStyle: 'medium', timeStyle: 'short' }))}` : ''}.`);
 }
 
 const storeName = (id) => state.data.stores.find((s) => s.id === id)?.name || id;
@@ -108,6 +140,7 @@ const routes = [
 
 function render() {
   const hash = location.hash || '#/';
+  if (state.draft?.editing && hash !== '#/ajouter') state.draft = null; // correction abandonnée
   for (const [re, fn] of routes) {
     const m = hash.match(re);
     if (m) {
@@ -140,7 +173,10 @@ function viewDashboard() {
   const dec = head ? calc.decompose(panel, series, head.from, head.to) : null;
   const rebased = calc.rebase(official, series[0].month);
   const period = head ? `${fmtMonth(head.from)} → ${fmtMonth(head.to)}` : '';
-  const kindNote = head?.kind === '12mois' ? 'Sur 12 mois' : `Depuis le début (${head?.months} mois)`;
+  const win = (mo) => `${fmtMonth(calc.addMonths(mo, -(calc.WINDOW - 1)), { short: true })} – ${fmtMonth(mo, { short: true })}`;
+  const kindNote = !head ? 'Pas encore deux mois comparables' : head.kind === '12mois' ? 'Sur 12 mois' : `Depuis le début (${head.months} mois)`;
+  const offLag = offCh && head && offCh.to !== head.to
+    ? `Dernier mois publié par Statistique Canada : ${fmtMonth(offCh.to)}.` : '';
 
   const gap = offCh && head ? head.pct - offCh.pct : null;
   const pts = (x) => Math.abs(x).toLocaleString('fr-CA', { maximumFractionDigits: 1 });
@@ -152,17 +188,19 @@ function viewDashboard() {
   const pendingNote = pending.length
     ? `<div class="pending-box">${pending.map((p) => {
       const ls = monthSpend(p.month);
-      return `<p><strong>${esc(fmtMonth(p.month))} : ${ls.length} articles, ${esc(fmtMoney(ls.reduce((a, l) => a + l.amount, 0)))}</strong> — pas encore dans « Mes prix » : ${p.matched || 0} produit${(p.matched || 0) > 1 ? 's' : ''} en commun avec ${esc(fmtMonth(p.from))}, il en faut ${calc.MIN_MATCHED}. Les achats habituels (lait, œufs, fruits…) le compléteront vite.</p>`;
+      return `<p><strong>${esc(fmtMonth(p.month))} : ${ls.length} articles, ${esc(fmtMoney(ls.reduce((a, l) => a + l.amount, 0)))}</strong> — pas encore dans « Mes prix » : ${p.matched} produit${p.matched > 1 ? 's' : ''} déjà acheté${p.matched > 1 ? 's' : ''} dans les 12 mois précédents, il en faut ${calc.MIN_MATCHED}. Les achats habituels (lait, œufs, fruits…) le compléteront vite.</p>`;
     }).join('')}</div>` : '';
 
-  // Catégories
-  const last12 = joined.filter((l) => calc.monthsBetween(l.month, head?.to || calc.monthOf(lastDate)) < 12);
+  // Catégories : part des dépenses des 12 derniers mois, prix sur la même période que « Mes prix »
+  const last12 = joined.filter((l) => calc.monthsBetween(l.month, calc.monthOf(lastDate)) < 12);
   const spend12 = last12.reduce((a, l) => a + l.amount, 0) || 1;
   const catRows = IN_SCOPE.map((c) => {
-    const s = calc.chainedIndex(panel, (v) => v.category === c.id);
+    const s = calc.multilateralIndex(panel, (v) => v.category === c.id).filter((p) => !head || p.month <= head.to);
     const h = calc.headlineInflation(s);
     const share = last12.filter((l) => l.product.category === c.id).reduce((a, l) => a + l.amount, 0) / spend12;
-    const weak = s.slice(1).filter((p) => !p.reliable).length > s.length / 2;
+    // Chiffre affiché seulement si les deux bouts de la période reposent sur assez de produits communs.
+    const at = (mo) => s.find((p) => p.month === mo);
+    const weak = !h || !at(h.from)?.reliable || !at(h.to)?.reliable;
     return { c, h, share, weak };
   }).sort((a, b) => b.share - a.share);
 
@@ -182,27 +220,26 @@ function viewDashboard() {
 
   <section class="receipt" aria-labelledby="t-sum">
     <h2 id="t-sum" class="receipt-title">${kindNote}<span>${esc(period)}</span></h2>
-    ${leader('Mes prix', fmtPct(head?.pct), 'big')}
-    ${leader('IPC Québec, aliments en magasin', offCh ? fmtPct(offCh.pct) : 'en attente', 'qc', offCh ? '' : 'La série officielle se met à jour automatiquement chaque mois.')}
-    ${dec ? leader('Mes dépenses d’épicerie', fmtPct(dec.totalPct)) : ''}
+    ${leader('Mes prix', fmtPct(head?.pct), 'big', head ? `Prix moyens de ${esc(win(head.from))} comparés à ${esc(win(head.to))}, produit par produit.` : '')}
+    ${leader('IPC Québec, aliments en magasin', offCh ? fmtPct(offCh.pct) : 'en attente', 'qc', offCh ? esc(offLag) : 'La série officielle se met à jour automatiquement chaque mois.')}
     ${verdict ? `<p class="verdict">${esc(verdict)}</p>` : ''}
     ${pendingNote}
   </section>
 
   ${dec ? `<section class="block"><h2>Pourquoi ma facture a changé</h2>
-    <p class="muted">${esc(fmtMonth(dec.m0))} : ${esc(fmtMoney(dec.spend0))} · ${esc(fmtMonth(dec.m1))} : ${esc(fmtMoney(dec.spend1))}</p>
+    <p class="muted">Dépense moyenne par mois d’achats : ${esc(win(dec.m0))} : ${esc(fmtMoney(dec.spend0))} · ${esc(win(dec.m1))} : ${esc(fmtMoney(dec.spend1))} (${fmtPct(dec.totalPct)}).</p>
     ${effectBars(dec)}</section>` : ''}
 
   <section class="block"><h2>Mon indice des prix</h2>
-    <div class="legend"><span class="k me">Mon panier</span>${rebased.length ? '<span class="k qc">IPC Québec</span>' : ''}<span class="k dash">Lien incertain ou mois manquants</span></div>
+    <div class="legend"><span class="k me">Mon panier</span>${rebased.length ? '<span class="k qc">IPC Québec</span>' : ''}<span class="k dash">Mois manquants ou peu de produits communs</span></div>
     ${indexChart(series, rebased)}
-    <p class="muted small">Base 100 = ${esc(fmtMonth(series[0].month))}. ${series.filter((p) => !p.reliable).length} lien(s) sur ${series.length - 1} reposent sur moins de ${calc.MIN_MATCHED} produits communs.</p>
+    <p class="muted small">Base 100 = ${esc(fmtMonth(series[0].month))}. Chaque point compare les prix moyens des ${calc.WINDOW} mois qui le précèdent, produit par produit, à ceux de tous les autres points ; l’IPC du Québec est lissé de la même façon.</p>
   </section>
 
   <section class="block"><h2>Par catégorie</h2>
-    <p class="muted small">Part des dépenses sur 12 mois et variation des prix depuis le premier mois de la catégorie.</p>
+    <p class="muted small">Part des dépenses des 12 derniers mois ; variation des prix sur 12 mois, ou depuis le premier mois de la catégorie si son historique est plus court.</p>
     <ul class="cats">${catRows.map(({ c, h, share, weak }) => `<li>
-      <div class="cat-line"><span>${esc(c.short)}</span><span class="${h && h.pct > 0 ? 'up' : 'down'}">${h ? fmtPct(h.pct) : '—'}${weak ? '<abbr title="Peu de produits comparables">*</abbr>' : ''}</span></div>
+      <div class="cat-line"><span>${esc(c.short)}</span>${weak ? '<span class="muted small">trop peu de produits comparables</span>' : `<span class="${h.pct > 0 ? 'up' : 'down'}">${fmtPct(h.pct)}</span>`}</div>
       <div class="share"><span style="width:${(share * 100).toFixed(1)}%"></span></div>
       <small>${Math.round(share * 100)} % des dépenses</small></li>`).join('')}</ul>
   </section>
@@ -220,14 +257,20 @@ function viewDashboard() {
 // ---------- Ajouter un reçu ----------
 const emptyLine = () => ({ name: '', productId: null, qty: '1', amount: '', size: '', regularPrice: '', category: 'autres', unit: 'unité', confidence: null, raw: '' });
 
-function findProduct(name, unit) {
+/**
+ * Produit connu pour un libellé : même nom, ancien nom retenu (renommage, fusion, correction),
+ * puis même nom aux accents, pluriels et formats près. `strict` : seulement dans cette unité.
+ */
+function findProduct(name, unit, { strict = false } = {}) {
   const n = slug(name);
+  if (!n) return null;
   let cands = state.data.products.filter((p) => slug(p.name) === n);
-  if (!cands.length && name.trim()) {
+  if (!cands.length && state.aliases[n]) cands = state.data.products.filter((p) => p.id === state.aliases[n]);
+  if (!cands.length) {
     const k = nameKey(name);
-    cands = state.data.products.filter((p) => nameKey(p.name) === k);
+    if (k) cands = state.data.products.filter((p) => nameKey(p.name) === k);
   }
-  return cands.find((p) => !unit || p.unit === unit) || cands[0] || null;
+  return cands.find((p) => !unit || p.unit === unit) || (strict ? null : cands[0]) || null;
 }
 
 /** « Tomates cerises multicolores » → « Tomates cerises » : produit connu dont le nom commence le libellé. */
@@ -247,6 +290,11 @@ function viewAdd() {
   const d = state.draft;
   const names = [...new Set(state.data.products.filter((p) => p.category !== 'hors').map((p) => p.name))].sort((a, b) => a.localeCompare(b, 'fr'));
   state.after = () => bindAdd();
+  if (d.editing) {
+    return `<a class="back" href="#/recus/${encodeURIComponent(d.editing)}" id="cancel-edit">Annuler</a>
+  <header class="page-head"><h1>Modifier le reçu</h1><p class="muted">Corrige un produit, une quantité ou un montant ; les lignes modifiées sont renvoyées au Google Sheet.</p></header>
+  ${receiptForm(d, names)}`;
+  }
   return `
   <header class="page-head"><h1>Ajouter un reçu</h1></header>
   <section class="scan-box">
@@ -254,6 +302,11 @@ function viewAdd() {
     <label class="btn file"><input type="file" id="import-file" accept="application/json,.json">Importer un fichier de reçus préparé par Claude</label>
     <p class="muted small" id="import-status">Le PDF est lu sur ce téléphone ; tu vérifies les lignes avant d’enregistrer. Les noms que tu corriges sont retenus pour les prochaines fois.</p>
   </section>
+  ${receiptForm(d, names)}`;
+}
+
+function receiptForm(d, names) {
+  return `
   <form id="receipt-form" class="block" autocomplete="off">
     <div class="row2">
       <label>Date<input type="date" name="date" value="${esc(d.date)}" required></label>
@@ -265,12 +318,12 @@ function viewAdd() {
     <div id="lines">${d.lines.map(lineRow).join('')}</div>
     <button type="button" class="btn ghost" id="add-line">Ajouter une ligne</button>
     <div class="total-line"><span>Total des lignes, hors taxes</span><strong id="sum">${fmtMoney(sumDraft())}</strong></div>
-    <button class="btn primary wide" type="submit">Enregistrer le reçu</button>
+    <button class="btn primary wide" type="submit">${d.editing ? 'Enregistrer les corrections' : 'Enregistrer le reçu'}</button>
   </form>`;
 }
 
 function lineRow(l, i) {
-  const known = l.productId || findProduct(l.name);
+  const known = (l.productId && state.data.products.find((p) => p.id === l.productId)) || findProduct(l.name);
   const low = l.confidence !== null && l.confidence < 0.7;
   return `<fieldset class="line${low ? ' low' : ''}" data-i="${i}">
     <legend class="sr-only">Ligne ${i + 1}</legend>
@@ -302,9 +355,16 @@ function bindAdd() {
     if (!fs) return;
     const l = state.draft.lines[Number(fs.dataset.i)];
     l[t.dataset.f] = t.value;
+    if (t.dataset.f === 'category') l.catTouched = true;
     if (t.dataset.f === 'name') {
       const p = findProduct(t.value);
       l.productId = p?.id || null;
+      // Nouveau produit : catégorie proposée d'après le nom, tant que l'utilisateur ne l'a pas choisie.
+      if (!p && !l.catTouched) {
+        l.category = guessCategory(t.value);
+        const sel = $('select[data-f="category"]', fs);
+        if (sel) sel.value = l.category;
+      }
       $$('.nw', fs).forEach((el) => { el.hidden = !!p || !t.value; });
       $('.line-hint', fs).textContent = p ? `${p.name} · ${CAT[p.category]?.short || ''} · ${p.unit}` : (t.value ? 'Nouveau produit : choisis sa catégorie.' : '');
     }
@@ -325,8 +385,9 @@ function bindAdd() {
     e.preventDefault();
     try { await saveDraft(); } catch (err) { toast(err.message, 'error'); }
   });
-  $('#import-file').addEventListener('change', onImportFile);
-  $('#pdf-file').addEventListener('change', onPdfFile);
+  $('#import-file')?.addEventListener('change', onImportFile);
+  $('#pdf-file')?.addEventListener('change', onPdfFile);
+  $('#cancel-edit')?.addEventListener('click', () => { state.draft = null; });
   $$('.chip[data-pid]').forEach((c) => c.addEventListener('click', () => addFrequent(c.dataset.pid)));
 }
 
@@ -340,6 +401,7 @@ function frequentProducts(limit = 16) {
 }
 
 function frequentChips() {
+  if (state.draft.editing) return '';
   const used = new Set(state.draft.lines.map((l) => l.productId).filter(Boolean));
   const items = frequentProducts().filter((f) => !used.has(f.id));
   if (!items.length) return '';
@@ -376,16 +438,19 @@ async function onPdfFile(e) {
       status.classList.add('error');
       return;
     }
-    const aliases = await db.getMeta('aliases', {});
+    const aliases = state.aliases;
     const P = new Map(state.data.products.map((p) => [p.id, p]));
+    const kg = (l) => (l.unit === 'kg' ? { unit: 'kg', strict: true } : {});
+    const find = (name, l) => findProduct(name, kg(l).unit, kg(l));
     state.draft = {
       date: parsed.date || today(),
       store: parsed.store || '',
       lines: parsed.lines.map((l) => {
         const bare = l.name.replace(/\s*\d+(?:[,.]\d+)?\s?(?:kg|g|ml|l)\b/i, '').trim();
+        // Un article pesé (kg) ne rejoint qu'un produit vendu au kg : un prix au kg n'est pas un prix au sac.
         const known = (aliases[slug(l.name)] && P.get(aliases[slug(l.name)]))
-          || findProduct(l.name, l.unit === 'kg' ? 'kg' : undefined) || (bare !== l.name && findProduct(bare));
-        const guess = !known && findByPrefix(bare);
+          || find(l.name, l) || (bare !== l.name && find(bare, l)) || null;
+        const guess = !known && l.unit !== 'kg' && findByPrefix(bare);
         return {
           ...emptyLine(),
           name: (known || guess) ? (known || guess).name : l.name, productId: (known || guess)?.id || null, rawName: l.name,
@@ -414,7 +479,7 @@ async function onImportFile(e) {
   const status = $('#import-status');
   try {
     const payload = JSON.parse(await file.text());
-    const plan = planImport(state.data, payload, uid);
+    const plan = planImport(state.data, payload, uid, await db.getMeta('aliases', {}));
     if (!plan.receipts.length) {
       status.textContent = `Rien à importer : ${plan.skipped.length} reçu(s) déjà présents.`;
       return;
@@ -443,38 +508,70 @@ async function onImportFile(e) {
 
 async function saveDraft() {
   const d = state.draft;
-  const taxLines = d.lines.filter((l) => isTaxLabel(l.name) && num(l.amount));
-  const lines = d.lines.filter((l) => l.name.trim() && num(l.amount) && !isTaxLabel(l.name));
+  const filled = d.lines.filter((l) => l.name.trim() && num(l.amount));
+  const taxLines = filled.filter((l) => isTaxLabel(l.name));
+  const negative = filled.filter((l) => !isTaxLabel(l.name) && !(num(l.amount) > 0));
+  const lines = filled.filter((l) => !isTaxLabel(l.name) && num(l.amount) > 0);
   if (taxLines.length) toast(`${taxLines.length} ligne(s) de taxe (TPS, TVQ) ignorée(s) : seuls les prix des produits comptent.`);
+  if (negative.length) toast(`${negative.length} ligne(s) à montant négatif ignorée(s) : pour un rabais, inscris le prix payé sur la ligne du produit.`);
   if (!lines.length) throw new Error('Ajoute au moins une ligne avec un produit et un montant.');
   if (!d.store.trim()) throw new Error('Indique le magasin.');
   let store = state.data.stores.find((s) => slug(s.name) === slug(d.store));
   const newStores = [];
   if (!store) { store = { id: slug(d.store), name: d.store.trim() }; newStores.push(store); }
-  const receipt = { id: uid('r'), date: d.date, storeId: store.id, source: d.lines.some((l) => l.rawName) ? 'pdf' : 'manuel', total: null, createdAt: new Date().toISOString() };
+  const editing = d.editing ? state.data.receipts.find((r) => r.id === d.editing) : null;
+  const receipt = editing
+    ? { ...editing, date: d.date, storeId: store.id, updatedAt: new Date().toISOString() }
+    : { id: uid('r'), date: d.date, storeId: store.id, source: d.lines.some((l) => l.rawName) ? 'pdf' : 'manuel', total: null, createdAt: new Date().toISOString() };
+  const headerChanged = editing && (editing.date !== d.date || editing.storeId !== store.id);
   const newProducts = [];
-  const outLines = lines.map((l) => {
+  const outLines = lines.map((l, pos) => {
     let p = (l.productId && state.data.products.find((x) => x.id === l.productId)) || findProduct(l.name, l.unit);
     if (!p) {
       const id = `${slug(l.name)}--${slug(l.unit)}`;
-      p = newProducts.find((x) => x.id === id) || { id, name: l.name.trim(), unit: l.unit, category: l.category, type: slug(l.name) };
-      if (!newProducts.includes(p)) newProducts.push(p);
+      p = newProducts.find((x) => x.id === id) || state.data.products.find((x) => x.id === id);
+      if (!p) {
+        p = { id, name: l.name.trim(), unit: l.unit, category: l.category, type: slug(l.name) };
+        newProducts.push(p);
+      }
     }
     const size = parseSize(l.size);
-    return {
-      id: uid('l'), receiptId: receipt.id, productId: p.id, qty: num(l.qty) || 1, amount: Math.round(num(l.amount) * 100) / 100,
+    const q = num(l.qty);
+    const o = l.orig;
+    // pos : ordre des lignes du reçu. Une ligne corrigée garde son identifiant (et sa place).
+    const fresh = {
+      id: o?.id || uid('l'), receiptId: receipt.id, pos, productId: p.id, qty: q > 0 ? q : 1, amount: Math.round(num(l.amount) * 100) / 100,
       regularPrice: num(l.regularPrice), sizeQty: size?.qty ?? null, sizeUnit: size?.unit ?? null,
     };
+    // Ligne inchangée d'un reçu modifié : on la garde telle quelle (déjà envoyée, déjà vérifiée).
+    const same = o && !headerChanged && o.productId === fresh.productId && o.qty === fresh.qty && o.amount === fresh.amount
+      && (o.regularPrice ?? null) === fresh.regularPrice && (o.sizeQty ?? null) === fresh.sizeQty;
+    return same ? { ...o, pos } : fresh;
   });
+  const total = outLines.reduce((a, l) => a + l.amount, 0);
+  if (!editing) {
+    const sumOf = (rid) => state.data.lines.filter((l) => l.receiptId === rid).reduce((a, l) => a + l.amount, 0);
+    const dup = state.data.receipts.find((r) => r.date === d.date && r.storeId === store.id && Math.abs(sumOf(r.id) - total) < 0.01);
+    if (dup && !confirm(`Un reçu ${store.name} du ${fmtDate(d.date)} de ${fmtMoney(total)} est déjà enregistré. L’enregistrer une deuxième fois ?`)) return;
+  }
   // Retient « libellé du document → produit » pour reconnaître ce libellé automatiquement la prochaine fois.
   const learned = lines.filter((l) => l.rawName);
   if (learned.length) {
     const aliases = await db.getMeta('aliases', {});
-    learned.forEach((l, i) => {
+    for (const l of learned) {
       const outLine = outLines[lines.indexOf(l)];
       if (outLine) aliases[slug(l.rawName)] = outLine.productId;
-    });
+    }
     await db.setMeta('aliases', aliases);
+  }
+  if (editing) {
+    // Lignes retirées ou modifiées : supprimées ici et dans le Google Sheet (les nouvelles versions y repartent).
+    const out = new Map(outLines.map((l) => [l.id, l]));
+    const old = state.data.lines.filter((l) => l.receiptId === editing.id);
+    const removed = old.filter((l) => !out.has(l.id));
+    const changed = old.filter((l) => out.has(l.id) && !out.get(l.id).syncedAt);
+    try { await pushDelete([...removed, ...changed], state.settings); } catch (err) { toast(`Corrigé ici, mais l’ancienne version reste dans le Google Sheet : ${err.message}`, 'error'); }
+    if (removed.length) await db.del('lines', removed.map((l) => l.id));
   }
   if (newStores.length) await db.put('stores', newStores);
   if (newProducts.length) await db.put('products', newProducts);
@@ -482,19 +579,45 @@ async function saveDraft() {
   await db.put('lines', outLines);
   state.draft = null;
   await reload();
-  toast(`Reçu enregistré : ${outLines.length} articles, ${fmtMoney(outLines.reduce((a, l) => a + l.amount, 0))}.`, 'ok');
+  toast(editing ? 'Reçu corrigé.' : `Reçu enregistré : ${outLines.length} articles, ${fmtMoney(total)}.`, 'ok');
   trySync();
-  location.hash = '#/';
+  location.hash = editing ? `#/recus/${encodeURIComponent(receipt.id)}` : '#/';
+}
+
+/** Articles d'un reçu, dans l'ordre du reçu. */
+function receiptLines(id) {
+  return state.data.lines.filter((l) => l.receiptId === id)
+    .sort((a, b) => (a.pos ?? 1e6) - (b.pos ?? 1e6) || a.id.localeCompare(b.id));
+}
+
+/** Charge un reçu enregistré dans le formulaire pour le corriger. */
+function editReceipt(id) {
+  const r = state.data.receipts.find((x) => x.id === id);
+  const P = new Map(state.data.products.map((p) => [p.id, p]));
+  const fmt = (x) => String(x).replace('.', ',');
+  state.draft = {
+    editing: id, date: r.date, store: storeName(r.storeId),
+    lines: receiptLines(id).map((l) => {
+      const p = P.get(l.productId) || {};
+      return {
+        ...emptyLine(), orig: l, productId: l.productId, name: p.name || '', unit: p.unit || 'unité', category: p.category || 'autres',
+        qty: fmt(l.qty), amount: l.amount.toFixed(2).replace('.', ','),
+        size: l.sizeQty ? `${fmt(l.sizeQty)} ${l.sizeUnit === 'un' ? '' : l.sizeUnit}`.trim() : '',
+        regularPrice: l.regularPrice ? fmt(l.regularPrice) : '',
+      };
+    }),
+  };
+  location.hash = '#/ajouter';
 }
 
 // ---------- Produits ----------
 function viewProducts() {
   const onlyAlerts = location.hash.includes('alertes') || location.search.includes('alertes');
-  const { byProduct, alerts } = state.derived;
+  const { byProductAll, alerts } = state.derived;
   const A = new Map();
   alerts.forEach((a) => { if (!A.has(a.productId)) A.set(a.productId, []); A.get(a.productId).push(a); });
   const rows = state.data.products.map((p) => {
-    const ls = (byProduct.get(p.id) || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+    const ls = (byProductAll.get(p.id) || []).slice().sort((a, b) => a.date.localeCompare(b.date));
     const last = ls.at(-1);
     return { p, n: ls.length, last, alerts: A.get(p.id) || [] };
   }).sort((a, b) => b.n - a.n || a.p.name.localeCompare(b.p.name, 'fr'));
@@ -542,7 +665,14 @@ function viewProduct(id) {
     $('#pform').addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = new FormData(e.target);
-      await db.put('products', { ...p, name: f.get('name').trim() || p.name, category: f.get('category') });
+      const name = f.get('name').trim() || p.name;
+      await db.put('products', { ...p, name, category: f.get('category') });
+      if (slug(name) !== slug(p.name)) {
+        // L'ancien nom reste reconnu aux prochains reçus et PDF.
+        const aliases = await db.getMeta('aliases', {});
+        aliases[slug(p.name)] = p.id;
+        await db.setMeta('aliases', aliases);
+      }
       await reload();
       toast('Produit mis à jour.', 'ok');
       render();
@@ -552,7 +682,8 @@ function viewProduct(id) {
       const target = state.data.products.find((x) => `${x.name} · ${x.unit}` === new FormData(e.target).get('target'));
       if (!target || target.id === p.id) { toast('Choisis un autre produit dans la liste.', 'error'); return; }
       const moved = state.data.lines.filter((l) => l.productId === p.id);
-      if (!confirm(`Rattacher les ${moved.length} achats de « ${p.name} » à « ${target.name} » et supprimer « ${p.name} » ?`)) return;
+      const units = target.unit !== p.unit ? `\n\nAttention : unités différentes (${p.unit} → ${target.unit}). Un prix ${p.unit === 'kg' ? 'au kg' : `par ${p.unit}`} n'est pas comparable à un prix ${target.unit === 'kg' ? 'au kg' : `par ${target.unit}`}.` : '';
+      if (!confirm(`Rattacher les ${moved.length} achats de « ${p.name} » à « ${target.name} » et supprimer « ${p.name} » ?${units}`)) return;
       await mergeProducts(p, target);
       await reload();
       toast(`Fusionné dans « ${target.name} ».`, 'ok');
@@ -658,7 +789,10 @@ function viewReview() {
 /** Rattache tous les achats de `from` à `to`, supprime `from`, et retient son nom pour les prochains imports. */
 async function mergeProducts(from, to) {
   const moved = state.data.lines.filter((l) => l.productId === from.id);
-  await db.put('lines', moved.map((l) => ({ ...l, productId: to.id })));
+  // Lignes déjà dans le Google Sheet : retirées puis renvoyées sous le nom gardé.
+  let resend = false;
+  try { resend = (await pushDelete(moved, state.settings)) !== null; } catch { /* le Sheet garde l'ancien nom */ }
+  await db.put('lines', moved.map((l) => ({ ...l, productId: to.id, ...(resend && l.syncedAt ? { syncedAt: null } : {}) })));
   await db.del('products', from.id);
   const aliases = await db.getMeta('aliases', {});
   aliases[slug(from.name)] = to.id;
@@ -690,6 +824,7 @@ async function applyFix(l, patch) {
 }
 
 // ---------- Reçus ----------
+const SOURCES = { migration: 'historique', 'ancienne-app': 'ancienne app', pdf: 'PDF', manuel: 'saisi', import: 'importé' };
 function viewReceipts() {
   const { receipts, lines } = state.data;
   const byR = new Map();
@@ -700,7 +835,7 @@ function viewReceipts() {
     const mo = calc.monthOf(r.date);
     const head = mo !== cur ? `<li class="month">${esc(fmtMonth(mo))}</li>` : '';
     cur = mo;
-    return `${head}<li><a href="#/recus/${encodeURIComponent(r.id)}"><span>${esc(storeName(r.storeId))}<small>${esc(fmtDate(r.date))} · ${r.source === 'migration' ? 'historique' : r.source}</small></span><strong>${esc(fmtMoney(byR.get(r.id) || 0))}</strong></a></li>`;
+    return `${head}<li><a href="#/recus/${encodeURIComponent(r.id)}"><span>${esc(storeName(r.storeId))}<small>${esc(fmtDate(r.date))} · ${esc(SOURCES[r.source] || r.source || '')}</small></span><strong>${esc(fmtMoney(byR.get(r.id) || 0))}</strong></a></li>`;
   }).join('');
   return `<header class="page-head"><h1>Reçus</h1><p class="muted">${receipts.length} reçus</p></header><ul class="rlist">${items}</ul>`;
 }
@@ -709,8 +844,9 @@ function viewReceipt(id) {
   const r = state.data.receipts.find((x) => x.id === id);
   if (!r) return '<p>Reçu introuvable.</p>';
   const P = new Map(state.data.products.map((p) => [p.id, p]));
-  const ls = state.data.lines.filter((l) => l.receiptId === id);
+  const ls = receiptLines(id);
   state.after = () => {
+    $('#edit-r').addEventListener('click', () => editReceipt(id));
     $('#del-r').addEventListener('click', async () => {
       if (!confirm('Supprimer ce reçu et ses articles ?')) return;
       try { await pushDelete(ls, state.settings); } catch (err) { toast(`Reçu supprimé ici, mais pas dans le Google Sheet : ${err.message}`, 'error'); }
@@ -728,20 +864,14 @@ function viewReceipt(id) {
     return `<tr class="${p.category === 'hors' ? 'dim' : ''}"><td><a href="#/produits/${encodeURIComponent(l.productId)}">${esc(p.name)}</a><small>${l.qty !== 1 ? `${String(l.qty).replace('.', ',')} × ${esc(fmtMoney(calc.unitPrice(l)))}` : ''}</small></td><td class="num">${esc(fmtMoney(l.amount))}</td></tr>`;
   }).join('')}</tbody></table>
   ${leader('Total', fmtMoney(ls.reduce((a, l) => a + l.amount, 0)))}</section>
-  <button class="btn danger" id="del-r">Supprimer ce reçu</button>`;
+  <div class="btns"><button class="btn primary" id="edit-r">Modifier ce reçu</button>
+  <button class="btn danger" id="del-r">Supprimer ce reçu</button></div>`;
 }
 
 // ---------- Réglages ----------
 function viewSettings() {
   const d = state.data;
   state.after = () => {
-    $('#sform').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const f = new FormData(e.target);
-      state.settings = { ...state.settings, region: f.get('region').trim().toUpperCase().slice(0, 3) };
-      await db.setMeta('settings', state.settings);
-      toast('Réglages enregistrés.', 'ok');
-    });
     $('#gform').addEventListener('submit', async (e) => {
       e.preventDefault();
       const url = new FormData(e.target).get('sheetUrl').trim();
@@ -754,7 +884,7 @@ function viewSettings() {
       if (url) await trySync({ quiet: false });
       render();
     });
-    $('#x-json').addEventListener('click', () => exportJSON(state.data));
+    $('#x-json').addEventListener('click', () => exportJSON({ ...state.data, aliases: state.aliases, notSame: state.notSame }));
     $('#x-xlsx').addEventListener('click', async () => {
       try {
         await exportExcel(state.data, { series: state.derived.series, alerts: state.derived.alerts.map((a) => ({ Produit: a.name, Alerte: a.kind, 'Écart %': a.pct ? Math.round(a.pct) : '' })) });
@@ -768,13 +898,17 @@ function viewSettings() {
         if (!Array.isArray(data.lines) || !Array.isArray(data.products)) throw new Error('Ce fichier n’est pas une sauvegarde Panier.');
         if (!confirm(`Remplacer les données actuelles par cette sauvegarde (${data.lines.length} articles) ?`)) return;
         await db.replaceAll(data);
+        if (data.aliases) await db.setMeta('aliases', data.aliases);
+        if (Array.isArray(data.notSame)) await db.setMeta('notSame', data.notSame);
         await reload();
         toast('Sauvegarde restaurée.', 'ok');
         render();
       } catch (err) { toast(err.message, 'error'); }
     });
     $('#reset').addEventListener('click', async () => {
-      if (!confirm('Effacer tous les reçus ajoutés et revenir aux seules données historiques ?')) return;
+      const sent = state.data.lines.filter((l) => l.syncedAt);
+      if (!confirm(`Effacer tous les reçus ajoutés et revenir aux seules données historiques ?${sent.length ? ` Les ${sent.length} lignes envoyées au Google Sheet y seront aussi retirées.` : ''}`)) return;
+      try { await pushDelete(sent, state.settings); } catch (err) { toast(`Le Google Sheet garde les lignes envoyées : ${err.message}`, 'error'); }
       await db.setMeta('seeded', null);
       await db.setMeta('patches', []);
       await db.ensureSeeded();
@@ -793,11 +927,6 @@ function viewSettings() {
     <label>Adresse du script (se termine par /exec)<input name="sheetUrl" type="url" inputmode="url" value="${esc(state.settings.sheetUrl)}" placeholder="https://script.google.com/macros/s/…/exec"></label>
     <button class="btn primary wide" type="submit">${state.settings.sheetUrl ? 'Envoyer maintenant' : 'Relier le Google Sheet'}</button>
   </form>
-  <form id="sform" class="block" autocomplete="off">
-    <h2>Profil</h2>
-    <label>Code régional (3 premiers caractères du code postal)<input name="region" value="${esc(state.settings.region)}" maxlength="3" placeholder="H4L"></label>
-    <button class="btn primary" type="submit">Enregistrer les réglages</button>
-  </form>
   <section class="block"><h2>Mes données</h2>
     <p class="muted">${d.receipts.length} reçus, dont ${added} ajoutés dans l'app · ${d.lines.length} articles · ${d.products.length} produits. Tout est stocké sur ce téléphone.</p>
     <div class="btns">
@@ -815,21 +944,39 @@ function viewSettings() {
 }
 
 // ---------- Données récupérées, ajoutées une seule fois ----------
-const PATCHES = ['recus-mai-2026'];
+const PATCHES = ['recus-mai-2026', 'catalogue-2026-10'];
 async function applyPatches() {
   const done = await db.getMeta('patches', []);
   for (const name of PATCHES.filter((p) => !done.includes(p))) {
     try {
       const payload = await fetch(`./data/patches/${name}.json`).then((r) => r.json());
       const data = await db.loadAll();
-      const plan = planImport(data, payload, uid);
-      if (plan.stores.length) await db.put('stores', plan.stores);
-      if (plan.products.length) await db.put('products', plan.products);
-      if (plan.receipts.length) await db.put('receipts', plan.receipts);
-      if (plan.lines.length) await db.put('lines', plan.lines);
+      if (payload.type === 'catalogue') {
+        // Harmonisation des noms, fusions et suppressions : les anciens noms restent reconnus aux imports.
+        const plan = planCatalogue(data, payload);
+        const synced = plan.delLines.filter((l) => l.syncedAt);
+        if (synced.length && state.settings.sheetUrl) { try { await pushDelete(synced, state.settings); } catch { /* sans effet sur l'app */ } }
+        if (plan.putProducts.length) await db.put('products', plan.putProducts);
+        if (plan.putLines.length) await db.put('lines', plan.putLines);
+        if (plan.delLines.length) await db.del('lines', plan.delLines.map((l) => l.id));
+        if (plan.delProducts.length) await db.del('products', plan.delProducts);
+        if (plan.delReceipts.length) await db.del('receipts', plan.delReceipts);
+        const aliases = await db.getMeta('aliases', {});
+        await db.setMeta('aliases', { ...plan.aliases, ...aliases });
+        if (plan.notSame.length) await db.setMeta('notSame', [...new Set([...(await db.getMeta('notSame', [])), ...plan.notSame])]);
+        const sm = plan.summary;
+        const pl = (k, one, many) => `${k} ${k > 1 ? many : one}`;
+        if (sm.renamed + sm.merged + sm.deleted) toast(`Catalogue harmonisé : ${pl(sm.renamed, 'nom revu', 'noms revus')}, ${pl(sm.merged, 'doublon fusionné', 'doublons fusionnés')}, ${pl(sm.deleted, 'produit retiré', 'produits retirés')} (non identifiables ou hors épicerie).`, 'ok');
+      } else {
+        const plan = planImport(data, payload, uid, await db.getMeta('aliases', {}));
+        if (plan.stores.length) await db.put('stores', plan.stores);
+        if (plan.products.length) await db.put('products', plan.products);
+        if (plan.receipts.length) await db.put('receipts', plan.receipts);
+        if (plan.lines.length) await db.put('lines', plan.lines);
+        if (plan.receipts.length) toast(`${plan.receipts.length} reçus récupérés de l’ancienne app (${plan.lines.length} articles).`, 'ok');
+      }
       done.push(name);
       await db.setMeta('patches', done);
-      if (plan.receipts.length) toast(`${plan.receipts.length} reçus récupérés de l’ancienne app (${plan.lines.length} articles).`, 'ok');
     } catch (err) {
       console.warn('Patch non appliqué', name, err);
     }
@@ -839,12 +986,12 @@ async function applyPatches() {
 // ---------- Démarrage ----------
 async function start() {
   try {
+    // Réglages d'abord : une mise à jour du catalogue peut devoir retirer des lignes du Google Sheet.
+    state.settings = { ...state.settings, ...(await db.getMeta('settings', {})) };
+    state.sync = { ...state.sync, ...(await db.getMeta('sync', {})) };
     const seeded = await db.ensureSeeded();
     await applyPatches();
     await db.persist();
-    state.settings = { ...state.settings, ...(await db.getMeta('settings', {})) };
-    state.sync = { ...state.sync, ...(await db.getMeta('sync', {})) };
-    state.notSame = await db.getMeta('notSame', []);
     if (!state.settings.sheetToken) {
       state.settings.sheetToken = newToken();
       await db.setMeta('settings', state.settings);

@@ -1,10 +1,10 @@
 // Service worker : réseau d'abord pour l'app (mises à jour immédiates), cache pour le hors ligne.
-const VERSION = 'panier-v2.6.0';
+const VERSION = 'panier-v2.7.0';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
   './js/app.js', './js/calc.js', './js/db.js', './js/util.js', './js/charts.js',
-  './js/categories.js', './js/importer.js', './js/sync.js', './js/pdfparse.js', './js/pdfimport.js', './js/similar.js', './js/excel.js',
-  './data/seed.json', './data/ipc-quebec.json', './data/patches/recus-mai-2026.json', './icons/icon-192.png',
+  './js/categories.js', './js/importer.js', './js/sync.js', './js/pdfparse.js', './js/pdfimport.js', './js/similar.js', './js/catalogue.js', './js/excel.js',
+  './data/seed.json', './data/ipc-quebec.json', './data/patches/recus-mai-2026.json', './data/patches/catalogue-2026-10.json', './icons/icon-192.png',
 ];
 
 self.addEventListener('install', (e) => {

@@ -7,10 +7,6 @@
 "name": "Super C"
 },
 {
-"id": "steam",
-"name": "Steam"
-},
-{
 "id": "saq",
 "name": "SAQ"
 },
@@ -27,36 +23,8 @@
 "name": "Maxi"
 },
 {
-"id": "desjardins",
-"name": "Desjardins"
-},
-{
-"id": "cpe",
-"name": "CPE"
-},
-{
-"id": "petline",
-"name": "Petline"
-},
-{
-"id": "la-cantine",
-"name": "La Cantine"
-},
-{
 "id": "provigo",
 "name": "Provigo"
-},
-{
-"id": "le-monde",
-"name": "Le Monde"
-},
-{
-"id": "fizz",
-"name": "Fizz"
-},
-{
-"id": "tchou-tchou",
-"name": "Tchou-Tchou"
 },
 {
 "id": "myriade",
@@ -287,14 +255,6 @@
 "category": "fruits",
 "legacyCategory": "Fruits & légumes",
 "type": "banane-bio"
-},
-{
-"id": "jeu-video-terra-nil--unite",
-"name": "Jeu vidéo Terra Nil",
-"unit": "unité",
-"category": "hors",
-"legacyCategory": "Loisirs",
-"type": "jeu-video-terra-nil"
 },
 {
 "id": "josh-cellars-cabernet--vin--bouteille",
@@ -583,14 +543,6 @@
 "category": "legumes",
 "legacyCategory": "Fruits & légumes",
 "type": "patate-douce"
-},
-{
-"id": "test-de-grossesse--unite",
-"name": "Test de grossesse",
-"unit": "unité",
-"category": "hors",
-"legacyCategory": "Santé & pharmacie",
-"type": "test-de-grossesse"
 },
 {
 "id": "chocolat-orange--tablette",
@@ -1625,14 +1577,6 @@
 "type": "miche"
 },
 {
-"id": "assurance-lacoste--mois",
-"name": "Assurance Lacoste",
-"unit": "mois",
-"category": "hors",
-"legacyCategory": "Services & abonnements",
-"type": "assurance-lacoste"
-},
-{
 "id": "tisane-celestial-seasonings--boite",
 "name": "Tisane Celestial Seasonings",
 "unit": "boîte",
@@ -2201,84 +2145,12 @@
 "type": "goyave"
 },
 {
-"id": "assurance-habitation--mois",
-"name": "Assurance habitation",
-"unit": "mois",
-"category": "hors",
-"legacyCategory": "Services & abonnements",
-"type": "assurance-habitation"
-},
-{
-"id": "tchou-tchou--repas",
-"name": "Tchou-Tchou",
-"unit": "repas",
-"category": "hors",
-"legacyCategory": "Resto & livraison",
-"type": "tchou-tchou"
-},
-{
-"id": "assurance-sherlock--mois",
-"name": "Assurance Sherlock",
-"unit": "mois",
-"category": "hors",
-"legacyCategory": "Services & abonnements",
-"type": "assurance-sherlock"
-},
-{
-"id": "la-cantine-pour-tous--repas",
-"name": "La Cantine pour tous",
-"unit": "repas",
-"category": "hors",
-"legacyCategory": "Resto & livraison",
-"type": "la-cantine-pour-tous"
-},
-{
-"id": "abonnement-le-monde--mois",
-"name": "Abonnement Le Monde",
-"unit": "mois",
-"category": "hors",
-"legacyCategory": "Services & abonnements",
-"type": "abonnement-le-monde"
-},
-{
-"id": "telephone-fizz--mois",
-"name": "Téléphone Fizz",
-"unit": "mois",
-"category": "hors",
-"legacyCategory": "Services & abonnements",
-"type": "telephone-fizz"
-},
-{
-"id": "cpe-clementine-et-timothee--mois",
-"name": "CPE Clémentine et Timothée",
-"unit": "mois",
-"category": "hors",
-"legacyCategory": "Services & abonnements",
-"type": "cpe-clementine-et-timothee"
-},
-{
 "id": "puree-de-citrouille--boite",
 "name": "Purée de citrouille",
 "unit": "boîte",
 "category": "legumes",
 "legacyCategory": "Épicerie",
 "type": "puree-de-citrouille"
-},
-{
-"id": "medicament--otite--unite",
-"name": "Médicament (otite)",
-"unit": "unité",
-"category": "hors",
-"legacyCategory": "Santé & pharmacie",
-"type": "medicament--otite"
-},
-{
-"id": "gouttes-nasales-enfants--boite",
-"name": "Gouttes nasales enfants",
-"unit": "boîte",
-"category": "hors",
-"legacyCategory": "Santé & pharmacie",
-"type": "gouttes-nasales-enfants"
 },
 {
 "id": "pains-hamburger--sac",
@@ -2785,14 +2657,6 @@
 "type": "boete"
 },
 {
-"id": "plinthe--unite",
-"name": "Plinthe",
-"unit": "unité",
-"category": "hors",
-"legacyCategory": "Nettoyage & maison",
-"type": "plinthe"
-},
-{
 "id": "debouchoir--unite",
 "name": "Débouchoir",
 "unit": "unité",
@@ -2801,28 +2665,12 @@
 "type": "debouchoir"
 },
 {
-"id": "coupe-froid--unite",
-"name": "Coupe Froid",
-"unit": "unité",
-"category": "hors",
-"legacyCategory": "Quincaillerie",
-"type": "coupe-froid"
-},
-{
 "id": "nettoyant-cuvette--unite",
 "name": "Nettoyant cuvette",
 "unit": "unité",
 "category": "hors",
 "legacyCategory": "Nettoyage & maison",
 "type": "nettoyant-cuvette"
-},
-{
-"id": "mastic-rebouche-trous--tube",
-"name": "Mastic rebouche-trous",
-"unit": "tube",
-"category": "hors",
-"legacyCategory": "Nettoyage & maison",
-"type": "mastic-rebouche-trous"
 },
 {
 "id": "15003--unite",
@@ -2847,14 +2695,6 @@
 "category": "hors",
 "legacyCategory": "Bébé",
 "type": "pampers-cruisers"
-},
-{
-"id": "livre-photo--unite",
-"name": "Livre photo",
-"unit": "unité",
-"category": "hors",
-"legacyCategory": "Loisirs",
-"type": "livre-photo"
 }
 ],
 "receipts": [
@@ -2862,12 +2702,6 @@
 "id": "mig-2023-12-01-super-c",
 "date": "2023-12-01",
 "storeId": "super-c",
-"source": "migration"
-},
-{
-"id": "mig-2023-12-01-steam",
-"date": "2023-12-01",
-"storeId": "steam",
 "source": "migration"
 },
 {
@@ -3051,57 +2885,9 @@
 "source": "migration"
 },
 {
-"id": "mig-2025-09-01-desjardins",
-"date": "2025-09-01",
-"storeId": "desjardins",
-"source": "migration"
-},
-{
-"id": "mig-2025-09-02-cpe",
-"date": "2025-09-02",
-"storeId": "cpe",
-"source": "migration"
-},
-{
-"id": "mig-2026-01-01-petline",
-"date": "2026-01-01",
-"storeId": "petline",
-"source": "migration"
-},
-{
-"id": "mig-2026-01-01-la-cantine",
-"date": "2026-01-01",
-"storeId": "la-cantine",
-"source": "migration"
-},
-{
 "id": "mig-2026-01-02-provigo",
 "date": "2026-01-02",
 "storeId": "provigo",
-"source": "migration"
-},
-{
-"id": "mig-2026-01-02-le-monde",
-"date": "2026-01-02",
-"storeId": "le-monde",
-"source": "migration"
-},
-{
-"id": "mig-2026-01-02-fizz",
-"date": "2026-01-02",
-"storeId": "fizz",
-"source": "migration"
-},
-{
-"id": "mig-2026-01-02-tchou-tchou",
-"date": "2026-01-02",
-"storeId": "tchou-tchou",
-"source": "migration"
-},
-{
-"id": "mig-2026-01-03-pharmaprix",
-"date": "2026-01-03",
-"storeId": "pharmaprix",
 "source": "migration"
 },
 {
@@ -3400,14 +3186,6 @@
 "productId": "banane-bio--unite",
 "qty": 5.0,
 "amount": 2.07,
-"regularPrice": null
-},
-{
-"id": "mig-l0028",
-"receiptId": "mig-2023-12-01-steam",
-"productId": "jeu-video-terra-nil--unite",
-"qty": 1.0,
-"amount": 26.55,
 "regularPrice": null
 },
 {
@@ -3784,14 +3562,6 @@
 "productId": "brocoli--unite",
 "qty": 1.0,
 "amount": 1.99,
-"regularPrice": null
-},
-{
-"id": "mig-l0076",
-"receiptId": "mig-2023-12-19-pharmaprix",
-"productId": "test-de-grossesse--unite",
-"qty": 1.0,
-"amount": 21.59,
 "regularPrice": null
 },
 {
@@ -6275,14 +6045,6 @@
 "regularPrice": null
 },
 {
-"id": "mig-l0387",
-"receiptId": "mig-2024-12-01-super-c",
-"productId": "assurance-lacoste--mois",
-"qty": 1.0,
-"amount": 4.29,
-"regularPrice": null
-},
-{
 "id": "mig-l0388",
 "receiptId": "mig-2024-12-01-super-c",
 "productId": "oignon-rouge--unite",
@@ -8403,67 +8165,11 @@
 "regularPrice": null
 },
 {
-"id": "mig-l0653",
-"receiptId": "mig-2025-09-01-desjardins",
-"productId": "assurance-habitation--mois",
-"qty": 1.0,
-"amount": 129.63,
-"regularPrice": null
-},
-{
-"id": "mig-l0654",
-"receiptId": "mig-2025-09-02-cpe",
-"productId": "tchou-tchou--repas",
-"qty": 1.0,
-"amount": 301.15,
-"regularPrice": null
-},
-{
-"id": "mig-l0655",
-"receiptId": "mig-2026-01-01-petline",
-"productId": "assurance-sherlock--mois",
-"qty": 1.0,
-"amount": 24.72,
-"regularPrice": null
-},
-{
-"id": "mig-l0656",
-"receiptId": "mig-2026-01-01-la-cantine",
-"productId": "la-cantine-pour-tous--repas",
-"qty": 1.0,
-"amount": 15.0,
-"regularPrice": null
-},
-{
 "id": "mig-l0657",
 "receiptId": "mig-2026-01-02-provigo",
 "productId": "banane-bio--unite",
 "qty": 1.0,
 "amount": 3.49,
-"regularPrice": null
-},
-{
-"id": "mig-l0658",
-"receiptId": "mig-2026-01-02-le-monde",
-"productId": "abonnement-le-monde--mois",
-"qty": 1.0,
-"amount": 19.53,
-"regularPrice": null
-},
-{
-"id": "mig-l0659",
-"receiptId": "mig-2026-01-02-fizz",
-"productId": "telephone-fizz--mois",
-"qty": 1.0,
-"amount": 33.98,
-"regularPrice": null
-},
-{
-"id": "mig-l0660",
-"receiptId": "mig-2026-01-02-tchou-tchou",
-"productId": "cpe-clementine-et-timothee--mois",
-"qty": 2.0,
-"amount": 387.2,
 "regularPrice": null
 },
 {
@@ -8504,22 +8210,6 @@
 "productId": "mangue-rouge--unite",
 "qty": 3.0,
 "amount": 3.0,
-"regularPrice": null
-},
-{
-"id": "mig-l0666",
-"receiptId": "mig-2026-01-03-pharmaprix",
-"productId": "medicament--otite--unite",
-"qty": 1.0,
-"amount": 41.96,
-"regularPrice": null
-},
-{
-"id": "mig-l0667",
-"receiptId": "mig-2026-01-03-pharmaprix",
-"productId": "gouttes-nasales-enfants--boite",
-"qty": 1.0,
-"amount": 21.25,
 "regularPrice": null
 },
 {
@@ -9619,14 +9309,6 @@
 "regularPrice": null
 },
 {
-"id": "mig-l0805",
-"receiptId": "mig-2026-01-18-home-depot",
-"productId": "plinthe--unite",
-"qty": 1.0,
-"amount": 46.08,
-"regularPrice": null
-},
-{
 "id": "mig-l0806",
 "receiptId": "mig-2026-01-18-home-depot",
 "productId": "debouchoir--unite",
@@ -9635,27 +9317,11 @@
 "regularPrice": null
 },
 {
-"id": "mig-l0807",
-"receiptId": "mig-2026-01-18-home-depot",
-"productId": "coupe-froid--unite",
-"qty": 1.0,
-"amount": 11.25,
-"regularPrice": null
-},
-{
 "id": "mig-l0808",
 "receiptId": "mig-2026-01-18-home-depot",
 "productId": "nettoyant-cuvette--unite",
 "qty": 1.0,
 "amount": 16.61,
-"regularPrice": null
-},
-{
-"id": "mig-l0809",
-"receiptId": "mig-2026-01-18-home-depot",
-"productId": "mastic-rebouche-trous--tube",
-"qty": 1.0,
-"amount": 4.77,
 "regularPrice": null
 },
 {
@@ -9680,14 +9346,6 @@
 "productId": "pampers-cruisers--paquet",
 "qty": 1.0,
 "amount": 26.99,
-"regularPrice": null
-},
-{
-"id": "mig-l0813",
-"receiptId": "mig-2026-01-19-jean-coutu",
-"productId": "livre-photo--unite",
-"qty": 1.0,
-"amount": 40.31,
 "regularPrice": null
 }
 ]

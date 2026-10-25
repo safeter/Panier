@@ -123,9 +123,11 @@ test('données migrées : totaux par mois identiques au Sheet', () => {
   const seed = JSON.parse(readFileSync(new URL('../data/seed.json', import.meta.url)));
   const all = joinLines(seed, { inScopeOnly: false });
   const sheetTotal = seed.lines.reduce((a, l) => a + l.amount, 0);
-  approx(sheetTotal, 5676.18, 0.005); // total de la feuille Historique
+  // Total de la feuille Historique (5 676,18 $) moins les 16 dépenses hors épicerie retirées
+  // du jeu de départ (assurances, CPE, téléphone, abonnement…) : 1 129,26 $.
+  approx(sheetTotal, 5676.18 - 1129.26, 0.005);
   const total = all.reduce((a, l) => a + l.amount, 0);
-  approx(total, 5682.29, 0.005); // sans les 6 lignes de rabais/consignes négatives
+  approx(total, 5682.29 - 1129.26, 0.005); // sans les 6 lignes de rabais/consignes négatives
   const months = spendByMonth(joinLines(seed)).map((m) => m.month);
   assert.deepEqual(months, ['2023-12', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2026-01']);
   const s = chainedIndex(monthlyPanel(joinLines(seed)));
@@ -158,4 +160,47 @@ test('contrôle de qualité : poids saisi comme quantité, quantité oubliée, �
   assert.equal(f.get('p3').kind, 'ecart');
   assert.ok(!f.has('p4'));
   assert.ok(!f.has('m1'));
+});
+
+test('plus fortes hausses : un prix isolé ne fait pas la tendance', async () => {
+  const { movers } = await import('../js/calc.js');
+  const p = { id: 'b', name: 'Banane', unit: 'unité', category: 'fruits' };
+  const ls = [['2024-01-05', 2.0], ['2024-02-05', 2.1], ['2025-01-05', 4.6], ['2025-02-05', 2.3]]
+    .map(([date, amount], i) => ({ id: `l${i}`, productId: 'b', qty: 1, amount, date, product: p }));
+  const [m] = movers(ls);
+  approx(m.first, 2.05, 1e-9);
+  approx(m.last, 3.45, 1e-9); // médiane de 4,60 et 2,30, et non 2,30 seul ni 4,60 seul
+});
+
+test('IPC officiel : publié avec un mois de retard, jamais avant le mois de départ', () => {
+  const off = [{ month: '2025-01', value: 100 }, { month: '2025-12', value: 104 }];
+  const c = officialChange(off, '2025-01', '2026-01');
+  assert.equal(c.to, '2025-12');
+  approx(c.pct, 4, 1e-9);
+  assert.equal(officialChange(off, '2025-12', '2026-01'), null);
+});
+
+test('indice multilatéral : identique au lien direct entre deux mois, sans dérive sur un aller-retour de prix', async () => {
+  const { multilateralIndex, rollingPanel } = await import('../js/calc.js');
+  const row = (prices) => new Map(Object.entries(prices).map(([id, price]) => [id, { spend: price, qty: 1, price, category: 'fruits' }]));
+  // Deux mois : même résultat que le lien de Törnqvist
+  const two = new Map([['2025-01', row({ a: 1, b: 2, c: 3, d: 4, e: 5 })], ['2025-02', row({ a: 1.1, b: 2.2, c: 3.3, d: 4.4, e: 5.5 })]]);
+  approx(multilateralIndex(two)[1].index, 110, 1e-9);
+  // Soldes qui vont et viennent avec des quantités qui suivent : le chaînage dérive, pas le multilatéral
+  const m = (pa, qa) => new Map([['a', { spend: pa * qa, qty: qa, price: pa, category: 'x' }], ['b', { spend: 2 * 1, qty: 1, price: 2, category: 'x' }]]);
+  const bounce = new Map([['2025-01', m(1, 1)], ['2025-02', m(0.5, 6)], ['2025-03', m(0.8, 3)], ['2025-04', m(1, 1)]]);
+  const geks = multilateralIndex(bounce);
+  approx(geks.at(-1).index, 100, 1e-9); // mêmes prix qu'au départ : 100
+  const chain = chainedIndex(bounce);
+  assert.ok(Math.abs(chain.at(-1).index - 100) > 0.5, `le chaînage, lui, s’éloigne de 100 (${chain.at(-1).index})`);
+  // Premier mois isolé : les autres mois restent comparables entre eux
+  const iso = new Map([['2024-01', row({ z: 9 })], ...two]);
+  const s = multilateralIndex(iso);
+  assert.equal(s[0].reliable, false);
+  approx(s[2].index / s[1].index, 1.1, 1e-9);
+  // Fenêtres mobiles : 6 mois civils, nombre de mois observés
+  const w = rollingPanel(new Map([['2025-01', row({ a: 1 })], ['2025-03', row({ a: 2 })], ['2025-08', row({ a: 4 })]]));
+  assert.equal(w.get('2025-03').get('a').price, 1.5);
+  assert.equal(w.get('2025-03').nMonths, 2);
+  assert.equal(w.get('2025-08').nMonths, 2); // mars et août
 });

@@ -146,6 +146,7 @@ input:focus, select:focus { border-color: var(--me); outline: none; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px;
   border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; cursor: pointer;
+  font-family: inherit; font-size: 0.95rem; line-height: 1.25; text-align: center; margin: 0;
 }
 .btn.primary { background: var(--me); color: var(--ink); border-color: var(--me); font-weight: 700; }
 .btn.ghost { background: transparent; border-style: dashed; width: 100%; color: var(--muted); }
