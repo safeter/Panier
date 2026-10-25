@@ -674,7 +674,15 @@ async function start() {
   render();
   window.addEventListener('online', () => trySync());
   trySync();
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  if ('serviceWorker' in navigator) {
+    // Une mise à jour de l'app prend le relais : on recharge une fois pour l'afficher tout de suite.
+    const hadController = !!navigator.serviceWorker.controller;
+    let reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (hadController && !reloaded) { reloaded = true; location.reload(); }
+    });
+    navigator.serviceWorker.register('./sw.js').then((reg) => reg.update()).catch(() => {});
+  }
 }
 
 start();
