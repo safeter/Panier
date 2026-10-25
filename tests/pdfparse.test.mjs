@@ -85,3 +85,18 @@ test('facture réelle Fermes Lufa : prix révisés au poids réel, livraison et 
   assert.equal(guessCategory('Bok choy Black Summer'), 'legumes');
   assert.equal(guessCategory('Nouilles ramen (sèches)'), 'boulangerie');
 });
+
+test('taxes : lignes TPS/TVQ jamais retenues, codes de taxe en fin de ligne tolérés', () => {
+  const r = parseReceiptText([
+    'MAXI 2026-10-20',
+    'CHIPS DORITOS 4,99 FP',
+    'BOISSON GAZEUSE 2,49 T',
+    'POMMES GALA 3,99',
+    'TPS 5% 0,37',
+    'TVQ 9,975% 0,75',
+    '** TAXES 1,12',
+    'GST/HST 0,37',
+    'TOTAL 12,59',
+  ]);
+  assert.deepEqual(r.lines.map((l) => [l.name, l.amount]), [['CHIPS DORITOS', 4.99], ['BOISSON GAZEUSE', 2.49], ['POMMES GALA', 3.99]]);
+});

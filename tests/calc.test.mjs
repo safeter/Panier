@@ -132,3 +132,10 @@ test('données migrées : totaux par mois identiques au Sheet', () => {
   assert.equal(s[0].index, 100);
   assert.ok(s.every((p) => Number.isFinite(p.index)));
 });
+
+test('calcul : un produit nommé TPS ou TVQ n’entre jamais dans l’indice', () => {
+  const f = fixture();
+  f.products.push({ id: 'tvq', name: 'TVQ', unit: 'unité', category: 'autres' });
+  f.lines.push({ id: 'x', receiptId: 'r1', productId: 'tvq', qty: 1, amount: 0.75 });
+  assert.ok(joinLines(f).every((l) => l.productId !== 'tvq'));
+});

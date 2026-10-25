@@ -5,6 +5,8 @@
 //   receipts : { id, date: 'YYYY-MM-DD', storeId }
 //   lines    : { id, receiptId, productId, qty, amount, regularPrice? }
 
+import { isTaxLabel } from './categories.js';
+
 export const HORS = 'hors';
 export const MIN_MATCHED = 5; // un lien chaîné avec moins de produits communs est peu fiable
 // Un prix qui triple ou tombe au tiers d'un mois à l'autre est presque toujours une erreur
@@ -41,6 +43,7 @@ export function joinLines({ products, receipts, lines }, { inScopeOnly = true } 
     const r = R.get(l.receiptId);
     if (!p || !r) continue;
     if (inScopeOnly && p.category === HORS) continue;
+    if (isTaxLabel(p.name)) continue; // une taxe saisie par erreur ne compte jamais
     if (!(l.amount > 0)) continue;
     out.push({ ...l, product: p, date: r.date, month: monthOf(r.date), storeId: r.storeId });
   }

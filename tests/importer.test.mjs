@@ -51,3 +51,11 @@ test('reçus de mai 2026 (ancienne app) : tous importables', async () => {
   assert.equal(out.lines.length, 71);
   assert.equal(out.skipped.length, 0);
 });
+
+test('import : les lignes de taxe sont ignorées et comptées', () => {
+  const out = planImport(base(), [{ date: '2026-10-20', store: 'Maxi', lines: [
+    { name: 'Chips', amount: 4.99 }, { name: 'TPS', amount: 0.25 }, { name: 'TVQ', amount: 0.5 },
+  ] }], id);
+  assert.equal(out.lines.length, 1);
+  assert.equal(out.taxesIgnored, 2);
+});

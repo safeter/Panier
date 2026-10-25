@@ -33,4 +33,4 @@ Fichier `.json` importé par l'écran **Ajouter → Importer des reçus**. Il es
 | `lines[].size` | non | Format de l'emballage : `500 g`, `1,5 L` |
 | `lines[].category` | non | Pour un nouveau produit : `viande`, `poisson`, `laitiers`, `boulangerie`, `fruits`, `legumes`, `autres`, `hors` |
 
-Taxes, consignes, sous-totaux et paiements sont exclus. Un reçu déjà présent (même date, même magasin, même somme des lignes) est ignoré à l'import.
+Taxes (TPS, TVQ, TVH), consignes, sous-totaux et paiements sont exclus ; une ligne nommée TPS ou TVQ est ignorée à l’import. Un reçu déjà présent (même date, même magasin, même somme des lignes) est ignoré à l'import.

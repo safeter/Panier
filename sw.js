@@ -1,5 +1,5 @@
 // Service worker : l'app se lance hors ligne ; la série officielle est rafraîchie dès que possible.
-const VERSION = 'panier-v2.5.0';
+const VERSION = 'panier-v2.5.1';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
   './js/app.js', './js/calc.js', './js/db.js', './js/util.js', './js/charts.js',

@@ -1,6 +1,6 @@
 import * as db from './db.js';
 import * as calc from './calc.js';
-import { CATEGORIES, CAT, IN_SCOPE } from './categories.js';
+import { CATEGORIES, CAT, IN_SCOPE, isTaxLabel } from './categories.js';
 import { $, $$, esc, fmtMoney, fmtPct, fmtMonth, fmtDate, today, uid, slug, toast, num, parseSize, fmtSize } from './util.js';
 import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
 import { planImport } from './importer.js';
@@ -184,7 +184,7 @@ function viewDashboard() {
     <div><h2>Plus fortes baisses</h2><ul class="movers">${moverList(downs) || '<li class="muted">Aucune.</li>'}</ul></div></section>
 
   <section class="block"><h2>Dépenses par mois</h2>${spendBars(calc.spendByMonth(joined))}
-    <p class="muted small">Épicerie seulement ; ${state.data.products.filter((p) => p.category === 'hors').length} produits hors périmètre exclus.</p></section>
+    <p class="muted small">Épicerie seulement, taxes (TPS, TVQ) exclues ; ${state.data.products.filter((p) => p.category === 'hors').length} produits hors périmètre exclus.</p></section>
 
   ${alerts.length ? `<a class="block link-block" href="#/produits?alertes"><h2>${alerts.length} alerte(s) de prix</h2><p class="muted">Prix élevés, prix planchers et formats réduits sur tes produits.</p></a>` : ''}
   `;
@@ -221,7 +221,7 @@ function viewAdd() {
     ${frequentChips()}
     <div id="lines">${d.lines.map(lineRow).join('')}</div>
     <button type="button" class="btn ghost" id="add-line">Ajouter une ligne</button>
-    <div class="total-line"><span>Total des lignes</span><strong id="sum">${fmtMoney(sumDraft())}</strong></div>
+    <div class="total-line"><span>Total des lignes, hors taxes</span><strong id="sum">${fmtMoney(sumDraft())}</strong></div>
     <button class="btn primary wide" type="submit">Enregistrer le reçu</button>
   </form>`;
 }
@@ -376,9 +376,10 @@ async function onImportFile(e) {
       return;
     }
     const total = plan.lines.reduce((a, l) => a + l.amount, 0);
-    const msg = `Importer ${plan.receipts.length} reçu(s), ${plan.lines.length} articles, ${fmtMoney(total)}`
+    const msg = `Importer ${plan.receipts.length} reçu(s), ${plan.lines.length} articles, ${fmtMoney(total)} hors taxes`
       + `${plan.products.length ? `, dont ${plan.products.length} nouveaux produits` : ''}`
-      + `${plan.skipped.length ? ` (${plan.skipped.length} déjà présents, ignorés)` : ''} ?`;
+      + `${plan.skipped.length ? ` (${plan.skipped.length} déjà présents, ignorés)` : ''}`
+      + `${plan.taxesIgnored ? ` ; ${plan.taxesIgnored} ligne(s) de taxe ignorée(s)` : ''} ?`;
     if (!confirm(msg)) return;
     if (plan.stores.length) await db.put('stores', plan.stores);
     if (plan.products.length) await db.put('products', plan.products);
@@ -398,7 +399,9 @@ async function onImportFile(e) {
 
 async function saveDraft() {
   const d = state.draft;
-  const lines = d.lines.filter((l) => l.name.trim() && num(l.amount));
+  const taxLines = d.lines.filter((l) => isTaxLabel(l.name) && num(l.amount));
+  const lines = d.lines.filter((l) => l.name.trim() && num(l.amount) && !isTaxLabel(l.name));
+  if (taxLines.length) toast(`${taxLines.length} ligne(s) de taxe (TPS, TVQ) ignorée(s) : seuls les prix des produits comptent.`);
   if (!lines.length) throw new Error('Ajoute au moins une ligne avec un produit et un montant.');
   if (!d.store.trim()) throw new Error('Indique le magasin.');
   let store = state.data.stores.find((s) => slug(s.name) === slug(d.store));

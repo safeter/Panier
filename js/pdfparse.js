@@ -12,6 +12,7 @@ const STORES = [
 
 const MONEY = /(-?\d{1,4}(?:[  ]?\d{3})*[,.]\d{2})\s*\$?/g;
 const SKIP = /(sous[- ]?total|^total|\btotal\b|\btps\b|\btvq\b|\bhst\b|\bgst\b|\bqst\b|taxe|\btax\b|livraison|frais|pourboire|paiement|visa|mastercard|amex|interac|débit|crédit|credit|solde|monnaie|change\b|économi|points?\b|consigne|subtotal|delivery|shipping|\btip\b|montant|balance|remboursement|carte cadeau|n° de commande|commande n|order #)/i;
+const TAX_LINE = /^\s*(?:\*+\s*)?(?:tps|tvq|tvh|tax(?:e|es)?|hst|gst|qst|pst)\b/i;
 const DISCOUNT = /(rabais|escompte|promo|coupon|discount|réduction|reduction|économie)/i;
 
 const num = (s) => parseFloat(String(s).replace(/[  ]/g, '').replace(',', '.'));
@@ -100,7 +101,8 @@ export function parseReceiptText(lines) {
     if (!prices.length) continue;
     const last = prices[prices.length - 1];
     // Le montant de la ligne est le dernier prix en fin de ligne.
-    if (raw.slice(last.index + last[0].length).replace(/[\s$]/g, '').length > 2) continue;
+    // Après le montant, seuls des codes de taxe sont admis (« 4,99 FP », « 2,49 T », « 3,99 * »).
+    if (!/^[\s$]*[A-Z*]{0,4}\s*$/.test(raw.slice(last.index + last[0].length))) continue;
     const amount = num(last[1]);
     if (/^\s*total\b/i.test(raw) || /\btotal\b/i.test(raw) && !/sous/i.test(raw)) {
       if (!/sous|sub/i.test(raw)) out.total = Math.abs(amount);
@@ -115,7 +117,7 @@ export function parseReceiptText(lines) {
       }
       continue;
     }
-    if (SKIP.test(raw)) continue;
+    if (SKIP.test(raw) || TAX_LINE.test(raw)) continue;
 
     // Colonnes en fin de ligne : [quantité] [prix unitaire] montant ; le nom est tout ce qui précède.
     let end = last.index;

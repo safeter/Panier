@@ -12,3 +12,7 @@ export const CATEGORIES = [
 
 export const CAT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c]));
 export const IN_SCOPE = CATEGORIES.filter((c) => c.id !== 'hors');
+
+// Taxes de vente (TPS, TVQ, TVH…) : jamais des produits, toujours exclues de l'indice personnel.
+export const TAX_LABEL = /^\s*(?:\*+\s*)?(?:tps|tvq|tvh|tax(?:e|es)?|hst|gst|qst|pst)\b/i;
+export const isTaxLabel = (name) => TAX_LABEL.test(String(name || ''));

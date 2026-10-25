@@ -1,6 +1,6 @@
 // Import de reçus préparés hors de l'app (ex. lus par Claude dans le projet Panier).
 // Format : voir FORMAT-IMPORT.md. Fonction pure, testée dans tests/importer.test.mjs.
-import { CAT } from './categories.js';
+import { CAT, isTaxLabel } from './categories.js';
 
 const slug = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const n = (v) => {
@@ -40,7 +40,7 @@ export function planImport(data, payload, makeId) {
   for (const l of data.lines) existingTotals.set(l.receiptId, (existingTotals.get(l.receiptId) || 0) + l.amount);
   const existingKeys = new Set(data.receipts.map((r) => `${r.date}|${r.storeId}|${Math.round((existingTotals.get(r.id) || 0) * 100)}`));
 
-  const out = { stores: [], products: [], receipts: [], lines: [], skipped: [] };
+  const out = { stores: [], products: [], receipts: [], lines: [], skipped: [], taxesIgnored: 0 };
   for (const r of list) {
     const date = String(r.date || '').slice(0, 10);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`Date invalide dans un reçu : « ${r.date} ». Format attendu : AAAA-MM-JJ.`);
@@ -51,7 +51,9 @@ export function planImport(data, payload, makeId) {
       stores.set(slug(storeName), store);
       out.stores.push(store);
     }
-    const lines = (r.lines || []).filter((l) => String(l.name || '').trim() && n(l.amount) > 0);
+    const all = (r.lines || []).filter((l) => String(l.name || '').trim() && n(l.amount) > 0);
+    const lines = all.filter((l) => !isTaxLabel(l.name));
+    out.taxesIgnored = (out.taxesIgnored || 0) + (all.length - lines.length);
     const sum = lines.reduce((a, l) => a + n(l.amount), 0);
     const key = `${date}|${store.id}|${Math.round(sum * 100)}`;
     if (existingKeys.has(key)) { out.skipped.push({ date, store: storeName, total: sum }); continue; }
