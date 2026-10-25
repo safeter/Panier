@@ -246,5 +246,16 @@ h2.mt { margin-top: 18px; }
 .tag { font-size: 0.75rem; font-weight: 700; padding: 1px 8px; border-radius: 99px; border: 1px solid; }
 .tag.meme-nom { color: var(--down); }
 .tag.variante { color: var(--warn); }
+.tag.ok { color: var(--down); }
+.tag.warn { color: var(--warn); }
+.trust-line { margin: 10px 0 0; font-size: 0.85rem; color: var(--ink-soft, inherit); }
+.trust-line a { color: inherit; }
+.why { display: block; color: var(--warn); font-size: 0.8rem; margin-top: 2px; }
+.rv-group { margin: 16px 0; }
+.rv-receipt { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.rv-receipt a { color: var(--text); text-decoration: none; }
+.rv-receipt .btn { min-height: 36px; padding: 6px 10px; font-size: 0.85rem; }
 .review.twins li { background: transparent; border-radius: 0; padding: 12px 0; margin: 0; border-top: 1px solid var(--line); }
 .review.twins li:first-child { border-top: 0; }
+.receipt .tag.ok { color: #1f7a5c; }
+.receipt .tag.warn, .receipt .why { color: #a2560f; }

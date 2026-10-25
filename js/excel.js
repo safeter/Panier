@@ -21,12 +21,16 @@ function download(blob, name) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+// Deux catégories : fiable (validé ou prix cohérent) / à confirmer (format, poids, unité douteux)
+const fiab = (t, p) => (!t ? (p.category === 'hors' ? 'hors épicerie' : 'exclu')
+  : t.tier === 'fiable' ? (t.validated ? 'validé' : 'fiable') : `à confirmer : ${t.why}`);
+
 export function exportJSON(data) {
   const blob = new Blob([JSON.stringify({ app: 'panier', version: 1, exported: new Date().toISOString(), ...data }, null, 1)], { type: 'application/json' });
   download(blob, `panier-sauvegarde-${new Date().toISOString().slice(0, 10)}.json`);
 }
 
-export async function exportExcel(data, { series, alerts }) {
+export async function exportExcel(data, { series, alerts, trust = new Map() }) {
   const XLSX = await loadSheetJS();
   const P = new Map(data.products.map((p) => [p.id, p]));
   const R = new Map(data.receipts.map((r) => [r.id, r]));
@@ -39,6 +43,7 @@ export async function exportExcel(data, { series, alerts }) {
       'Catégorie IPC': CAT[p.category]?.name || '', Quantité: l.qty, 'Montant ($)': l.amount,
       'Prix unitaire ($)': Math.round(unitPrice(l) * 100) / 100, 'Prix régulier ($)': l.regularPrice ?? '',
       Format: l.sizeQty ? `${l.sizeQty} ${l.sizeUnit}` : '', Source: r.source || '',
+      Fiabilité: fiab(trust.get(l.id), p),
     };
   }).sort((a, b) => String(a.Date).localeCompare(String(b.Date)));
   const produits = data.products.map((p) => ({ Produit: p.name, Unité: p.unit, 'Catégorie IPC': CAT[p.category]?.name || '' }));

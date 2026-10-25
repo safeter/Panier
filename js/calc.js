@@ -46,7 +46,7 @@ export function joinLines({ products, receipts, lines }, { inScopeOnly = true } 
     if (isTaxLabel(p.name)) continue; // une taxe saisie par erreur ne compte jamais
     if (!(l.amount > 0)) continue;
     if (l.review === 'excluded') continue; // exclu par l'utilisateur à la vérification
-    out.push({ ...l, product: p, date: r.date, month: monthOf(r.date), storeId: r.storeId });
+    out.push({ ...l, product: p, date: r.date, month: monthOf(r.date), storeId: r.storeId, validated: !!r.validatedAt });
   }
   return out;
 }
@@ -338,7 +338,7 @@ export function spendByMonth(joined) {
 export function priceHistory(joined, productId) {
   return joined
     .filter((l) => l.productId === productId)
-    .map((l) => ({ date: l.date, storeId: l.storeId, price: unitPrice(l), sizeQty: l.sizeQty ?? null, sizeUnit: l.sizeUnit ?? null }))
+    .map((l) => ({ id: l.id, date: l.date, storeId: l.storeId, price: unitPrice(l), sizeQty: l.sizeQty ?? null, sizeUnit: l.sizeUnit ?? null }))
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
@@ -448,4 +448,53 @@ export function auditLines(joined) {
     }
   }
   return flags;
+}
+
+/**
+ * Deux catégories d'achats :
+ * - 'fiable'     : reçu validé, achat confirmé, ou prix cohérent avec les autres achats du même produit ;
+ * - 'aConfirmer' : achat douteux (voir auditLines) ou prix unitaire hors de ±50 % de l'habitude,
+ *                  signe d'un format, d'un poids ou d'une unité différents (banane seule ou régime,
+ *                  avocat ou sac d'avocats, cuisses avec ou sans os…).
+ * Quand le format est connu (500 g, 1 L), la comparaison se fait au gramme ou au millilitre.
+ * Un produit acheté une seule fois n'a rien à quoi se comparer : il reste fiable (il ne pèse pas sur l'indice).
+ * Retourne Map(lineId -> {tier, why, validated?}).
+ */
+export const PRICE_BAND = 1.5;
+export function assessLines(joined, flags = auditLines(joined)) {
+  const by = new Map();
+  for (const l of joined) {
+    if (!by.has(l.productId)) by.set(l.productId, []);
+    by.get(l.productId).push(l);
+  }
+  const out = new Map();
+  const money = (x) => x.toFixed(2).replace('.', ',') + ' $';
+  const perSize = (l) => (l.sizeQty > 0 ? unitPrice(l) / l.sizeQty : null);
+  for (const ls of by.values()) {
+    for (const l of ls) {
+      if (l.validated || l.review === 'ok') { out.set(l.id, { tier: 'fiable', why: l.validated ? 'Reçu validé' : 'Achat confirmé', validated: true }); continue; }
+      const f = flags.get(l.id);
+      if (f) { out.set(l.id, { tier: 'aConfirmer', why: f.msg }); continue; }
+      const others = ls.filter((x) => x !== l);
+      if (!others.length) { out.set(l.id, { tier: 'fiable', why: 'Seul achat de ce produit' }); continue; }
+      // Au format près quand il est connu des deux côtés, sinon au prix payé par unité de vente.
+      // Prix habituel : médiane de tous les achats (la majorité fait la norme) ; avec deux achats
+      // seulement, chacun est comparé à l'autre (impossible de savoir lequel est le bon).
+      const ref = (xs, f) => median((xs.length >= 2 ? [...xs, l] : xs).map(f));
+      const sized = perSize(l) !== null ? others.filter((x) => perSize(x) !== null && x.sizeUnit === l.sizeUnit) : [];
+      const [mine, usual, label] = sized.length
+        ? [perSize(l), ref(sized, perSize), `au ${l.sizeUnit === 'un' ? 'morceau' : l.sizeUnit}`]
+        : [unitPrice(l), ref(others, unitPrice), `par ${l.product.unit}`];
+      const r = mine / usual;
+      if (r > PRICE_BAND || r < 1 / PRICE_BAND) {
+        const how = r > 1 ? `${r.toFixed(1).replace('.', ',')} fois plus cher` : `${Math.round((1 - r) * 100)} % moins cher`;
+        out.set(l.id, { tier: 'aConfirmer', why: sized.length
+          ? `Prix ${label} ${how} que d'habitude : format ou poids mal saisi ?`
+          : `${money(unitPrice(l))} ${label} contre ${money(usual)} d'habitude (${how}) : format, poids ou unité différents ?` });
+      } else {
+        out.set(l.id, { tier: 'fiable', why: 'Prix cohérent avec les autres achats' });
+      }
+    }
+  }
+  return out;
 }

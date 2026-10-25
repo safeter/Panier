@@ -1,5 +1,5 @@
 // Service worker : réseau d'abord pour l'app (mises à jour immédiates), cache pour le hors ligne.
-const VERSION = 'panier-v2.7.0';
+const VERSION = 'panier-v2.8.0';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
   './js/app.js', './js/calc.js', './js/db.js', './js/util.js', './js/charts.js',

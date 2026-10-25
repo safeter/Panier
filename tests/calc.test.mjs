@@ -204,3 +204,30 @@ test('indice multilatéral : identique au lien direct entre deux mois, sans dér
   assert.equal(w.get('2025-03').nMonths, 2);
   assert.equal(w.get('2025-08').nMonths, 2); // mars et août
 });
+
+test('fiabilité : reçu validé, prix cohérent, format différent, comparaison au gramme', async () => {
+  const { assessLines } = await import('../js/calc.js');
+  const P = { id: 'b', name: 'Banane bio', unit: 'unité', category: 'fruits' };
+  const L = (id, amount, extra = {}) => ({ id, productId: 'b', qty: 1, amount, product: P, date: '2025-01-01', ...extra });
+  const ls = [L('a', 2.0), L('b', 2.1), L('c', 1.9), L('d', 4.05), L('e', 4.05, { validated: true })];
+  const t = assessLines(ls, new Map());
+  assert.equal(t.get('a').tier, 'fiable');
+  assert.equal(t.get('d').tier, 'aConfirmer'); // un régime saisi « à l'unité »
+  assert.match(t.get('d').why, /format, poids ou unité/);
+  assert.equal(t.get('e').tier, 'fiable'); // reçu validé : la parole de l'utilisateur
+  assert.equal(t.get('e').why, 'Reçu validé');
+  // Format connu : 2 × 500 g à 4 $ et 1 kg à 7,80 $ ont le même prix au gramme à 3 % près
+  const Q = { id: 'f', name: 'Fraises', unit: 'contenant', category: 'fruits' };
+  const S = (id, amount, sizeQty) => ({ id, productId: 'f', qty: 1, amount, sizeQty, sizeUnit: 'g', product: Q });
+  const u = assessLines([S('x', 4, 500), S('y', 4.1, 500), S('z', 7.8, 1000)], new Map());
+  assert.equal(u.get('z').tier, 'fiable');
+  // Seul achat d'un produit : rien à comparer, il reste fiable
+  assert.equal(assessLines([L('solo', 9)], new Map()).get('solo').tier, 'fiable');
+});
+
+test('fiabilité : deux achats du simple au double, les deux sont à confirmer', async () => {
+  const { assessLines } = await import('../js/calc.js');
+  const P = { id: 'b', name: 'Avocats', unit: 'unité', category: 'fruits' };
+  const t = assessLines([2.98, 6.0].map((amount, i) => ({ id: `l${i}`, productId: 'b', qty: 1, amount, product: P })), new Map());
+  assert.deepEqual([...t.values()].map((x) => x.tier), ['aConfirmer', 'aConfirmer']);
+});

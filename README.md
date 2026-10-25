@@ -14,7 +14,10 @@ Application web installable (PWA), en français, pensée pour le téléphone.
 - **Pourquoi ma facture change** : variation de la dépense moyenne par mois d'achats décomposée en effet prix, effet quantité et effet gamme/substitution.
 - **Par catégorie** : catégories alignées sur l'IPC ; le chiffre n'est affiché que si les deux bouts de la période reposent sur au moins 5 produits communs.
 - **Alertes** : sur les produits achetés dans les 4 derniers mois : prix > 15 % au-dessus de la médiane, prix plancher, format réduit à prix égal.
-- **Qualité des données** : les achats douteux (poids saisi comme quantité, quantité oubliée, prix très éloigné de l'habitude) et les produits en double sont proposés dans « À vérifier » ; les achats douteux sont exclus de l'indice jusqu'à décision.
+- **Deux catégories d'achats** :
+  - *fiables* : reçu validé, achat confirmé, ou prix cohérent (à ±50 %) avec les autres achats du même produit, au gramme près quand le format est connu ;
+  - *à confirmer* : poids saisi comme quantité, quantité oubliée, ou prix hors de ±50 % de l'habitude (format, poids ou unité probablement différents).
+  Seuls les achats fiables entrent dans l'indice ; les dépenses comptent tout. Dans « À vérifier », regroupé par reçu : *C'est correct*, *Autre format* (série de prix à part), *Exclure*, ou *Tout est correct dans ce reçu*. Un reçu enregistré dans l'app est validé (un prix inhabituel est signalé avant l'enregistrement). L'export Excel indique la fiabilité de chaque achat.
 
 ## Phase de test
 

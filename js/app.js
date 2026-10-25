@@ -10,7 +10,7 @@ import { planCatalogue } from './catalogue.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
-export const APP_VERSION = '2.7.0';
+export const APP_VERSION = '2.8.0';
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
 
 const state = {
@@ -28,10 +28,13 @@ const state = {
 function derive() {
   const d = state.data;
   const joined = calc.joinLines(d);
-  // Achats suspects (poids saisi comme quantité, quantité oubliée, prix aberrant) : exclus de l'indice
-  // jusqu'à ce que l'utilisateur les corrige ou les valide dans « À vérifier ». Les dépenses les gardent.
+  // Deux catégories d'achats. Fiables : reçu validé, achat confirmé ou prix cohérent avec les autres achats
+  // du produit. À confirmer : achat douteux ou prix hors de ±50 % de l'habitude (format, poids, unité ?).
+  // Seuls les achats fiables entrent dans l'indice ; les dépenses comptent tout.
   const flags = calc.auditLines(joined);
-  const indexed = joined.filter((l) => !flags.has(l.id));
+  const trust = calc.assessLines(joined, flags);
+  const indexed = joined.filter((l) => trust.get(l.id)?.tier === 'fiable');
+  const doubtful = joined.filter((l) => trust.get(l.id)?.tier !== 'fiable');
   // Indice : fenêtres mobiles de 6 mois comparées entre elles produit par produit (multilatéral, sans dérive).
   const monthly = calc.monthlyPanel(indexed);
   const panel = calc.rollingPanel(monthly);
@@ -74,7 +77,7 @@ function derive() {
   const counts = new Map();
   for (const l of d.lines) counts.set(l.productId, (counts.get(l.productId) || 0) + 1);
   const twins = similarProducts(d.products, counts, new Set(state.notSame || []));
-  state.derived = { twins, joined, indexed, flags, panel, series, head, pending, official, byProduct, byProductAll, alerts, alertIds: new Set(alerts.map((a) => a.productId)) };
+  state.derived = { twins, joined, indexed, doubtful, trust, flags, panel, series, head, pending, official, byProduct, byProductAll, alerts, alertIds: new Set(alerts.map((a) => a.productId)) };
 }
 
 async function reload() {
@@ -163,7 +166,7 @@ function leader(label, value, cls = '', note = '') {
 }
 
 function viewDashboard() {
-  const { series, head, pending, panel, official, joined, indexed, flags, alerts } = state.derived;
+  const { series, head, pending, panel, official, joined, indexed, doubtful, alerts } = state.derived;
   if (!joined.length) {
     return `<section class="empty"><h1>Commence ton suivi</h1><p>Ajoute un premier reçu : l'indice apparaît dès le deuxième mois.</p><a class="btn primary" href="#/ajouter">Ajouter un reçu</a></section>`;
   }
@@ -215,7 +218,7 @@ function viewDashboard() {
     <p class="muted">Dernier achat le ${esc(fmtDate(lastDate))}</p>
   </header>
   ${staleMonths >= 2 ? `<a class="notice" href="#/ajouter"><strong>Aucun achat depuis ${staleMonths} mois.</strong> Ajoute tes prochains reçus pour reprendre le suivi mensuel.</a>` : ''}
-  ${flags.size || state.derived.twins.length ? `<a class="notice" href="#/verifier"><strong>À vérifier : ${[flags.size ? `${flags.size} achats` : '', state.derived.twins.length ? `${state.derived.twins.length} produits en double` : ''].filter(Boolean).join(' et ')}.</strong> Les achats douteux sont exclus de l'indice en attendant ta décision.</a>` : ''}
+  ${doubtful.length || state.derived.twins.length ? `<a class="notice" href="#/verifier"><strong>À vérifier : ${[doubtful.length ? `${doubtful.length} achats à confirmer` : '', state.derived.twins.length ? `${state.derived.twins.length} produits en double` : ''].filter(Boolean).join(' et ')}.</strong> Les achats à confirmer (format, poids ou unité douteux) ne comptent pas dans l'indice.</a>` : ''}
   ${!state.settings.sheetUrl && pendingLines(state.data).length ? `<a class="notice" href="#/reglages"><strong>${pendingLines(state.data).length} lignes pas encore envoyées au Google Sheet.</strong> Ajoute l'adresse du script dans Réglages.</a>` : ''}
 
   <section class="receipt" aria-labelledby="t-sum">
@@ -223,6 +226,7 @@ function viewDashboard() {
     ${leader('Mes prix', fmtPct(head?.pct), 'big', head ? `Prix moyens de ${esc(win(head.from))} comparés à ${esc(win(head.to))}, produit par produit.` : '')}
     ${leader('IPC Québec, aliments en magasin', offCh ? fmtPct(offCh.pct) : 'en attente', 'qc', offCh ? esc(offLag) : 'La série officielle se met à jour automatiquement chaque mois.')}
     ${verdict ? `<p class="verdict">${esc(verdict)}</p>` : ''}
+    <p class="trust-line"><span class="tag ok">fiables</span> ${indexed.length} achats dans l’indice${doubtful.length ? ` · <a href="#/verifier"><span class="tag warn">à confirmer</span> ${doubtful.length} achats exclus</a>` : ''}</p>
     ${pendingNote}
   </section>
 
@@ -549,6 +553,14 @@ async function saveDraft() {
     return same ? { ...o, pos } : fresh;
   });
   const total = outLines.reduce((a, l) => a + l.amount, 0);
+  // Prix inhabituel par rapport aux achats précédents du produit : format, poids ou quantité mal saisis ?
+  const P = new Map([...state.data.products, ...newProducts].map((p) => [p.id, p]));
+  const fresh = outLines.map((l) => ({ ...l, product: P.get(l.productId), date: d.date }));
+  const history = state.derived.joined.filter((l) => l.receiptId !== receipt.id && fresh.some((f) => f.productId === l.productId));
+  const check = calc.assessLines([...history, ...fresh.filter((l) => l.product.category !== 'hors')]);
+  const odd = fresh.filter((l) => check.get(l.id)?.tier === 'aConfirmer');
+  if (odd.length && !confirm(`Prix inhabituel${odd.length > 1 ? 's' : ''} :\n${odd.map((l) => `• ${l.product.name} : ${check.get(l.id).why}`).join('\n')}\n\nVérifie le format, le poids ou la quantité. Enregistrer tel quel (ces achats seront considérés comme vérifiés) ?`)) return;
+  receipt.validatedAt = new Date().toISOString(); // lignes revues par l'utilisateur avant d'enregistrer
   if (!editing) {
     const sumOf = (rid) => state.data.lines.filter((l) => l.receiptId === rid).reduce((a, l) => a + l.amount, 0);
     const dup = state.data.receipts.find((r) => r.date === d.date && r.storeId === store.id && Math.abs(sumOf(r.id) - total) < 0.01);
@@ -700,7 +712,7 @@ function viewProduct(id) {
     <div class="stats3"><div><small>Médiane</small><strong>${med ? fmtMoney(med) : '—'}</strong></div><div><small>Plus bas</small><strong>${h.length ? fmtMoney(Math.min(...h.map((x) => x.price))) : '—'}</strong></div><div><small>Plus haut</small><strong>${h.length ? fmtMoney(Math.max(...h.map((x) => x.price))) : '—'}</strong></div></div>
   </section>
   <section class="block"><h2>Achats</h2><table class="tbl"><thead><tr><th>Date</th><th>Magasin</th><th class="num">Prix</th></tr></thead>
-    <tbody>${h.slice().reverse().map((x) => `<tr><td>${esc(x.date)}</td><td>${esc(storeName(x.storeId))}</td><td class="num">${esc(fmtMoney(x.price))}${x.sizeQty ? `<small> ${esc(fmtSize(x.sizeQty, x.sizeUnit))}</small>` : ''}</td></tr>`).join('')}</tbody></table></section>
+    <tbody>${h.slice().reverse().map((x) => `<tr><td>${esc(x.date)}${state.derived.trust.get(x.id)?.tier === 'aConfirmer' ? ' <span class="tag warn">à confirmer</span>' : ''}</td><td>${esc(storeName(x.storeId))}</td><td class="num">${esc(fmtMoney(x.price))}${x.sizeQty ? `<small> ${esc(fmtSize(x.sizeQty, x.sizeUnit))}</small>` : ''}</td></tr>`).join('')}</tbody></table></section>
   <form id="pform" class="block"><h2>Modifier</h2>
     <label>Nom<input name="name" value="${esc(p.name)}"></label>
     <label>Catégorie IPC<select name="category">${CATEGORIES.map((c) => `<option value="${c.id}" ${c.id === p.category ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
@@ -716,18 +728,29 @@ function viewProduct(id) {
 
 // ---------- Achats à vérifier ----------
 function viewReview() {
-  const { flags, joined } = state.derived;
-  const byId = new Map(joined.map((l) => [l.id, l]));
-  const items = [...flags.entries()].map(([id, f]) => ({ l: byId.get(id), f })).filter((x) => x.l)
-    .sort((a, b) => (a.f.fixes ? 0 : 1) - (b.f.fixes ? 0 : 1) || b.l.date.localeCompare(a.l.date));
-  const safe = items.filter((x) => x.f.fixes?.length === 1);
+  const { flags, trust, doubtful } = state.derived;
+  const byId = new Map(doubtful.map((l) => [l.id, l]));
+  const safe = doubtful.filter((l) => flags.get(l.id)?.fixes?.length === 1);
+  // Achats à confirmer, regroupés par reçu (du plus récent au plus ancien)
+  const groups = new Map();
+  for (const l of doubtful.slice().sort((a, b) => b.date.localeCompare(a.date) || (a.pos ?? 0) - (b.pos ?? 0))) {
+    if (!groups.has(l.receiptId)) groups.set(l.receiptId, []);
+    groups.get(l.receiptId).push(l);
+  }
   state.after = () => {
     $$('[data-act]').forEach((b) => b.addEventListener('click', async () => {
       const l = byId.get(b.dataset.id);
-      const f = flags.get(b.dataset.id);
-      if (b.dataset.act === 'fix') await applyFix(l, f.fixes[Number(b.dataset.n)].patch);
-      else await reviewLine(l, b.dataset.act);
+      const act = b.dataset.act;
+      if (act === 'fix') await applyFix(l, flags.get(l.id).fixes[Number(b.dataset.n)].patch);
+      else if (act === 'format') { if (!(await otherFormat(l))) return; }
+      else await reviewLine(l, act);
       await reload();
+      render();
+    }));
+    $$('[data-validate]').forEach((b) => b.addEventListener('click', async () => {
+      await validateReceipt(b.dataset.validate, true);
+      await reload();
+      toast('Reçu validé : tous ses achats comptent dans l’indice.', 'ok');
       render();
     }));
     $$('[data-twin]').forEach((b) => b.addEventListener('click', async () => {
@@ -751,7 +774,7 @@ function viewReview() {
     });
     $('#fix-all')?.addEventListener('click', async () => {
       if (!confirm(`Appliquer les ${safe.length} corrections sans ambiguïté ?`)) return;
-      for (const { l, f } of safe) await applyFix(l, f.fixes[0].patch);
+      for (const l of safe) await applyFix(l, flags.get(l.id).fixes[0].patch);
       await reload();
       toast(`${safe.length} corrections appliquées.`, 'ok');
       render();
@@ -770,20 +793,57 @@ function viewReview() {
         <button class="btn" data-twin="swap" data-n="${n}">Garder l’autre nom</button>
         <button class="btn" data-twin="different" data-n="${n}">Produits différents</button></div>
     </li>`).join('')}</ul></section>` : '';
-  if (!items.length && !twins.length) return `<a class="back" href="#/">Tableau</a><header class="page-head"><h1>À vérifier</h1></header><p class="muted">Rien à vérifier : tous les achats comptent dans l'indice et aucun produit n'est en double.</p>`;
-  return `<a class="back" href="#/">Tableau</a>
-  <header class="page-head"><h1>À vérifier</h1><p class="muted">${items.length ? `${items.length} achats exclus de l'indice en attendant ta décision. Les dépenses, elles, les comptent déjà.` : 'Tous les achats comptent dans l’indice.'}</p></header>
-  ${twinsHtml}
-  ${items.length ? '<h2 class="mt">Achats douteux</h2>' : ''}
-  ${safe.length ? `<button class="btn primary wide" id="fix-all">Appliquer les ${safe.length} corrections sans ambiguïté</button>` : ''}
-  <ul class="review">${items.map(({ l, f }) => `<li>
-    <div class="rv-head"><a href="#/produits/${encodeURIComponent(l.productId)}">${esc(l.product.name)}</a><span>${esc(fmtDate(l.date))} · ${esc(storeName(l.storeId))}</span></div>
-    <p class="rv-line">${String(l.qty).replace('.', ',')} × ${esc(l.product.unit)} · ${esc(fmtMoney(l.amount))}</p>
-    <p class="hint">${esc(f.msg)}</p>
-    <div class="btns">${(f.fixes || []).map((x, n) => `<button class="btn primary" data-act="fix" data-n="${n}" data-id="${esc(l.id)}">${esc(x.label)}</button>`).join('')}
+  if (!doubtful.length && !twins.length) return `<a class="back" href="#/">Tableau</a><header class="page-head"><h1>À vérifier</h1></header><p class="muted">Rien à vérifier : tous les achats sont fiables et aucun produit n'est en double.</p>`;
+  const lineHtml = (l) => {
+    const f = flags.get(l.id);
+    return `<li>
+    <div class="rv-head"><a href="#/produits/${encodeURIComponent(l.productId)}">${esc(l.product.name)}</a><span>${String(l.qty).replace('.', ',')} × ${esc(l.product.unit)} · ${esc(fmtMoney(l.amount))}</span></div>
+    <p class="hint">${esc(trust.get(l.id).why)}</p>
+    <div class="btns">${(f?.fixes || []).map((x, n) => `<button class="btn primary" data-act="fix" data-n="${n}" data-id="${esc(l.id)}">${esc(x.label)}</button>`).join('')}
       <button class="btn" data-act="ok" data-id="${esc(l.id)}">C'est correct</button>
+      <button class="btn" data-act="format" data-id="${esc(l.id)}">Autre format</button>
       <button class="btn danger" data-act="excluded" data-id="${esc(l.id)}">Exclure</button></div>
-  </li>`).join('')}</ul>`;
+  </li>`;
+  };
+  return `<a class="back" href="#/">Tableau</a>
+  <header class="page-head"><h1>À vérifier</h1><p class="muted">${doubtful.length ? `${doubtful.length} achats à confirmer dans ${groups.size} reçus. Ils ne comptent pas dans l'indice tant que tu ne les as pas confirmés ; les dépenses, elles, les comptent. Tu n’es pas obligé de tout traiter.` : 'Tous les achats sont fiables.'}</p></header>
+  ${twinsHtml}
+  ${doubtful.length ? `<h2 class="mt">Achats à confirmer</h2>
+  <p class="hint">« Autre format » : le produit a été acheté dans un autre format (régime plutôt qu'une banane, sac plutôt qu'un avocat) ; l'achat rejoint une série de prix à part et compte à nouveau.</p>` : ''}
+  ${safe.length ? `<button class="btn primary wide" id="fix-all">Appliquer les ${safe.length} corrections sans ambiguïté</button>` : ''}
+  ${[...groups.entries()].map(([rid, ls]) => `<section class="rv-group">
+    <div class="rv-receipt"><a href="#/recus/${encodeURIComponent(rid)}"><strong>${esc(storeName(ls[0].storeId))}</strong> · ${esc(fmtDate(ls[0].date))}</a>
+      <button class="btn" data-validate="${esc(rid)}">Tout est correct dans ce reçu</button></div>
+    <ul class="review">${ls.map(lineHtml).join('')}</ul></section>`).join('')}`;
+}
+
+/** Valide (ou dévalide) un reçu : l'utilisateur garantit ses achats, qui comptent tous dans l'indice. */
+async function validateReceipt(id, on) {
+  const r = state.data.receipts.find((x) => x.id === id);
+  const next = { ...r };
+  if (on) next.validatedAt = new Date().toISOString(); else delete next.validatedAt;
+  await db.put('receipts', next);
+}
+
+/**
+ * Achat d'un autre format que d'habitude (régime de bananes, sac d'avocats) : rattaché à une variante
+ * du produit, qui a sa propre série de prix. Retourne false si l'utilisateur annule.
+ */
+async function otherFormat(l) {
+  const p = state.data.products.find((x) => x.id === l.productId);
+  const name = prompt('Nom de ce format (il formera sa propre série de prix) :', `${p.name} (autre format)`);
+  if (!name || !name.trim() || slug(name) === slug(p.name)) return false;
+  const existing = state.data.products.find((x) => slug(x.name) === slug(name) && x.unit === p.unit);
+  const target = existing || { ...p, id: `${slug(name)}--${slug(p.unit)}`, name: name.trim(), type: slug(name) };
+  if (!existing) await db.put('products', target);
+  const line = state.data.lines.find((x) => x.id === l.id);
+  const next = { ...line, productId: target.id, review: 'ok' };
+  if (line.syncedAt) {
+    try { await pushDelete([line], state.settings); next.syncedAt = null; } catch { /* renvoyé au prochain envoi */ }
+  }
+  await db.put('lines', next);
+  toast(`Achat rattaché à « ${target.name} ».`, 'ok');
+  return true;
 }
 
 /** Rattache tous les achats de `from` à `to`, supprime `from`, et retient son nom pour les prochains imports. */
@@ -825,19 +885,25 @@ async function applyFix(l, patch) {
 
 // ---------- Reçus ----------
 const SOURCES = { migration: 'historique', 'ancienne-app': 'ancienne app', pdf: 'PDF', manuel: 'saisi', import: 'importé' };
+/** Étiquette de fiabilité d'un reçu : validé par l'utilisateur, fiable (prix cohérents) ou à confirmer. */
+const trustTag = (r, todo) => (r.validatedAt ? '<span class="tag ok">validé</span>'
+  : todo ? `<span class="tag warn">${todo} à confirmer</span>` : '<span class="tag ok">fiable</span>');
 function viewReceipts() {
   const { receipts, lines } = state.data;
   const byR = new Map();
   lines.forEach((l) => byR.set(l.receiptId, (byR.get(l.receiptId) || 0) + l.amount));
   const sorted = receipts.slice().sort((a, b) => b.date.localeCompare(a.date));
+  const todo = new Map();
+  for (const l of state.derived.doubtful) todo.set(l.receiptId, (todo.get(l.receiptId) || 0) + 1);
   let cur = '';
   const items = sorted.map((r) => {
     const mo = calc.monthOf(r.date);
     const head = mo !== cur ? `<li class="month">${esc(fmtMonth(mo))}</li>` : '';
     cur = mo;
-    return `${head}<li><a href="#/recus/${encodeURIComponent(r.id)}"><span>${esc(storeName(r.storeId))}<small>${esc(fmtDate(r.date))} · ${esc(SOURCES[r.source] || r.source || '')}</small></span><strong>${esc(fmtMoney(byR.get(r.id) || 0))}</strong></a></li>`;
+    return `${head}<li><a href="#/recus/${encodeURIComponent(r.id)}"><span>${esc(storeName(r.storeId))}<small>${esc(fmtDate(r.date))} · ${esc(SOURCES[r.source] || r.source || '')} ${trustTag(r, todo.get(r.id))}</small></span><strong>${esc(fmtMoney(byR.get(r.id) || 0))}</strong></a></li>`;
   }).join('');
-  return `<header class="page-head"><h1>Reçus</h1><p class="muted">${receipts.length} reçus</p></header><ul class="rlist">${items}</ul>`;
+  const nTodo = sorted.filter((r) => todo.get(r.id)).length;
+  return `<header class="page-head"><h1>Reçus</h1><p class="muted">${receipts.length} reçus · <span class="tag ok">fiable</span> ${receipts.length - nTodo} · <span class="tag warn">à confirmer</span> ${nTodo}</p></header><ul class="rlist">${items}</ul>`;
 }
 
 function viewReceipt(id) {
@@ -845,8 +911,18 @@ function viewReceipt(id) {
   if (!r) return '<p>Reçu introuvable.</p>';
   const P = new Map(state.data.products.map((p) => [p.id, p]));
   const ls = receiptLines(id);
+  const { trust } = state.derived;
+  const todo = ls.filter((l) => trust.get(l.id)?.tier === 'aConfirmer');
   state.after = () => {
     $('#edit-r').addEventListener('click', () => editReceipt(id));
+    $('#val-r').addEventListener('click', async () => {
+      const on = !r.validatedAt;
+      if (on && todo.length && !confirm(`Tu confirmes que ${todo.length > 1 ? `les ${todo.length} achats à confirmer de ce reçu sont corrects` : 'l’achat à confirmer de ce reçu est correct'} (format, poids, quantité) ?`)) return;
+      await validateReceipt(id, on);
+      await reload();
+      toast(on ? 'Reçu validé : tous ses achats comptent dans l’indice.' : 'Validation retirée.', 'ok');
+      render();
+    });
     $('#del-r').addEventListener('click', async () => {
       if (!confirm('Supprimer ce reçu et ses articles ?')) return;
       try { await pushDelete(ls, state.settings); } catch (err) { toast(`Reçu supprimé ici, mais pas dans le Google Sheet : ${err.message}`, 'error'); }
@@ -858,13 +934,16 @@ function viewReceipt(id) {
     });
   };
   return `<a class="back" href="#/recus">Reçus</a>
-  <header class="page-head"><h1>${esc(storeName(r.storeId))}</h1><p class="muted">${esc(fmtDate(r.date))}</p></header>
+  <header class="page-head"><h1>${esc(storeName(r.storeId))}</h1><p class="muted">${esc(fmtDate(r.date))} · ${trustTag(r, todo.length)}</p></header>
   <section class="receipt"><table class="tbl plain"><tbody>${ls.map((l) => {
     const p = P.get(l.productId) || {};
-    return `<tr class="${p.category === 'hors' ? 'dim' : ''}"><td><a href="#/produits/${encodeURIComponent(l.productId)}">${esc(p.name)}</a><small>${l.qty !== 1 ? `${String(l.qty).replace('.', ',')} × ${esc(fmtMoney(calc.unitPrice(l)))}` : ''}</small></td><td class="num">${esc(fmtMoney(l.amount))}</td></tr>`;
+    const t = trust.get(l.id);
+    return `<tr class="${p.category === 'hors' ? 'dim' : ''}"><td><a href="#/produits/${encodeURIComponent(l.productId)}">${esc(p.name)}</a><small>${l.qty !== 1 ? `${String(l.qty).replace('.', ',')} × ${esc(fmtMoney(calc.unitPrice(l)))}` : ''}</small>${t?.tier === 'aConfirmer' ? `<small class="why">À confirmer : ${esc(t.why)}</small>` : ''}</td><td class="num">${esc(fmtMoney(l.amount))}</td></tr>`;
   }).join('')}</tbody></table>
   ${leader('Total', fmtMoney(ls.reduce((a, l) => a + l.amount, 0)))}</section>
-  <div class="btns"><button class="btn primary" id="edit-r">Modifier ce reçu</button>
+  <p class="hint">${r.validatedAt ? `Validé le ${esc(fmtDate(r.validatedAt.slice(0, 10)))} : tous ses achats comptent dans l’indice.` : todo.length ? 'Les achats à confirmer ne comptent pas dans l’indice. Valide le reçu si tout est juste, ou corrige-le.' : 'Prix cohérents avec tes autres achats : ce reçu compte dans l’indice.'}</p>
+  <div class="btns"><button class="btn ${r.validatedAt ? '' : 'primary'}" id="val-r">${r.validatedAt ? 'Retirer la validation' : 'Valider ce reçu'}</button>
+  <button class="btn" id="edit-r">Modifier ce reçu</button>
   <button class="btn danger" id="del-r">Supprimer ce reçu</button></div>`;
 }
 
@@ -887,7 +966,7 @@ function viewSettings() {
     $('#x-json').addEventListener('click', () => exportJSON({ ...state.data, aliases: state.aliases, notSame: state.notSame }));
     $('#x-xlsx').addEventListener('click', async () => {
       try {
-        await exportExcel(state.data, { series: state.derived.series, alerts: state.derived.alerts.map((a) => ({ Produit: a.name, Alerte: a.kind, 'Écart %': a.pct ? Math.round(a.pct) : '' })) });
+        await exportExcel(state.data, { series: state.derived.series, trust: state.derived.trust, alerts: state.derived.alerts.map((a) => ({ Produit: a.name, Alerte: a.kind, 'Écart %': a.pct ? Math.round(a.pct) : '' })) });
       } catch (err) { toast(err.message, 'error'); }
     });
     $('#i-json').addEventListener('change', async (e) => {
