@@ -4,6 +4,7 @@ import { CATEGORIES, CAT, IN_SCOPE } from './categories.js';
 import { $, $$, esc, fmtMoney, fmtPct, fmtMonth, fmtDate, today, uid, slug, toast, num, parseSize, fmtSize } from './util.js';
 import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
 import { planImport } from './importer.js';
+import { parseReceiptText } from './pdfparse.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
@@ -206,8 +207,9 @@ function viewAdd() {
   return `
   <header class="page-head"><h1>Ajouter un reçu</h1></header>
   <section class="scan-box">
-    <label class="btn primary file"><input type="file" id="import-file" accept="application/json,.json">Importer des reçus</label>
-    <p class="muted small" id="import-status">Envoie tes photos ou PDF de reçus à Claude dans le projet Panier : il te renvoie un fichier à importer ici. Sinon, saisis le reçu ci-dessous.</p>
+    <label class="btn primary file"><input type="file" id="pdf-file" accept="application/pdf,.pdf">Lire un PDF (Lufa, reçu en ligne…)</label>
+    <label class="btn file"><input type="file" id="import-file" accept="application/json,.json">Importer un fichier de reçus préparé par Claude</label>
+    <p class="muted small" id="import-status">Le PDF est lu sur ce téléphone ; tu vérifies les lignes avant d’enregistrer. Les noms que tu corriges sont retenus pour les prochaines fois.</p>
   </section>
   <form id="receipt-form" class="block" autocomplete="off">
     <div class="row2">
@@ -281,6 +283,7 @@ function bindAdd() {
     try { await saveDraft(); } catch (err) { toast(err.message, 'error'); }
   });
   $('#import-file').addEventListener('change', onImportFile);
+  $('#pdf-file').addEventListener('change', onPdfFile);
   $$('.chip[data-pid]').forEach((c) => c.addEventListener('click', () => addFrequent(c.dataset.pid)));
 }
 
@@ -310,6 +313,55 @@ function addFrequent(pid) {
   const empty = state.draft.lines.findIndex((x) => !x.name.trim());
   if (empty >= 0) state.draft.lines[empty] = line; else state.draft.lines.push(line);
   render();
+}
+
+// Lecture d'un PDF : texte extrait sur l'appareil, lignes proposées, libellés appris au fil des corrections.
+async function onPdfFile(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const status = $('#import-status');
+  status.textContent = 'Lecture du PDF…';
+  status.classList.remove('error');
+  try {
+    const { pdfToLines } = await import('./pdfimport.js');
+    const text = await pdfToLines(file);
+    const parsed = parseReceiptText(text);
+    if (!parsed.lines.length) {
+      status.textContent = text.length
+        ? 'Aucune ligne de produit reconnue dans ce PDF. Envoie-le à Claude dans le projet Panier, ou saisis-le ci-dessous.'
+        : 'Ce PDF ne contient pas de texte (c’est une image numérisée). Envoie-le à Claude dans le projet Panier.';
+      status.classList.add('error');
+      return;
+    }
+    const aliases = await db.getMeta('aliases', {});
+    const P = new Map(state.data.products.map((p) => [p.id, p]));
+    state.draft = {
+      date: parsed.date || today(),
+      store: parsed.store || '',
+      lines: parsed.lines.map((l) => {
+        const bare = l.name.replace(/\s*\d+(?:[,.]\d+)?\s?(?:kg|g|ml|l)\b/i, '').trim();
+        const known = (aliases[slug(l.name)] && P.get(aliases[slug(l.name)]))
+          || findProduct(l.name, l.unit === 'kg' ? 'kg' : undefined) || (bare !== l.name && findProduct(bare));
+        return {
+          ...emptyLine(),
+          name: known ? known.name : l.name, productId: known?.id || null, rawName: l.name,
+          unit: known ? known.unit : l.unit, category: known ? known.category : 'autres',
+          qty: String(l.qty).replace('.', ','), amount: l.amount.toFixed(2).replace('.', ','),
+          size: l.size || '', regularPrice: l.regularPrice ? String(l.regularPrice).replace('.', ',') : '',
+          raw: l.raw, confidence: known ? 0.9 : 0.5,
+        };
+      }),
+    };
+    const sum = parsed.lines.reduce((a, l) => a + l.amount, 0);
+    render();
+    const todo = state.draft.lines.filter((l) => !l.productId).length;
+    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${parsed.total ? ` · total du document ${fmtMoney(parsed.total)}, lignes ${fmtMoney(sum)}` : ''}.`);
+  } catch (err) {
+    status.textContent = `Lecture du PDF impossible : ${err.message}`;
+    status.classList.add('error');
+  } finally {
+    e.target.value = '';
+  }
 }
 
 async function onImportFile(e) {
@@ -352,7 +404,7 @@ async function saveDraft() {
   let store = state.data.stores.find((s) => slug(s.name) === slug(d.store));
   const newStores = [];
   if (!store) { store = { id: slug(d.store), name: d.store.trim() }; newStores.push(store); }
-  const receipt = { id: uid('r'), date: d.date, storeId: store.id, source: 'manuel', total: null, createdAt: new Date().toISOString() };
+  const receipt = { id: uid('r'), date: d.date, storeId: store.id, source: d.lines.some((l) => l.rawName) ? 'pdf' : 'manuel', total: null, createdAt: new Date().toISOString() };
   const newProducts = [];
   const outLines = lines.map((l) => {
     let p = (l.productId && state.data.products.find((x) => x.id === l.productId)) || findProduct(l.name, l.unit);
@@ -367,6 +419,16 @@ async function saveDraft() {
       regularPrice: num(l.regularPrice), sizeQty: size?.qty ?? null, sizeUnit: size?.unit ?? null,
     };
   });
+  // Retient « libellé du document → produit » pour reconnaître ce libellé automatiquement la prochaine fois.
+  const learned = lines.filter((l) => l.rawName);
+  if (learned.length) {
+    const aliases = await db.getMeta('aliases', {});
+    learned.forEach((l, i) => {
+      const outLine = outLines[lines.indexOf(l)];
+      if (outLine) aliases[slug(l.rawName)] = outLine.productId;
+    });
+    await db.setMeta('aliases', aliases);
+  }
   if (newStores.length) await db.put('stores', newStores);
   if (newProducts.length) await db.put('products', newProducts);
   await db.put('receipts', receipt);
