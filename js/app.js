@@ -5,9 +5,11 @@ import { $, $$, esc, fmtMoney, fmtPct, fmtMonth, fmtDate, today, uid, slug, toas
 import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
 import { planImport } from './importer.js';
 import { parseReceiptText, guessCategory } from './pdfparse.js';
+import { similarProducts, nameKey } from './similar.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
+export const APP_VERSION = '2.6.0';
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
 
 const state = {
@@ -23,7 +25,11 @@ const state = {
 function derive() {
   const d = state.data;
   const joined = calc.joinLines(d);
-  const panel = calc.monthlyPanel(joined);
+  // Achats suspects (poids saisi comme quantité, quantité oubliée, prix aberrant) : exclus de l'indice
+  // jusqu'à ce que l'utilisateur les corrige ou les valide dans « À vérifier ». Les dépenses les gardent.
+  const flags = calc.auditLines(joined);
+  const indexed = joined.filter((l) => !flags.has(l.id));
+  const panel = calc.monthlyPanel(indexed);
   const series = calc.chainedIndex(panel);
   // Le résumé s'arrête au dernier mois assez complet : un mois qui commence (1 ou 2 reçus)
   // compte trop peu de produits comparables pour un chiffre fiable.
@@ -34,16 +40,19 @@ function derive() {
   const official = state.official.points || [];
   const P = new Map(d.products.map((p) => [p.id, p]));
   const byProduct = new Map();
-  for (const l of joined) {
+  for (const l of indexed) {
     if (!byProduct.has(l.productId)) byProduct.set(l.productId, []);
     byProduct.get(l.productId).push(l);
   }
   const alerts = [];
   for (const [id] of byProduct) {
-    const h = calc.priceHistory(joined, id);
+    const h = calc.priceHistory(indexed, id);
     for (const a of calc.alertsFor(h)) alerts.push({ productId: id, name: P.get(id)?.name, ...a, last: h.at(-1) });
   }
-  state.derived = { joined, panel, series, head, pending, official, byProduct, alerts, alertIds: new Set(alerts.map((a) => a.productId)) };
+  const counts = new Map();
+  for (const l of d.lines) counts.set(l.productId, (counts.get(l.productId) || 0) + 1);
+  const twins = similarProducts(d.products, counts, new Set(state.notSame || []));
+  state.derived = { twins, joined, indexed, flags, panel, series, head, pending, official, byProduct, alerts, alertIds: new Set(alerts.map((a) => a.productId)) };
 }
 
 async function reload() {
@@ -60,16 +69,27 @@ async function trySync({ quiet = true } = {}) {
       state.data = await db.loadAll();
       derive();
       state.sync = { last: new Date().toISOString(), error: null, busy: false };
+      db.setMeta('sync', { last: state.sync.last, error: null });
       if (added > 0 || !quiet) toast(added > 0 ? `${added} ligne(s) ajoutée(s) au Google Sheet.` : 'Google Sheet à jour.', 'ok');
     }
     return added;
   } catch (err) {
     state.sync = { ...state.sync, error: err.message, busy: false };
+    db.setMeta('sync', { last: state.sync.last, error: err.message });
     if (!quiet) toast(`Envoi au Google Sheet impossible : ${err.message}`, 'error');
     return null;
   } finally {
     state.sync.busy = false;
   }
+}
+
+function syncStatus() {
+  const pending = pendingLines(state.data).length;
+  const { last, error } = state.sync;
+  if (!state.settings.sheetUrl) return `<p class="status off">Non relié · ${pending} ligne(s) à envoyer. Tes données restent seulement sur ce téléphone.</p>`;
+  if (error) return `<p class="status bad">Erreur au dernier envoi : ${esc(error)} · ${pending} ligne(s) en attente.</p>`;
+  if (pending) return `<p class="status off">${pending} ligne(s) en attente d'envoi${navigator.onLine ? '' : ' (hors ligne)'}.</p>`;
+  return `<p class="status good">Relié et à jour${last ? ` · dernier envoi ${esc(new Date(last).toLocaleString('fr-CA', { dateStyle: 'medium', timeStyle: 'short' }))}` : ''}.</p>`;
 }
 
 const storeName = (id) => state.data.stores.find((s) => s.id === id)?.name || id;
@@ -83,6 +103,7 @@ const routes = [
   [/^#\/recus$/, viewReceipts],
   [/^#\/recus\/(.+)$/, viewReceipt],
   [/^#\/reglages$/, viewSettings],
+  [/^#\/verifier$/, viewReview],
 ];
 
 function render() {
@@ -109,7 +130,7 @@ function leader(label, value, cls = '', note = '') {
 }
 
 function viewDashboard() {
-  const { series, head, pending, panel, official, joined, alerts } = state.derived;
+  const { series, head, pending, panel, official, joined, indexed, flags, alerts } = state.derived;
   if (!joined.length) {
     return `<section class="empty"><h1>Commence ton suivi</h1><p>Ajoute un premier reçu : l'indice apparaît dès le deuxième mois.</p><a class="btn primary" href="#/ajouter">Ajouter un reçu</a></section>`;
   }
@@ -127,8 +148,12 @@ function viewDashboard() {
     ? 'Mes prix suivent l’inflation alimentaire du Québec.'
     : gap > 0 ? `Mes prix ont évolué ${pts(gap)} points au-dessus de l’IPC du Québec.`
       : `Mes prix ont évolué ${pts(gap)} points sous l’IPC du Québec.`;
+  const monthSpend = (mo) => joined.filter((l) => l.month === mo);
   const pendingNote = pending.length
-    ? `<p class="l-note pending">${pending.map((p) => `${fmtMonth(p.month)} : ${p.matched || 0} produit${(p.matched || 0) > 1 ? 's' : ''} comparable${(p.matched || 0) > 1 ? 's' : ''}`).join(' · ')}. Le chiffre inclura ce mois dès ${calc.MIN_MATCHED} produits déjà achetés auparavant.</p>` : '';
+    ? `<div class="pending-box">${pending.map((p) => {
+      const ls = monthSpend(p.month);
+      return `<p><strong>${esc(fmtMonth(p.month))} : ${ls.length} articles, ${esc(fmtMoney(ls.reduce((a, l) => a + l.amount, 0)))}</strong> — pas encore dans « Mes prix » : ${p.matched || 0} produit${(p.matched || 0) > 1 ? 's' : ''} en commun avec ${esc(fmtMonth(p.from))}, il en faut ${calc.MIN_MATCHED}. Les achats habituels (lait, œufs, fruits…) le compléteront vite.</p>`;
+    }).join('')}</div>` : '';
 
   // Catégories
   const last12 = joined.filter((l) => calc.monthsBetween(l.month, head?.to || calc.monthOf(lastDate)) < 12);
@@ -141,7 +166,7 @@ function viewDashboard() {
     return { c, h, share, weak };
   }).sort((a, b) => b.share - a.share);
 
-  const mv = calc.movers(joined);
+  const mv = calc.movers(indexed);
   const ups = mv.filter((m) => m.pct > 0).slice(0, 5);
   const downs = mv.filter((m) => m.pct < 0).slice(-5).reverse();
   const moverList = (xs) => xs.map((m) => `<li><a href="#/produits/${encodeURIComponent(m.productId)}"><span>${esc(m.name)}</span><span class="${m.pct > 0 ? 'up' : 'down'}">${fmtPct(m.pct, 0)}</span></a><small>${esc(fmtMoney(m.first))} → ${esc(fmtMoney(m.last))}</small></li>`).join('');
@@ -152,6 +177,8 @@ function viewDashboard() {
     <p class="muted">Dernier achat le ${esc(fmtDate(lastDate))}</p>
   </header>
   ${staleMonths >= 2 ? `<a class="notice" href="#/ajouter"><strong>Aucun achat depuis ${staleMonths} mois.</strong> Ajoute tes prochains reçus pour reprendre le suivi mensuel.</a>` : ''}
+  ${flags.size || state.derived.twins.length ? `<a class="notice" href="#/verifier"><strong>À vérifier : ${[flags.size ? `${flags.size} achats` : '', state.derived.twins.length ? `${state.derived.twins.length} produits en double` : ''].filter(Boolean).join(' et ')}.</strong> Les achats douteux sont exclus de l'indice en attendant ta décision.</a>` : ''}
+  ${!state.settings.sheetUrl && pendingLines(state.data).length ? `<a class="notice" href="#/reglages"><strong>${pendingLines(state.data).length} lignes pas encore envoyées au Google Sheet.</strong> Ajoute l'adresse du script dans Réglages.</a>` : ''}
 
   <section class="receipt" aria-labelledby="t-sum">
     <h2 id="t-sum" class="receipt-title">${kindNote}<span>${esc(period)}</span></h2>
@@ -195,8 +222,24 @@ const emptyLine = () => ({ name: '', productId: null, qty: '1', amount: '', size
 
 function findProduct(name, unit) {
   const n = slug(name);
-  const cands = state.data.products.filter((p) => slug(p.name) === n);
+  let cands = state.data.products.filter((p) => slug(p.name) === n);
+  if (!cands.length && name.trim()) {
+    const k = nameKey(name);
+    cands = state.data.products.filter((p) => nameKey(p.name) === k);
+  }
   return cands.find((p) => !unit || p.unit === unit) || cands[0] || null;
+}
+
+/** « Tomates cerises multicolores » → « Tomates cerises » : produit connu dont le nom commence le libellé. */
+function findByPrefix(label) {
+  const l = slug(label);
+  let best = null;
+  for (const p of state.data.products) {
+    if (p.category === 'hors') continue;
+    const n = slug(p.name);
+    if (n.length >= 5 && (l === n || l.startsWith(n + '-')) && (!best || n.length > slug(best.name).length)) best = p;
+  }
+  return best;
 }
 
 function viewAdd() {
@@ -342,13 +385,14 @@ async function onPdfFile(e) {
         const bare = l.name.replace(/\s*\d+(?:[,.]\d+)?\s?(?:kg|g|ml|l)\b/i, '').trim();
         const known = (aliases[slug(l.name)] && P.get(aliases[slug(l.name)]))
           || findProduct(l.name, l.unit === 'kg' ? 'kg' : undefined) || (bare !== l.name && findProduct(bare));
+        const guess = !known && findByPrefix(bare);
         return {
           ...emptyLine(),
-          name: known ? known.name : l.name, productId: known?.id || null, rawName: l.name,
-          unit: known ? known.unit : l.unit, category: known ? known.category : guessCategory(l.name),
+          name: (known || guess) ? (known || guess).name : l.name, productId: (known || guess)?.id || null, rawName: l.name,
+          unit: (known || guess) ? (known || guess).unit : l.unit, category: (known || guess) ? (known || guess).category : guessCategory(l.name),
           qty: String(l.qty).replace('.', ','), amount: l.amount.toFixed(2).replace('.', ','),
           size: l.size || '', regularPrice: l.regularPrice ? String(l.regularPrice).replace('.', ',') : '',
-          raw: l.raw, confidence: known ? 0.9 : 0.5,
+          raw: l.raw, confidence: known ? 0.9 : guess ? 0.6 : 0.5,
         };
       }),
     };
@@ -503,7 +547,20 @@ function viewProduct(id) {
       toast('Produit mis à jour.', 'ok');
       render();
     });
+    $('#mform').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const target = state.data.products.find((x) => `${x.name} · ${x.unit}` === new FormData(e.target).get('target'));
+      if (!target || target.id === p.id) { toast('Choisis un autre produit dans la liste.', 'error'); return; }
+      const moved = state.data.lines.filter((l) => l.productId === p.id);
+      if (!confirm(`Rattacher les ${moved.length} achats de « ${p.name} » à « ${target.name} » et supprimer « ${p.name} » ?`)) return;
+      await mergeProducts(p, target);
+      await reload();
+      toast(`Fusionné dans « ${target.name} ».`, 'ok');
+      location.hash = `#/produits/${encodeURIComponent(target.id)}`;
+    });
   };
+  const others = state.data.products.filter((x) => x.id !== p.id && x.category !== 'hors')
+    .map((x) => `${x.name} · ${x.unit}`).sort((a, b) => a.localeCompare(b, 'fr'));
   return `
   <a class="back" href="#/produits">Produits</a>
   <header class="page-head"><h1>${esc(p.name)}</h1><p class="muted">${esc(CAT[p.category]?.name || '')} · unité : ${esc(p.unit)}</p></header>
@@ -517,7 +574,119 @@ function viewProduct(id) {
     <label>Nom<input name="name" value="${esc(p.name)}"></label>
     <label>Catégorie IPC<select name="category">${CATEGORIES.map((c) => `<option value="${c.id}" ${c.id === p.category ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
     <button class="btn" type="submit">Enregistrer les modifications</button>
+  </form>
+  <form id="mform" class="block"><h2>Fusionner avec un autre produit</h2>
+    <p class="hint">Pour un doublon (« Tomates cerises multicolores » et « Tomates cerises ») : les achats sont rattachés à l'autre produit, et ce nom sera reconnu automatiquement ensuite.</p>
+    <label>Produit à garder<input name="target" list="merge-list" placeholder="Rechercher un produit"></label>
+    <datalist id="merge-list">${others.map((o) => `<option value="${esc(o)}">`).join('')}</datalist>
+    <button class="btn" type="submit">Fusionner</button>
   </form>`;
+}
+
+// ---------- Achats à vérifier ----------
+function viewReview() {
+  const { flags, joined } = state.derived;
+  const byId = new Map(joined.map((l) => [l.id, l]));
+  const items = [...flags.entries()].map(([id, f]) => ({ l: byId.get(id), f })).filter((x) => x.l)
+    .sort((a, b) => (a.f.fixes ? 0 : 1) - (b.f.fixes ? 0 : 1) || b.l.date.localeCompare(a.l.date));
+  const safe = items.filter((x) => x.f.fixes?.length === 1);
+  state.after = () => {
+    $$('[data-act]').forEach((b) => b.addEventListener('click', async () => {
+      const l = byId.get(b.dataset.id);
+      const f = flags.get(b.dataset.id);
+      if (b.dataset.act === 'fix') await applyFix(l, f.fixes[Number(b.dataset.n)].patch);
+      else await reviewLine(l, b.dataset.act);
+      await reload();
+      render();
+    }));
+    $$('[data-twin]').forEach((b) => b.addEventListener('click', async () => {
+      const t = state.derived.twins[Number(b.dataset.n)];
+      if (b.dataset.twin === 'merge') await mergeProducts(t.drop, t.keep);
+      else if (b.dataset.twin === 'swap') await mergeProducts(t.keep, t.drop);
+      else {
+        state.notSame = [...(state.notSame || []), t.key];
+        await db.setMeta('notSame', state.notSame);
+      }
+      await reload();
+      render();
+    }));
+    $('#merge-all')?.addEventListener('click', async () => {
+      const sure = state.derived.twins.filter((t) => t.kind === 'meme-nom');
+      if (!confirm(`Fusionner ${sure.length} doublons évidents ?`)) return;
+      for (const t of sure) await mergeProducts(t.drop, t.keep);
+      await reload();
+      toast(`${sure.length} produits fusionnés.`, 'ok');
+      render();
+    });
+    $('#fix-all')?.addEventListener('click', async () => {
+      if (!confirm(`Appliquer les ${safe.length} corrections sans ambiguïté ?`)) return;
+      for (const { l, f } of safe) await applyFix(l, f.fixes[0].patch);
+      await reload();
+      toast(`${safe.length} corrections appliquées.`, 'ok');
+      render();
+    });
+  };
+  const twins = state.derived.twins;
+  const sure = twins.filter((t) => t.kind === 'meme-nom');
+  const twinsHtml = twins.length ? `<section class="block"><h2>Produits en double ?</h2>
+    <p class="hint">Même produit sous deux noms : fusionner rattache tous les achats au produit gardé, et l'autre nom sera reconnu automatiquement ensuite.</p>
+    ${sure.length ? `<button class="btn primary wide" id="merge-all">Fusionner les ${sure.length} doublons évidents</button>` : ''}
+    <ul class="review twins">${twins.map((t, n) => `<li>
+      <div class="rv-head"><span class="tag ${t.kind}">${t.kind === 'meme-nom' ? 'Même nom' : 'Variante probable'}</span></div>
+      <p class="rv-line">« ${esc(t.drop.name)} » (${t.dropCount}) → « ${esc(t.keep.name)} » (${t.keepCount})</p>
+      <p class="hint">${esc(CAT[t.keep.category]?.short || '')} · ${esc(t.keep.unit)}</p>
+      <div class="btns"><button class="btn primary" data-twin="merge" data-n="${n}">Fusionner</button>
+        <button class="btn" data-twin="swap" data-n="${n}">Garder l’autre nom</button>
+        <button class="btn" data-twin="different" data-n="${n}">Produits différents</button></div>
+    </li>`).join('')}</ul></section>` : '';
+  if (!items.length && !twins.length) return `<a class="back" href="#/">Tableau</a><header class="page-head"><h1>À vérifier</h1></header><p class="muted">Rien à vérifier : tous les achats comptent dans l'indice et aucun produit n'est en double.</p>`;
+  return `<a class="back" href="#/">Tableau</a>
+  <header class="page-head"><h1>À vérifier</h1><p class="muted">${items.length ? `${items.length} achats exclus de l'indice en attendant ta décision. Les dépenses, elles, les comptent déjà.` : 'Tous les achats comptent dans l’indice.'}</p></header>
+  ${twinsHtml}
+  ${items.length ? '<h2 class="mt">Achats douteux</h2>' : ''}
+  ${safe.length ? `<button class="btn primary wide" id="fix-all">Appliquer les ${safe.length} corrections sans ambiguïté</button>` : ''}
+  <ul class="review">${items.map(({ l, f }) => `<li>
+    <div class="rv-head"><a href="#/produits/${encodeURIComponent(l.productId)}">${esc(l.product.name)}</a><span>${esc(fmtDate(l.date))} · ${esc(storeName(l.storeId))}</span></div>
+    <p class="rv-line">${String(l.qty).replace('.', ',')} × ${esc(l.product.unit)} · ${esc(fmtMoney(l.amount))}</p>
+    <p class="hint">${esc(f.msg)}</p>
+    <div class="btns">${(f.fixes || []).map((x, n) => `<button class="btn primary" data-act="fix" data-n="${n}" data-id="${esc(l.id)}">${esc(x.label)}</button>`).join('')}
+      <button class="btn" data-act="ok" data-id="${esc(l.id)}">C'est correct</button>
+      <button class="btn danger" data-act="excluded" data-id="${esc(l.id)}">Exclure</button></div>
+  </li>`).join('')}</ul>`;
+}
+
+/** Rattache tous les achats de `from` à `to`, supprime `from`, et retient son nom pour les prochains imports. */
+async function mergeProducts(from, to) {
+  const moved = state.data.lines.filter((l) => l.productId === from.id);
+  await db.put('lines', moved.map((l) => ({ ...l, productId: to.id })));
+  await db.del('products', from.id);
+  const aliases = await db.getMeta('aliases', {});
+  aliases[slug(from.name)] = to.id;
+  for (const [k, v] of Object.entries(aliases)) if (v === from.id) aliases[k] = to.id;
+  await db.setMeta('aliases', aliases);
+}
+
+async function reviewLine(l, review) {
+  const line = state.data.lines.find((x) => x.id === l.id);
+  await db.put('lines', { ...line, review });
+}
+
+async function applyFix(l, patch) {
+  const line = state.data.lines.find((x) => x.id === l.id);
+  const next = { ...line, review: 'ok' };
+  if (patch.qty) next.qty = patch.qty;
+  if (patch.amount) next.amount = patch.amount;
+  if (patch.unit) {
+    // Même produit vendu au kg : série de prix distincte (créée au besoin)
+    const p = state.data.products.find((x) => x.id === line.productId);
+    const id = `${slug(p.name)}--${slug(patch.unit)}`;
+    if (!state.data.products.some((x) => x.id === id)) await db.put('products', { ...p, id, unit: patch.unit });
+    next.productId = id;
+  }
+  if (line.syncedAt) {
+    try { await pushDelete([line], state.settings); next.syncedAt = null; } catch { /* renvoyé au prochain envoi */ }
+  }
+  await db.put('lines', next);
 }
 
 // ---------- Reçus ----------
@@ -569,12 +738,22 @@ function viewSettings() {
     $('#sform').addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = new FormData(e.target);
-      state.settings = { ...state.settings, region: f.get('region').trim().toUpperCase().slice(0, 3), sheetUrl: f.get('sheetUrl').trim() };
+      state.settings = { ...state.settings, region: f.get('region').trim().toUpperCase().slice(0, 3) };
       await db.setMeta('settings', state.settings);
       toast('Réglages enregistrés.', 'ok');
-      if (state.settings.sheetUrl) { await trySync({ quiet: false }); render(); }
     });
-    $('#sync-now')?.addEventListener('click', async () => { await trySync({ quiet: false }); render(); });
+    $('#gform').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = new FormData(e.target).get('sheetUrl').trim();
+      if (url && !/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec\/?$/.test(url)) {
+        toast('Adresse invalide : elle doit commencer par https://script.google.com/macros/s/ et finir par /exec.', 'error');
+        return;
+      }
+      state.settings = { ...state.settings, sheetUrl: url };
+      await db.setMeta('settings', state.settings);
+      if (url) await trySync({ quiet: false });
+      render();
+    });
     $('#x-json').addEventListener('click', () => exportJSON(state.data));
     $('#x-xlsx').addEventListener('click', async () => {
       try {
@@ -607,13 +786,15 @@ function viewSettings() {
   };
   const added = d.receipts.filter((r) => r.source !== 'migration').length;
   return `<header class="page-head"><h1>Réglages</h1></header>
-  <form id="sform" class="block" autocomplete="off">
+  <form id="gform" class="block" autocomplete="off">
     <h2>Google Sheet</h2>
-    <p class="hint">Chaque reçu enregistré est ajouté à la feuille « Historique » de Suivi_depenses_V2. Installation : voir le guide dans le dépôt (apps-script/INSTALLATION.md).</p>
-    <label>Adresse du script (se termine par /exec)<input name="sheetUrl" type="url" value="${esc(state.settings.sheetUrl)}" placeholder="https://script.google.com/macros/s/…/exec"></label>
-    <p class="hint">${state.settings.sheetUrl ? `${pendingLines(state.data).length} ligne(s) en attente d’envoi${state.sync.last ? ` · dernier envoi ${new Date(state.sync.last).toLocaleString('fr-CA')}` : ''}${state.sync.error ? ` · erreur : ${esc(state.sync.error)}` : ''}.` : 'Pas encore configuré : les données restent seulement sur ce téléphone.'}</p>
-    ${state.settings.sheetUrl ? '<button type="button" class="btn" id="sync-now">Envoyer maintenant</button>' : ''}
-    <h2 class="mt">Profil</h2>
+    ${syncStatus()}
+    <p class="hint">Chaque reçu enregistré est ajouté à la feuille « Historique » de Suivi_depenses_V2.</p>
+    <label>Adresse du script (se termine par /exec)<input name="sheetUrl" type="url" inputmode="url" value="${esc(state.settings.sheetUrl)}" placeholder="https://script.google.com/macros/s/…/exec"></label>
+    <button class="btn primary wide" type="submit">${state.settings.sheetUrl ? 'Envoyer maintenant' : 'Relier le Google Sheet'}</button>
+  </form>
+  <form id="sform" class="block" autocomplete="off">
+    <h2>Profil</h2>
     <label>Code régional (3 premiers caractères du code postal)<input name="region" value="${esc(state.settings.region)}" maxlength="3" placeholder="H4L"></label>
     <button class="btn primary" type="submit">Enregistrer les réglages</button>
   </form>
@@ -630,7 +811,7 @@ function viewSettings() {
     <p class="muted">${state.official.points?.length ? `IPC du Québec, aliments achetés en magasin : ${state.official.points.length} mois, jusqu'en ${esc(fmtMonth(state.official.points.at(-1).month))}. Mis à jour le ${esc(state.official.updated)}.` : 'IPC du Québec : en attente de la première mise à jour automatique.'}</p>
   </section>
   <section class="block"><h2>Recommencer</h2><button class="btn danger" id="reset">Revenir aux données historiques</button></section>
-  <p class="muted small center">Panier v2 · données historiques : Suivi_depenses_V2</p>`;
+  <p class="muted small center">Panier v${APP_VERSION} · données historiques : Suivi_depenses_V2</p>`;
 }
 
 // ---------- Données récupérées, ajoutées une seule fois ----------
@@ -662,6 +843,8 @@ async function start() {
     await applyPatches();
     await db.persist();
     state.settings = { ...state.settings, ...(await db.getMeta('settings', {})) };
+    state.sync = { ...state.sync, ...(await db.getMeta('sync', {})) };
+    state.notSame = await db.getMeta('notSame', []);
     if (!state.settings.sheetToken) {
       state.settings.sheetToken = newToken();
       await db.setMeta('settings', state.settings);

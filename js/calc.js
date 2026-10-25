@@ -45,6 +45,7 @@ export function joinLines({ products, receipts, lines }, { inScopeOnly = true } 
     if (inScopeOnly && p.category === HORS) continue;
     if (isTaxLabel(p.name)) continue; // une taxe saisie par erreur ne compte jamais
     if (!(l.amount > 0)) continue;
+    if (l.review === 'excluded') continue; // exclu par l'utilisateur à la vérification
     out.push({ ...l, product: p, date: r.date, month: monthOf(r.date), storeId: r.storeId });
   }
   return out;
@@ -259,4 +260,58 @@ export function movers(joined, { minObs = 3 } = {}) {
     out.push({ productId: id, name: ls[0].product.name, first, last, from: ls[0].date, to: ls[ls.length - 1].date, pct: (last / first - 1) * 100 });
   }
   return out.sort((a, b) => b.pct - a.pct);
+}
+
+/**
+ * Contrôle de qualité des achats. Retourne Map(lineId -> {kind, msg, fix}) pour les lignes suspectes :
+ * - 'poids'    : quantité décimale pour un produit vendu à l'unité (un poids en kg saisi comme quantité)
+ * - 'quantite' : montant ≈ k × prix habituel avec quantité 1 (quantité oubliée), ou l'inverse
+ * - 'ecart'    : prix unitaire très éloigné du prix habituel du produit, sans explication évidente
+ * Une ligne marquée review: 'ok' par l'utilisateur n'est plus signalée.
+ */
+export function auditLines(joined) {
+  const flags = new Map();
+  const by = new Map();
+  for (const l of joined) {
+    if (!by.has(l.productId)) by.set(l.productId, []);
+    by.get(l.productId).push(l);
+  }
+  const money = (x) => x.toFixed(2).replace('.', ',') + ' $';
+  for (const ls of by.values()) {
+    for (const l of ls) {
+      if (l.review === 'ok') continue;
+      const unit = l.product.unit;
+      const u = l.amount / l.qty;
+      if (!Number.isInteger(l.qty) && unit !== 'kg') {
+        flags.set(l.id, { kind: 'poids', msg: `Quantité ${String(l.qty).replace('.', ',')} pour un produit vendu « ${unit} » : c'est probablement un poids en kg.`,
+          fixes: [{ label: `Vendu au kg (${String(l.qty).replace('.', ',')} kg)`, patch: { unit: 'kg' } }] });
+        continue;
+      }
+      const others = ls.filter((x) => x !== l).map((x) => x.amount / x.qty);
+      if (others.length < 2) continue;
+      const med = median(others);
+      const r = u / med;
+      if (r > 2.2) {
+        const k = Math.round(r);
+        if (l.qty === 1 && k >= 2 && k <= 8 && Math.abs(u / (k * med) - 1) <= 0.03) {
+          flags.set(l.id, { kind: 'quantite', msg: `${money(l.amount)} ≈ ${k} × ${money(med)} (prix habituel) : quantité probablement ${k}.`,
+            fixes: [{ label: `Quantité ${k}`, patch: { qty: k } }] });
+        } else {
+          flags.set(l.id, { kind: 'ecart', msg: `${money(u)} l'unité contre ${money(med)} d'habitude (${r.toFixed(1).replace('.', ',')} fois plus cher) : format différent ou erreur de saisie ?` });
+        }
+      } else if (r < 0.45) {
+        if (l.qty > 1 && Math.abs(l.amount / med - 1) <= 0.12) {
+          const total = Math.round(l.qty * l.amount * 100) / 100;
+          flags.set(l.id, { kind: 'quantite', msg: `${money(l.amount)} pour ${l.qty} articles, mais c'est le prix habituel d'un seul (${money(med)}).`,
+            fixes: [
+              { label: `Total ${money(total)} (${l.qty} × ${money(l.amount)})`, patch: { amount: total } },
+              { label: 'Quantité 1', patch: { qty: 1 } },
+            ] });
+        } else {
+          flags.set(l.id, { kind: 'ecart', msg: `${money(u)} l'unité contre ${money(med)} d'habitude (${Math.round((1 - r) * 100)} % moins cher) : rabais, format plus petit ou erreur ?` });
+        }
+      }
+    }
+  }
+  return flags;
 }

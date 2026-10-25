@@ -228,3 +228,22 @@ fieldset.line.low { border-left: 3px solid var(--warn); padding-left: 10px; }
 .token-row input { margin: 0; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 .token-row .btn { flex: none; }
 h2.mt { margin-top: 18px; }
+.status { padding: 8px 12px; border-radius: 8px; font-weight: 700; margin: 4px 0 10px; }
+.status.good { background: #1f3330; color: var(--down); }
+.status.off { background: #3a2f22; color: var(--warn); }
+.status.bad { background: #3d2424; color: var(--up); }
+.pending-box { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #b9b0a3; font-size: 0.9rem; }
+.pending-box p { margin: 0 0 6px; }
+.review { list-style: none; padding: 0; margin: 12px 0 0; }
+.review li { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; }
+.rv-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.rv-head a { font-weight: 700; text-decoration: none; }
+.rv-head span { color: var(--muted); font-size: 0.85rem; }
+.rv-line { font-family: var(--display); margin: 4px 0; }
+.review .btns { margin: 6px 0 0; }
+.review .btn { min-height: 40px; padding: 8px 12px; font-size: 0.9rem; }
+.tag { font-size: 0.75rem; font-weight: 700; padding: 1px 8px; border-radius: 99px; border: 1px solid; }
+.tag.meme-nom { color: var(--down); }
+.tag.variante { color: var(--warn); }
+.review.twins li { background: transparent; border-radius: 0; padding: 12px 0; margin: 0; border-top: 1px solid var(--line); }
+.review.twins li:first-child { border-top: 0; }

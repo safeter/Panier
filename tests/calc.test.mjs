@@ -139,3 +139,23 @@ test('calcul : un produit nommé TPS ou TVQ n’entre jamais dans l’indice', (
   f.lines.push({ id: 'x', receiptId: 'r1', productId: 'tvq', qty: 1, amount: 0.75 });
   assert.ok(joinLines(f).every((l) => l.productId !== 'tvq'));
 });
+
+test('contrôle de qualité : poids saisi comme quantité, quantité oubliée, écart, ligne validée', async () => {
+  const { auditLines } = await import('../js/calc.js');
+  const P = (id, unit) => ({ id, name: id, unit, category: 'fruits' });
+  const mk = (id, p, qty, amount, extra = {}) => ({ id, productId: p.id, product: p, qty, amount, date: '2025-01-01', month: '2025-01', ...extra });
+  const mangue = P('mangue', 'unité');
+  const raisins = P('raisins', 'sac');
+  const persil = P('persil', 'botte');
+  const lines = [
+    mk('m1', mangue, 1, 1.47), mk('m2', mangue, 1, 1.49), mk('m3', mangue, 1, 1.45), mk('m4', mangue, 1, 5.88),
+    mk('r1', raisins, 0.98, 6.46),
+    mk('p1', persil, 1, 1.99), mk('p2', persil, 1, 1.99), mk('p3', persil, 1, 5.49), mk('p4', persil, 1, 5.49, { review: 'ok' }),
+  ];
+  const f = auditLines(lines);
+  assert.deepEqual(f.get('m4').fixes[0].patch, { qty: 4 });
+  assert.deepEqual(f.get('r1').fixes[0].patch, { unit: 'kg' });
+  assert.equal(f.get('p3').kind, 'ecart');
+  assert.ok(!f.has('p4'));
+  assert.ok(!f.has('m1'));
+});

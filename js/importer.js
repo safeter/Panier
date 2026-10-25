@@ -1,6 +1,7 @@
 // Import de reçus préparés hors de l'app (ex. lus par Claude dans le projet Panier).
 // Format : voir FORMAT-IMPORT.md. Fonction pure, testée dans tests/importer.test.mjs.
 import { CAT, isTaxLabel } from './categories.js';
+import { nameKey } from './similar.js';
 
 const slug = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const n = (v) => {
@@ -36,6 +37,12 @@ export function planImport(data, payload, makeId) {
     if (!products.has(k)) products.set(k, []);
     products.get(k).push(p);
   }
+  const byKey = new Map();
+  for (const p of data.products) {
+    const k = nameKey(p.name);
+    if (!byKey.has(k)) byKey.set(k, []);
+    byKey.get(k).push(p);
+  }
   const existingTotals = new Map();
   for (const l of data.lines) existingTotals.set(l.receiptId, (existingTotals.get(l.receiptId) || 0) + l.amount);
   const existingKeys = new Set(data.receipts.map((r) => `${r.date}|${r.storeId}|${Math.round((existingTotals.get(r.id) || 0) * 100)}`));
@@ -66,10 +73,12 @@ export function planImport(data, payload, makeId) {
       const unit = String(l.unit || 'unité').trim();
       // Même produit = même nom ET même unité ; « Pommes au kg » et « Pommes en sac » sont deux séries de prix.
       const cands = products.get(slug(name)) || [];
-      let p = cands.find((x) => x.unit === unit);
+      // Sinon, même nom à la casse, aux accents, au pluriel ou au format près (« Bleuets 170g » = « Bleuets »).
+      let p = cands.find((x) => x.unit === unit) || (byKey.get(nameKey(name)) || []).find((x) => x.unit === unit);
       if (!p) {
         p = { id: `${slug(name)}--${slug(unit)}`, name, unit, category: CAT[l.category] ? l.category : (cands[0]?.category || 'autres'), type: slug(name) };
         products.set(slug(name), [...cands, p]);
+        byKey.set(nameKey(name), [...(byKey.get(nameKey(name)) || []), p]);
         out.products.push(p);
       }
       const size = parseSize(l.size);
