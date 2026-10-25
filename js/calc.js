@@ -129,7 +129,8 @@ function nearest(series, target, tol) {
 export function headlineInflation(series) {
   if (series.length < 2) return null;
   const last = series[series.length - 1];
-  const yearAgo = nearest(series.slice(0, -1), addMonths(last.month, -12), 2);
+  // Point de comparaison : un mois fiable (assez de produits communs) environ un an plus tôt.
+  const yearAgo = nearest(series.slice(0, -1).filter((p) => p.reliable !== false), addMonths(last.month, -12), 2);
   const base = yearAgo || series[0];
   const months = monthsBetween(base.month, last.month);
   return {

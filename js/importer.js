@@ -62,11 +62,12 @@ export function planImport(data, payload, makeId) {
     for (const l of lines) {
       const name = String(l.name).trim();
       const unit = String(l.unit || 'unité').trim();
+      // Même produit = même nom ET même unité ; « Pommes au kg » et « Pommes en sac » sont deux séries de prix.
       const cands = products.get(slug(name)) || [];
-      let p = cands.find((x) => x.unit === unit) || cands[0];
+      let p = cands.find((x) => x.unit === unit);
       if (!p) {
-        p = { id: `${slug(name)}--${slug(unit)}`, name, unit, category: CAT[l.category] ? l.category : 'autres', type: slug(name) };
-        products.set(slug(name), [p]);
+        p = { id: `${slug(name)}--${slug(unit)}`, name, unit, category: CAT[l.category] ? l.category : (cands[0]?.category || 'autres'), type: slug(name) };
+        products.set(slug(name), [...cands, p]);
         out.products.push(p);
       }
       const size = parseSize(l.size);

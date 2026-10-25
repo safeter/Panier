@@ -34,3 +34,20 @@ test('un reçu déjà présent est ignoré', () => {
 test('date invalide refusée', () => {
   assert.throws(() => planImport(base(), [{ date: '17/01/2026', store: 'Maxi', lines: [] }], id), /AAAA-MM-JJ/);
 });
+
+test('même nom, unité différente : nouvelle série de prix', () => {
+  const out = planImport(base(), [{ date: '2026-05-03', store: 'Super C', lines: [{ name: 'Banane bio', unit: 'sac', amount: 3.49 }] }], id);
+  assert.equal(out.products.length, 1);
+  assert.equal(out.products[0].id, 'banane-bio--sac');
+  assert.equal(out.products[0].category, 'fruits');
+});
+
+test('reçus de mai 2026 (ancienne app) : tous importables', async () => {
+  const { readFileSync } = await import('node:fs');
+  const seed = JSON.parse(readFileSync(new URL('../data/seed.json', import.meta.url)));
+  const payload = JSON.parse(readFileSync(new URL('./fixtures/recus-mai-2026.json', import.meta.url)));
+  const out = planImport(seed, payload, id);
+  assert.equal(out.receipts.length, 5);
+  assert.equal(out.lines.length, 71);
+  assert.equal(out.skipped.length, 0);
+});

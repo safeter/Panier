@@ -1,10 +1,10 @@
 // Service worker : l'app se lance hors ligne ; la série officielle est rafraîchie dès que possible.
-const VERSION = 'panier-v2.2.0';
+const VERSION = 'panier-v2.3.0';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
   './js/app.js', './js/calc.js', './js/db.js', './js/util.js', './js/charts.js',
   './js/categories.js', './js/importer.js', './js/sync.js', './js/excel.js',
-  './data/seed.json', './data/ipc-quebec.json', './icons/icon-192.png',
+  './data/seed.json', './data/ipc-quebec.json', './data/patches/recus-mai-2026.json', './icons/icon-192.png',
 ];
 
 self.addEventListener('install', (e) => {

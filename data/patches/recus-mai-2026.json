@@ -1,0 +1,540 @@
+{
+ "app": "panier-recus",
+ "source": "Supabase panier-epicerie (ancienne app), mai 2026",
+ "receipts": [
+  {
+   "date": "2026-05-03",
+   "store": "Super C",
+   "source": "ancienne-app",
+   "lines": [
+    {
+     "name": "Charcuterie assortie",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 8.45,
+     "category": "viande"
+    },
+    {
+     "name": "Radis",
+     "unit": "botte",
+     "qty": 1,
+     "amount": 0.49,
+     "category": "legumes"
+    },
+    {
+     "name": "Poivron vert",
+     "unit": "kg",
+     "qty": 0.245,
+     "amount": 2.16,
+     "category": "legumes"
+    },
+    {
+     "name": "Dentifrice Sélection",
+     "unit": "tube",
+     "qty": 1,
+     "amount": 6.69,
+     "category": "hors"
+    },
+    {
+     "name": "Café Willoughby (grand)",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 25.99,
+     "category": "autres"
+    },
+    {
+     "name": "Feta",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 1.89,
+     "category": "laitiers"
+    },
+    {
+     "name": "Tostadas",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 2.09,
+     "category": "boulangerie"
+    },
+    {
+     "name": "Pommes Honeycrisp",
+     "unit": "kg",
+     "qty": 1.035,
+     "amount": 9.11,
+     "category": "fruits"
+    },
+    {
+     "name": "Mini carottes",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Tomates cerises",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 4.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Pruneaux",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 11.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Fraises congelées",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 5.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Tartinades Flax",
+     "unit": "pot",
+     "qty": 1,
+     "amount": 4.49,
+     "category": "autres"
+    },
+    {
+     "name": "Mangue rouge",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 0.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Sauce tomate Classico",
+     "unit": "pot",
+     "qty": 1,
+     "amount": 2.65,
+     "category": "autres"
+    },
+    {
+     "name": "Baies congelées",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 5.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Raisins verts",
+     "unit": "kg",
+     "qty": 0.96,
+     "amount": 8.45,
+     "category": "fruits"
+    },
+    {
+     "name": "Fruits congelés assortis",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 5.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Œufs",
+     "unit": "douzaine",
+     "qty": 1,
+     "amount": 7.89,
+     "category": "laitiers"
+    },
+    {
+     "name": "Filet de saumon",
+     "unit": "kg",
+     "qty": 1,
+     "amount": 10.04,
+     "category": "poisson"
+    },
+    {
+     "name": "Bœuf haché mi-maigre",
+     "unit": "kg",
+     "qty": 1,
+     "amount": 5.84,
+     "category": "viande"
+    },
+    {
+     "name": "Filet de saumon",
+     "unit": "kg",
+     "qty": 1,
+     "amount": 10.18,
+     "category": "poisson"
+    },
+    {
+     "name": "Thon en conserve",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 2.59,
+     "category": "poisson"
+    },
+    {
+     "name": "Citrons Meyer",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 6.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Limes",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 3.49,
+     "category": "fruits"
+    },
+    {
+     "name": "Café Willoughby",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 13.99,
+     "category": "autres"
+    },
+    {
+     "name": "Dattes",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Sardines à l'eau",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 2.19,
+     "category": "poisson"
+    },
+    {
+     "name": "Philadelphia",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 4.79,
+     "category": "laitiers"
+    },
+    {
+     "name": "Avocats",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 3.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Citrons",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 1.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Fraises",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "fruits"
+    }
+   ]
+  },
+  {
+   "date": "2026-05-09",
+   "store": "Super C",
+   "source": "ancienne-app",
+   "lines": [
+    {
+     "name": "Laitue duo",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 1.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Hummus",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 4.99,
+     "category": "autres"
+    },
+    {
+     "name": "Café Willoughby",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 23.49,
+     "category": "autres"
+    },
+    {
+     "name": "Oranges bio",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 7.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Fromage Burrata",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 5.99,
+     "category": "laitiers"
+    },
+    {
+     "name": "Crème 15%",
+     "unit": "carton",
+     "qty": 1,
+     "amount": 4.69,
+     "category": "laitiers"
+    },
+    {
+     "name": "Grenade",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 3.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Champignons",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 0.38,
+     "category": "legumes"
+    },
+    {
+     "name": "Courgette",
+     "unit": "kg",
+     "qty": 1.06,
+     "amount": 6.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Bleuets",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 0.5,
+     "category": "fruits",
+     "size": "170 g"
+    },
+    {
+     "name": "Olives kalamata",
+     "unit": "pot",
+     "qty": 1,
+     "amount": 3.49,
+     "category": "legumes"
+    },
+    {
+     "name": "Carottes",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Chocolat Reese",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 2.19,
+     "category": "autres"
+    },
+    {
+     "name": "Navet",
+     "unit": "kg",
+     "qty": 1.38,
+     "amount": 9.09,
+     "category": "legumes"
+    },
+    {
+     "name": "Laitue duo",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 1.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Hummus",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 4.99,
+     "category": "autres"
+    },
+    {
+     "name": "Mûres",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 0.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Lait 3,25%",
+     "unit": "litre",
+     "qty": 1,
+     "amount": 4.39,
+     "category": "laitiers"
+    },
+    {
+     "name": "Tortellini",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 8.99,
+     "category": "boulangerie"
+    },
+    {
+     "name": "Yogourt classique vanille",
+     "unit": "pot",
+     "qty": 1,
+     "amount": 2.09,
+     "category": "laitiers"
+    },
+    {
+     "name": "Nectar Del Monte",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 1.05,
+     "category": "fruits"
+    },
+    {
+     "name": "Fraises",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "fruits"
+    },
+    {
+     "name": "Banane bio",
+     "unit": "kg",
+     "qty": 1.04,
+     "amount": 2.72,
+     "category": "fruits"
+    },
+    {
+     "name": "Nourriture Lily's Kitchen",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 16.49,
+     "category": "hors"
+    },
+    {
+     "name": "Légumineuses",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 2.19,
+     "category": "legumes"
+    },
+    {
+     "name": "Framboises",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "fruits",
+     "size": "170 g"
+    },
+    {
+     "name": "Miche Campagnolo",
+     "unit": "pain",
+     "qty": 1,
+     "amount": 2.79,
+     "category": "boulangerie"
+    },
+    {
+     "name": "Fruits en conserve Del Monte",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 4.09,
+     "category": "fruits"
+    },
+    {
+     "name": "Beurre d'arachide Kraft",
+     "unit": "pot",
+     "qty": 1,
+     "amount": 3.79,
+     "category": "autres"
+    }
+   ]
+  },
+  {
+   "date": "2026-05-14",
+   "store": "Provigo",
+   "source": "ancienne-app",
+   "lines": [
+    {
+     "name": "Saucisses italiennes Roma",
+     "unit": "paquet",
+     "qty": 1,
+     "amount": 8.5,
+     "category": "viande"
+    },
+    {
+     "name": "Tarte aux pacanes",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 3.5,
+     "category": "boulangerie"
+    },
+    {
+     "name": "Maquereau Golden Seal",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 4.29,
+     "category": "poisson"
+    }
+   ]
+  },
+  {
+   "date": "2026-05-14",
+   "store": "Super C",
+   "source": "ancienne-app",
+   "lines": [
+    {
+     "name": "Champignons portobello",
+     "unit": "contenant",
+     "qty": 1,
+     "amount": 4.99,
+     "category": "legumes"
+    },
+    {
+     "name": "Pâté de foie",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 1.5,
+     "category": "viande"
+    },
+    {
+     "name": "Végépâté Fontaine Santé",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 4.99,
+     "category": "autres"
+    },
+    {
+     "name": "Bleuets chopine",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 2.88,
+     "category": "fruits"
+    },
+    {
+     "name": "Œufs Natoeuf gros",
+     "unit": "unité",
+     "qty": 1,
+     "amount": 6.99,
+     "category": "laitiers"
+    }
+   ]
+  },
+  {
+   "date": "2026-05-15",
+   "store": "Maxi",
+   "source": "ancienne-app",
+   "lines": [
+    {
+     "name": "Sardines Brunswick",
+     "unit": "boîte",
+     "qty": 1,
+     "amount": 2.99,
+     "category": "poisson"
+    },
+    {
+     "name": "Pistaches Wonderful",
+     "unit": "sac",
+     "qty": 1,
+     "amount": 7.79,
+     "category": "fruits"
+    }
+   ]
+  }
+ ]
+}

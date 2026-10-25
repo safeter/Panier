@@ -532,7 +532,9 @@ function viewSettings() {
     $('#reset').addEventListener('click', async () => {
       if (!confirm('Effacer tous les reçus ajoutés et revenir aux seules données historiques ?')) return;
       await db.setMeta('seeded', null);
+      await db.setMeta('patches', []);
       await db.ensureSeeded();
+      await applyPatches();
       await reload();
       toast('Données historiques rechargées.');
       location.hash = '#/';
@@ -566,10 +568,33 @@ function viewSettings() {
   <p class="muted small center">Panier v2 · données historiques : Suivi_depenses_V2</p>`;
 }
 
+// ---------- Données récupérées, ajoutées une seule fois ----------
+const PATCHES = ['recus-mai-2026'];
+async function applyPatches() {
+  const done = await db.getMeta('patches', []);
+  for (const name of PATCHES.filter((p) => !done.includes(p))) {
+    try {
+      const payload = await fetch(`./data/patches/${name}.json`).then((r) => r.json());
+      const data = await db.loadAll();
+      const plan = planImport(data, payload, uid);
+      if (plan.stores.length) await db.put('stores', plan.stores);
+      if (plan.products.length) await db.put('products', plan.products);
+      if (plan.receipts.length) await db.put('receipts', plan.receipts);
+      if (plan.lines.length) await db.put('lines', plan.lines);
+      done.push(name);
+      await db.setMeta('patches', done);
+      if (plan.receipts.length) toast(`${plan.receipts.length} reçus récupérés de l’ancienne app (${plan.lines.length} articles).`, 'ok');
+    } catch (err) {
+      console.warn('Patch non appliqué', name, err);
+    }
+  }
+}
+
 // ---------- Démarrage ----------
 async function start() {
   try {
     const seeded = await db.ensureSeeded();
+    await applyPatches();
     await db.persist();
     state.settings = { ...state.settings, ...(await db.getMeta('settings', {})) };
     if (!state.settings.sheetToken) {
@@ -578,7 +603,7 @@ async function start() {
     }
     state.official = await fetch('./data/ipc-quebec.json', { cache: 'no-cache' }).then((r) => r.json()).catch(() => ({ points: [] }));
     await reload();
-    if (seeded) toast(`Historique importé : ${state.data.lines.length} articles depuis ${fmtMonth(state.derived.series[0]?.month || '2023-12')}.`, 'ok');
+    if (seeded) toast(`Historique importé : ${state.data.lines.filter((l) => l.id.startsWith('mig-')).length} articles depuis ${fmtMonth(state.derived.series[0]?.month || '2023-12')}.`, 'ok');
   } catch (err) {
     $('#view').innerHTML = `<p class="notice">Impossible de charger les données : ${esc(err.message)}</p>`;
     return;
