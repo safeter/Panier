@@ -4,7 +4,7 @@ import { CATEGORIES, CAT, IN_SCOPE } from './categories.js';
 import { $, $$, esc, fmtMoney, fmtPct, fmtMonth, fmtDate, today, uid, slug, toast, num, parseSize, fmtSize } from './util.js';
 import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
 import { planImport } from './importer.js';
-import { parseReceiptText } from './pdfparse.js';
+import { parseReceiptText, guessCategory } from './pdfparse.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
@@ -345,7 +345,7 @@ async function onPdfFile(e) {
         return {
           ...emptyLine(),
           name: known ? known.name : l.name, productId: known?.id || null, rawName: l.name,
-          unit: known ? known.unit : l.unit, category: known ? known.category : 'autres',
+          unit: known ? known.unit : l.unit, category: known ? known.category : guessCategory(l.name),
           qty: String(l.qty).replace('.', ','), amount: l.amount.toFixed(2).replace('.', ','),
           size: l.size || '', regularPrice: l.regularPrice ? String(l.regularPrice).replace('.', ',') : '',
           raw: l.raw, confidence: known ? 0.9 : 0.5,
@@ -355,7 +355,7 @@ async function onPdfFile(e) {
     const sum = parsed.lines.reduce((a, l) => a + l.amount, 0);
     render();
     const todo = state.draft.lines.filter((l) => !l.productId).length;
-    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${parsed.total ? ` · total du document ${fmtMoney(parsed.total)}, lignes ${fmtMoney(sum)}` : ''}.`);
+    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${parsed.total ? ` · articles ${fmtMoney(sum)} (total du document avec taxes et frais : ${fmtMoney(parsed.total)})` : ''}.`);
   } catch (err) {
     status.textContent = `Lecture du PDF impossible : ${err.message}`;
     status.classList.add('error');

@@ -64,3 +64,24 @@ test('reçu de caisse : rabais, poids au kg, taxes ignorées', () => {
   assert.equal(r.lines[2].name, 'YOGOURT OIKOS');
   assert.equal(r.total, 14.94);
 });
+
+test('facture réelle Fermes Lufa : prix révisés au poids réel, livraison et taxes exclues', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { guessCategory } = await import('../js/pdfparse.js');
+  const text = readFileSync(new URL('./fixtures/lufa-2026-10-24.txt', import.meta.url), 'utf8').split('\n');
+  const r = parseReceiptText(text);
+  assert.equal(r.store, 'Fermes Lufa');
+  assert.equal(r.date, '2026-10-24');
+  assert.equal(r.total, 63.19);
+  assert.equal(r.lines.length, 14);
+  assert.equal(Math.round(r.lines.reduce((a, l) => a + l.amount, 0) * 100) / 100, 56.04);
+  const tomates = r.lines[0];
+  assert.deepEqual([tomates.name, tomates.amount, tomates.size], ['Tomates cerises multicolores', 3.57, '383 g']);
+  const porc = r.lines.find((l) => l.name.startsWith('Filet de porc'));
+  assert.equal(porc.amount, 7.48);
+  assert.equal(guessCategory(porc.name), 'viande');
+  assert.equal(guessCategory('Cheddar râpé biologique'), 'laitiers');
+  assert.equal(guessCategory('Poires Bartlett'), 'fruits');
+  assert.equal(guessCategory('Bok choy Black Summer'), 'legumes');
+  assert.equal(guessCategory('Nouilles ramen (sèches)'), 'boulangerie');
+});

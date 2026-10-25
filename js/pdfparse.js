@@ -51,6 +51,35 @@ function clean(name) {
     .trim();
 }
 
+// Format des factures Fermes Lufa :
+// « Nom [Producteur] (Biologique)  375g 3,50 $  [383g 3,57 $ 0,07 $] »
+// poids et prix commandés, puis, si le poids réel diffère, poids réel, prix révisé et ajustement.
+const Q = '(\\d+(?:[,.]\\d+)?)\\s?(kg|g|ml|l)';
+const P = '(-?\\d+[,.]\\d{2})\\s*\\$';
+const LUFA_LINE = new RegExp(`^(.*?)\\s+${Q}\\s+${P}(?:\\s+${Q}\\s+${P}\\s+${P})?\\s*$`, 'i');
+
+function parseLufa(lines) {
+  const out = [];
+  for (const rawLine of lines) {
+    const raw = rawLine.replace(/\s+/g, ' ').trim();
+    const m = raw.match(LUFA_LINE);
+    if (!m) continue;
+    let [, label, q1, u1, p1, q2, u2, p2] = m;
+    if (/livraison|frais de|delivery/i.test(label)) continue;
+    const bio = /\(biologique\)/i.test(label);
+    const base = clean(label.replace(/\[[^\]]*\]/g, '').replace(/\((?:biologique|\*+[^)]*)\)/gi, ''));
+    const name = base + (bio && !/biolog|\bbio\b/i.test(base) ? ' bio' : '');
+    const qty = q2 ? q2 : q1;
+    const unit = (q2 ? u2 : u1).toLowerCase();
+    out.push({
+      raw, name, qty: 1, amount: num(p2 || p1), unit: 'unité',
+      size: `${qty.replace('.', ',')} ${unit === 'l' ? 'L' : unit}`,
+      producer: (label.match(/\[([^\]]+)\]/) || [])[1] || '',
+    });
+  }
+  return out;
+}
+
 /**
  * @param {string[]} lines lignes de texte du document, dans l'ordre de lecture
  * @returns {{date: string|null, store: string, total: number|null, lines: Array}}
@@ -58,6 +87,12 @@ function clean(name) {
 export function parseReceiptText(lines) {
   const text = lines.join('\n');
   const out = { date: findDate(text), store: findStore(text), total: null, lines: [] };
+  if (out.store === 'Fermes Lufa') {
+    out.lines = parseLufa(lines);
+    const t = text.match(/\bTOTAL\s+(\d+[,.]\d{2})\s*\$/);
+    out.total = t ? num(t[1]) : null;
+    if (out.lines.length) return out;
+  }
   for (const rawLine of lines) {
     const raw = rawLine.replace(/\s+/g, ' ').trim();
     if (!raw) continue;
@@ -111,4 +146,20 @@ export function parseReceiptText(lines) {
     out.lines.push({ raw, name, qty, amount, size: sizeOf(name), unit: kg ? 'kg' : 'unité' });
   }
   return out;
+}
+
+// Catégorie IPC proposée d'après le nom (à vérifier par l'utilisateur ; « autres » par défaut).
+const CAT_WORDS = [
+  ['poisson', /saumon|thon|sardine|maquereau|truite|morue|aiglefin|crevette|p[ée]toncle|moule|homard|poisson|tilapia|pangasius/],
+  ['viande', /porc|b[œo]euf|poulet|dinde|agneau|veau|saucisse|jambon|bacon|salami|charcuterie|steak|bifteck|c[ôo]te|haut de cuisse|poitrine|viande|mortadelle|p[âa]t[ée] de foie/],
+  ['laitiers', /fromage|cheddar|mozzarella|feta|brie|parmesan|lait\b|lait |yogourt|yaourt|kéfir|kefir|beurre(?! d.arachide)|cr[èe]me(?! glac)|[œo]ufs?\b|ricotta|burrata/],
+  ['boulangerie', /pain|baguette|bagel|croissant|muffin|tortilla|pita|brioche|tagliatelle|spaghetti|linguine|lasagne|p[âa]tes|nouille|ramen|riz|farine|c[ée]r[ée]ale|gruau|avoine|craquelin|biscuit|tostada|couscous|quinoa|orge/],
+  ['fruits', /pomme(?! de terre)|poire|banane|orange|cl[ée]mentine|mandarine|citron|lime|pamplemousse|fraise|framboise|bleuet|m[ûu]re|canneberge|raisin|cerise(?!s? de terre)|p[êe]che|prune|abricot|mangue|ananas|kiwi|melon|past[èe]que|grenade|avocat|datte|figue|noix|amande|pistache|noisette|compote|jus/],
+  ['legumes', /tomate|laitue|chou|bok choy|kale|[ée]pinard|roquette|oignon|[ée]chalote|ail\b|carotte|navet|rutabaga|panais|betterave|radis|c[ée]leri|concombre|courgette|courge|citrouille|aubergine|poivron|piment|brocoli|asperge|haricot|pois|lentille|f[èe]ve|ma[ïi]s|patate|pomme de terre|champignon|poireau|fenouil|herbe|basilic|persil|coriandre|menthe|ciboulette|aneth|thym|germe|pousse|micro-?pousse|olive|cornichon/],
+];
+
+export function guessCategory(name) {
+  const n = name.toLowerCase();
+  for (const [cat, re] of CAT_WORDS) if (re.test(n)) return cat;
+  return 'autres';
 }
