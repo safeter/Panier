@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Panier</title>
+  <meta name="description" content="Mon inflation d'épicerie, comparée à l'IPC du Québec.">
+  <meta name="theme-color" content="#1c1a24">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#view">Aller au contenu</a>
+  <main id="view" tabindex="-1"><p class="loading">Chargement de tes données…</p></main>
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a href="#/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg><span>Tableau</span></a>
+    <a href="#/produits"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M6 7l1.5 12h9L18 7M9 7V5a3 3 0 0 1 6 0v2"/></svg><span>Produits</span></a>
+    <a href="#/ajouter" class="add"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Ajouter</span></a>
+    <a href="#/recus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></svg><span>Reçus</span></a>
+    <a href="#/reglages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Réglages</span></a>
+  </nav>
+</body>
+</html>

@@ -1,0 +1,9694 @@
+{
+"version": 1,
+"source": "Suivi_depenses_V2 / Historique",
+"stores": [
+{
+"id": "super-c",
+"name": "Super C"
+},
+{
+"id": "steam",
+"name": "Steam"
+},
+{
+"id": "saq",
+"name": "SAQ"
+},
+{
+"id": "mondou",
+"name": "Mondou"
+},
+{
+"id": "pharmaprix",
+"name": "Pharmaprix"
+},
+{
+"id": "maxi",
+"name": "Maxi"
+},
+{
+"id": "desjardins",
+"name": "Desjardins"
+},
+{
+"id": "cpe",
+"name": "CPE"
+},
+{
+"id": "petline",
+"name": "Petline"
+},
+{
+"id": "la-cantine",
+"name": "La Cantine"
+},
+{
+"id": "provigo",
+"name": "Provigo"
+},
+{
+"id": "le-monde",
+"name": "Le Monde"
+},
+{
+"id": "fizz",
+"name": "Fizz"
+},
+{
+"id": "tchou-tchou",
+"name": "Tchou-Tchou"
+},
+{
+"id": "myriade",
+"name": "Myriade"
+},
+{
+"id": "home-depot",
+"name": "Home Depot"
+},
+{
+"id": "jean-coutu",
+"name": "Jean Coutu"
+}
+],
+"products": [
+{
+"id": "mangue-ataulfo--unite",
+"name": "Mangue ataulfo",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "mangue-ataulfo"
+},
+{
+"id": "champignons--contenant",
+"name": "Champignons",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "champignons"
+},
+{
+"id": "fraises--contenant",
+"name": "Fraises",
+"unit": "contenant",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "fraises"
+},
+{
+"id": "pitas-blancs--sac",
+"name": "Pitas blancs",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pitas-blancs"
+},
+{
+"id": "pates-tagliatelles--boite",
+"name": "Pâtes tagliatelles",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-tagliatelles"
+},
+{
+"id": "framboises--contenant",
+"name": "Framboises",
+"unit": "contenant",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "framboises"
+},
+{
+"id": "yogourt-oikos-nature--pot",
+"name": "Yogourt Oikos nature",
+"unit": "pot",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "yogourt-oikos-nature"
+},
+{
+"id": "raisins-rouges--sac",
+"name": "Raisins rouges",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "raisins-rouges"
+},
+{
+"id": "courgette--unite",
+"name": "Courgette",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "courgette"
+},
+{
+"id": "pain-tranche-9-grains--pain",
+"name": "Pain tranché 9 grains",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-tranche-9-grains"
+},
+{
+"id": "parmigiano-reggiano--paquet",
+"name": "Parmigiano Reggiano",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "parmigiano-reggiano"
+},
+{
+"id": "pommes-cortland--sac",
+"name": "Pommes Cortland",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-cortland"
+},
+{
+"id": "pesto-basilic--pot",
+"name": "Pesto basilic",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "pesto-basilic"
+},
+{
+"id": "feta--contenant",
+"name": "Feta",
+"unit": "contenant",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "feta"
+},
+{
+"id": "lait-3-25--litre",
+"name": "Lait 3,25%",
+"unit": "litre",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "lait-3-25"
+},
+{
+"id": "pommes-de-terre-russet--sac",
+"name": "Pommes de terre Russet",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-de-terre-russet"
+},
+{
+"id": "hummus-humm--contenant",
+"name": "Hummus Humm!",
+"unit": "contenant",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "hummus-humm"
+},
+{
+"id": "riz-basmati--sac",
+"name": "Riz basmati",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "riz-basmati"
+},
+{
+"id": "poivron-rouge--unite",
+"name": "Poivron rouge",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "poivron-rouge"
+},
+{
+"id": "citrons--unite",
+"name": "Citrons",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "citrons"
+},
+{
+"id": "tomates-en-des--boite",
+"name": "Tomates en dés",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "tomates-en-des"
+},
+{
+"id": "poireaux--unite",
+"name": "Poireaux",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "poireaux"
+},
+{
+"id": "brocoli--unite",
+"name": "Brocoli",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "brocoli"
+},
+{
+"id": "sauce-soya--bouteille",
+"name": "Sauce soya",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-soya"
+},
+{
+"id": "cereales-bebe--boite",
+"name": "Céréales bébé",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Bébé",
+"type": "cereales-bebe"
+},
+{
+"id": "poivron-jaune--unite",
+"name": "Poivron jaune",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "poivron-jaune"
+},
+{
+"id": "banane-bio--unite",
+"name": "Banane bio",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "banane-bio"
+},
+{
+"id": "jeu-video-terra-nil--unite",
+"name": "Jeu vidéo Terra Nil",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Loisirs",
+"type": "jeu-video-terra-nil"
+},
+{
+"id": "josh-cellars-cabernet--vin--bouteille",
+"name": "Josh Cellars Cabernet (vin)",
+"unit": "bouteille",
+"category": "hors",
+"legacyCategory": "Alcool & boissons",
+"type": "josh-cellars-cabernet--vin"
+},
+{
+"id": "cereales-bebe-gerber--boite",
+"name": "Céréales bébé Gerber",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Bébé",
+"type": "cereales-bebe-gerber"
+},
+{
+"id": "epinards--contenant",
+"name": "Épinards",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "epinards"
+},
+{
+"id": "tomates-sechees--pot",
+"name": "Tomates séchées",
+"unit": "pot",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "tomates-sechees"
+},
+{
+"id": "detergent-lessive--boite",
+"name": "Détergent lessive",
+"unit": "boîte",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "detergent-lessive"
+},
+{
+"id": "clementines--sac",
+"name": "Clémentines",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "clementines"
+},
+{
+"id": "jus-d-orange--carton",
+"name": "Jus d'orange",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "jus-d-orange"
+},
+{
+"id": "moutarde-dijon--pot",
+"name": "Moutarde Dijon",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "moutarde-dijon"
+},
+{
+"id": "beurre-d-arachide-kraft--pot",
+"name": "Beurre d'arachide Kraft",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "beurre-d-arachide-kraft"
+},
+{
+"id": "yogourt-oikos-grec--pot",
+"name": "Yogourt Oikos grec",
+"unit": "pot",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "yogourt-oikos-grec"
+},
+{
+"id": "mangue-rouge--unite",
+"name": "Mangue rouge",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "mangue-rouge"
+},
+{
+"id": "fromage-cheddar--paquet",
+"name": "Fromage cheddar",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-cheddar"
+},
+{
+"id": "detergent-vaisselle--bouteille",
+"name": "Détergent vaisselle",
+"unit": "bouteille",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "detergent-vaisselle"
+},
+{
+"id": "pates-alimentaires--boite",
+"name": "Pâtes alimentaires",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-alimentaires"
+},
+{
+"id": "lait-de-coco--boite",
+"name": "Lait de coco",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "lait-de-coco"
+},
+{
+"id": "beurre--paquet",
+"name": "Beurre",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "beurre"
+},
+{
+"id": "chou--unite",
+"name": "Chou",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "chou"
+},
+{
+"id": "fecule-de-mais--boite",
+"name": "Fécule de maïs",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "fecule-de-mais"
+},
+{
+"id": "kiwis--unite",
+"name": "Kiwis",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "kiwis"
+},
+{
+"id": "huile-d-olive--bouteille",
+"name": "Huile d'olive",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "huile-d-olive"
+},
+{
+"id": "carottes--sac",
+"name": "Carottes",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "carottes"
+},
+{
+"id": "tortellini--sac",
+"name": "Tortellini",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "tortellini"
+},
+{
+"id": "pate-saumon-mondou--paquet",
+"name": "Pâté saumon Mondou",
+"unit": "paquet",
+"category": "hors",
+"legacyCategory": "Nourriture chien",
+"type": "pate-saumon-mondou"
+},
+{
+"id": "fruits-congeles-assortis--sac",
+"name": "Fruits congelés assortis",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Surgelés",
+"type": "fruits-congeles-assortis"
+},
+{
+"id": "poitrine-de-poulet--kg",
+"name": "Poitrine de poulet",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "poitrine-de-poulet"
+},
+{
+"id": "veggie-dogs--paquet",
+"name": "Veggie dogs",
+"unit": "paquet",
+"category": "autres",
+"legacyCategory": "Viandes & poissons",
+"type": "veggie-dogs"
+},
+{
+"id": "fromage-bloc--paquet",
+"name": "Fromage bloc",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-bloc"
+},
+{
+"id": "courge-musquee--unite",
+"name": "Courge musquée",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "courge-musquee"
+},
+{
+"id": "ufs--douzaine",
+"name": "Œufs",
+"unit": "douzaine",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "ufs"
+},
+{
+"id": "asperges--botte",
+"name": "Asperges",
+"unit": "botte",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "asperges"
+},
+{
+"id": "mout-de-pomme--bouteille",
+"name": "Moût de pomme",
+"unit": "bouteille",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "mout-de-pomme"
+},
+{
+"id": "pommes-empire--sac",
+"name": "Pommes Empire",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-empire"
+},
+{
+"id": "grana-padano--paquet",
+"name": "Grana Padano",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "grana-padano"
+},
+{
+"id": "poisson-pane-pangasius--sac",
+"name": "Poisson pané pangasius",
+"unit": "sac",
+"category": "poisson",
+"legacyCategory": "Viandes & poissons",
+"type": "poisson-pane-pangasius"
+},
+{
+"id": "bleuets--contenant",
+"name": "Bleuets",
+"unit": "contenant",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "bleuets"
+},
+{
+"id": "patate-douce--unite",
+"name": "Patate douce",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "patate-douce"
+},
+{
+"id": "test-de-grossesse--unite",
+"name": "Test de grossesse",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Santé & pharmacie",
+"type": "test-de-grossesse"
+},
+{
+"id": "chocolat-orange--tablette",
+"name": "Chocolat orange",
+"unit": "tablette",
+"category": "autres",
+"legacyCategory": "Chocolat & confiseries",
+"type": "chocolat-orange"
+},
+{
+"id": "bread---butter--vin--bouteille",
+"name": "Bread & Butter (vin)",
+"unit": "bouteille",
+"category": "hors",
+"legacyCategory": "Alcool & boissons",
+"type": "bread---butter--vin"
+},
+{
+"id": "ferrero-rocher--boite",
+"name": "Ferrero Rocher",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Chocolat & confiseries",
+"type": "ferrero-rocher"
+},
+{
+"id": "fromage-mozzarella--paquet",
+"name": "Fromage mozzarella",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-mozzarella"
+},
+{
+"id": "fromage-suisse--paquet",
+"name": "Fromage suisse",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-suisse"
+},
+{
+"id": "pates-lasagne--boite",
+"name": "Pâtes lasagne",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-lasagne"
+},
+{
+"id": "tomates-brulees--boite",
+"name": "Tomates brûlées",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "tomates-brulees"
+},
+{
+"id": "raisins-verts--sac",
+"name": "Raisins verts",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "raisins-verts"
+},
+{
+"id": "miche-campagnolo--pain",
+"name": "Miche Campagnolo",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "miche-campagnolo"
+},
+{
+"id": "melange-porc-et-buf-hache--kg",
+"name": "Mélange porc et bœuf haché",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "melange-porc-et-buf-hache"
+},
+{
+"id": "confiture-bonne-maman--pot",
+"name": "Confiture Bonne Maman",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "confiture-bonne-maman"
+},
+{
+"id": "hummus--contenant",
+"name": "Hummus",
+"unit": "contenant",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "hummus"
+},
+{
+"id": "miel--pot",
+"name": "Miel",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "miel"
+},
+{
+"id": "celeri--pied",
+"name": "Céleri",
+"unit": "pied",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "celeri"
+},
+{
+"id": "pommes-granny-smith--sac",
+"name": "Pommes Granny Smith",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-granny-smith"
+},
+{
+"id": "sardines-a-l-eau--boite",
+"name": "Sardines à l'eau",
+"unit": "boîte",
+"category": "poisson",
+"legacyCategory": "Épicerie",
+"type": "sardines-a-l-eau"
+},
+{
+"id": "sardines-a-l-huile--boite",
+"name": "Sardines à l'huile",
+"unit": "boîte",
+"category": "poisson",
+"legacyCategory": "Épicerie",
+"type": "sardines-a-l-huile"
+},
+{
+"id": "kiwis--sac",
+"name": "Kiwis",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "kiwis"
+},
+{
+"id": "limes--sac",
+"name": "Limes",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "limes"
+},
+{
+"id": "moules--boite",
+"name": "Moules",
+"unit": "boîte",
+"category": "poisson",
+"legacyCategory": "Épicerie",
+"type": "moules"
+},
+{
+"id": "viande--unite",
+"name": "viande",
+"unit": "unité",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "viande"
+},
+{
+"id": "nourriture-lily-s-kitchen--sac",
+"name": "Nourriture Lily's Kitchen",
+"unit": "sac",
+"category": "hors",
+"legacyCategory": "Nourriture chien",
+"type": "nourriture-lily-s-kitchen"
+},
+{
+"id": "tisane-twinings--boite",
+"name": "Tisane Twinings",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "tisane-twinings"
+},
+{
+"id": "tartinades-flax--pot",
+"name": "Tartinades Flax",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "tartinades-flax"
+},
+{
+"id": "sirop-d-erable--bouteille",
+"name": "Sirop d'érable",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sirop-d-erable"
+},
+{
+"id": "pates-classico--boite",
+"name": "Pâtes Classico",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-classico"
+},
+{
+"id": "perso-cot-tige-p--unite",
+"name": "PERSO.COT.TIGE P",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Épicerie",
+"type": "perso-cot-tige-p"
+},
+{
+"id": "pommes-de-terre-cheyenne--sac",
+"name": "Pommes de terre Cheyenne",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-de-terre-cheyenne"
+},
+{
+"id": "oignon-vidalia--unite",
+"name": "Oignon Vidalia",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "oignon-vidalia"
+},
+{
+"id": "bacon-tranche-epais--paquet",
+"name": "Bacon tranché épais",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "bacon-tranche-epais"
+},
+{
+"id": "prunes--sac",
+"name": "Prunes",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "prunes"
+},
+{
+"id": "creme-35--carton",
+"name": "Crème 35%",
+"unit": "carton",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "creme-35"
+},
+{
+"id": "philadelphia--paquet",
+"name": "Philadelphia",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "philadelphia"
+},
+{
+"id": "jus-de-pomme--carton",
+"name": "Jus de pomme",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-de-pomme"
+},
+{
+"id": "farine--sac",
+"name": "Farine",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "farine"
+},
+{
+"id": "bagels-st-viateur--sac",
+"name": "Bagels St-Viateur",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "bagels-st-viateur"
+},
+{
+"id": "filet-de-saumon--kg",
+"name": "Filet de saumon",
+"unit": "kg",
+"category": "poisson",
+"legacyCategory": "Viandes & poissons",
+"type": "filet-de-saumon"
+},
+{
+"id": "saucisse-toulouse--paquet",
+"name": "Saucisse Toulouse",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "saucisse-toulouse"
+},
+{
+"id": "pommes-delicieuses-jaunes--sac",
+"name": "Pommes Délicieuses jaunes",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-delicieuses-jaunes"
+},
+{
+"id": "saumon-fume--paquet",
+"name": "Saumon fumé",
+"unit": "paquet",
+"category": "poisson",
+"legacyCategory": "Viandes & poissons",
+"type": "saumon-fume"
+},
+{
+"id": "lily---jack--sac",
+"name": "Lily & Jack",
+"unit": "sac",
+"category": "hors",
+"legacyCategory": "Nourriture chien",
+"type": "lily---jack"
+},
+{
+"id": "bifteck--paquet",
+"name": "Bifteck",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "bifteck"
+},
+{
+"id": "perrier--bouteille",
+"name": "Perrier",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "perrier"
+},
+{
+"id": "couches--paquet",
+"name": "Couches",
+"unit": "paquet",
+"category": "hors",
+"legacyCategory": "Bébé",
+"type": "couches"
+},
+{
+"id": "confiture-selection--pot",
+"name": "Confiture Sélection",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "confiture-selection"
+},
+{
+"id": "papier-mouchoirs--boite",
+"name": "Papier mouchoirs",
+"unit": "boîte",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "papier-mouchoirs"
+},
+{
+"id": "avocat--unite",
+"name": "Avocat",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "avocat"
+},
+{
+"id": "oignons-verts--botte",
+"name": "Oignons verts",
+"unit": "botte",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "oignons-verts"
+},
+{
+"id": "legumes-en-conserve--boite",
+"name": "Légumes en conserve",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "legumes-en-conserve"
+},
+{
+"id": "chips-samosa--sac",
+"name": "Chips Samosa",
+"unit": "sac",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "chips-samosa"
+},
+{
+"id": "mais--unite",
+"name": "Maïs",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "mais"
+},
+{
+"id": "pepites-de-chocolat--sac",
+"name": "Pépites de chocolat",
+"unit": "sac",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "pepites-de-chocolat"
+},
+{
+"id": "charcuterie-assortie--paquet",
+"name": "Charcuterie assortie",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "charcuterie-assortie"
+},
+{
+"id": "glacage-betty-crocker--unite",
+"name": "Glaçage Betty Crocker",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "glacage-betty-crocker"
+},
+{
+"id": "oignon-espagnol--unite",
+"name": "Oignon espagnol",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "oignon-espagnol"
+},
+{
+"id": "oignon-rouge--unite",
+"name": "Oignon rouge",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "oignon-rouge"
+},
+{
+"id": "banane-plantain--unite",
+"name": "Banane plantain",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "banane-plantain"
+},
+{
+"id": "sauce-poutine-st-hubert--boite",
+"name": "Sauce poutine St-Hubert",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-poutine-st-hubert"
+},
+{
+"id": "os-pour-bouillon--paquet",
+"name": "Os pour bouillon",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "os-pour-bouillon"
+},
+{
+"id": "gingembre-frais--unite",
+"name": "Gingembre frais",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "gingembre-frais"
+},
+{
+"id": "oignon-blanc--unite",
+"name": "Oignon blanc",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "oignon-blanc"
+},
+{
+"id": "tortellini-viande--sac",
+"name": "Tortellini viande",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "tortellini-viande"
+},
+{
+"id": "basilic--pot",
+"name": "Basilic",
+"unit": "pot",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "basilic"
+},
+{
+"id": "echalotes--unite",
+"name": "Échalotes",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "echalotes"
+},
+{
+"id": "friandises-mondou--sac",
+"name": "Friandises Mondou",
+"unit": "sac",
+"category": "hors",
+"legacyCategory": "Nourriture chien",
+"type": "friandises-mondou"
+},
+{
+"id": "concombre-sans-pepin--unite",
+"name": "Concombre sans pépin",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "concombre-sans-pepin"
+},
+{
+"id": "tortillas--sac",
+"name": "Tortillas",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "tortillas"
+},
+{
+"id": "pates-linguine--boite",
+"name": "Pâtes linguine",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-linguine"
+},
+{
+"id": "tisane--boite",
+"name": "Tisane",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "tisane"
+},
+{
+"id": "pain-italien--pain",
+"name": "Pain italien",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-italien"
+},
+{
+"id": "lanieres-de-viande--chien--sac",
+"name": "Lanières de viande (chien)",
+"unit": "sac",
+"category": "hors",
+"legacyCategory": "Nourriture chien",
+"type": "lanieres-de-viande--chien"
+},
+{
+"id": "jus-oasis--carton",
+"name": "Jus Oasis",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-oasis"
+},
+{
+"id": "compote-de-pommes--pot",
+"name": "Compote de pommes",
+"unit": "pot",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "compote-de-pommes"
+},
+{
+"id": "selection-creme--unite",
+"name": "SELECTION CREME",
+"unit": "unité",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "selection-creme"
+},
+{
+"id": "fromage--unite",
+"name": "Fromage",
+"unit": "unité",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage"
+},
+{
+"id": "hot-dogs--paquet",
+"name": "Hot dogs",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "hot-dogs"
+},
+{
+"id": "tortillas-pesto--sac",
+"name": "Tortillas pesto",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "tortillas-pesto"
+},
+{
+"id": "saumon-fume-bbq--paquet",
+"name": "Saumon fumé BBQ",
+"unit": "paquet",
+"category": "poisson",
+"legacyCategory": "Viandes & poissons",
+"type": "saumon-fume-bbq"
+},
+{
+"id": "garam-masala--contenant",
+"name": "Garam masala",
+"unit": "contenant",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "garam-masala"
+},
+{
+"id": "concombre--unite",
+"name": "Concombre",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "concombre"
+},
+{
+"id": "cassonade--sac",
+"name": "Cassonade",
+"unit": "sac",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "cassonade"
+},
+{
+"id": "ananas--unite",
+"name": "Ananas",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "ananas"
+},
+{
+"id": "pates-catelli--boite",
+"name": "Pâtes Catelli",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-catelli"
+},
+{
+"id": "jus--unite",
+"name": "jus",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus"
+},
+{
+"id": "buf-hache-maigre--kg",
+"name": "Bœuf haché maigre",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "buf-hache-maigre"
+},
+{
+"id": "laitue-romaine--unite",
+"name": "Laitue romaine",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "laitue-romaine"
+},
+{
+"id": "pommes-mcintosh--unite",
+"name": "Pommes McIntosh",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-mcintosh"
+},
+{
+"id": "jus-de-raisin--carton",
+"name": "Jus de raisin",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-de-raisin"
+},
+{
+"id": "oranges--sac",
+"name": "Oranges",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "oranges"
+},
+{
+"id": "vinaigre-de-cidre--bouteille",
+"name": "Vinaigre de cidre",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "vinaigre-de-cidre"
+},
+{
+"id": "persil--botte",
+"name": "Persil",
+"unit": "botte",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "persil"
+},
+{
+"id": "selection--unite",
+"name": "selection",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Surgelés",
+"type": "selection"
+},
+{
+"id": "the--boite",
+"name": "Thé",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "the"
+},
+{
+"id": "pate-de-tomate--boite",
+"name": "Pâte de tomate",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "pate-de-tomate"
+},
+{
+"id": "sucre--sac",
+"name": "Sucre",
+"unit": "sac",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sucre"
+},
+{
+"id": "fenouil--unite",
+"name": "Fenouil",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "fenouil"
+},
+{
+"id": "tomates-cerises--contenant",
+"name": "Tomates cerises",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "tomates-cerises"
+},
+{
+"id": "olives-kalamata--pot",
+"name": "Olives kalamata",
+"unit": "pot",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "olives-kalamata"
+},
+{
+"id": "pommes-de-terre--sac",
+"name": "Pommes de terre",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-de-terre"
+},
+{
+"id": "barres-tendres--boite",
+"name": "Barres tendres",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "barres-tendres"
+},
+{
+"id": "citrons--sac",
+"name": "Citrons",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "citrons"
+},
+{
+"id": "sauce-tomate-4-fromages--pot",
+"name": "Sauce tomate 4 fromages",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-tomate-4-fromages"
+},
+{
+"id": "pizza-surgelee--boite",
+"name": "Pizza surgelée",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Surgelés",
+"type": "pizza-surgelee"
+},
+{
+"id": "yogourt-liberte--pot",
+"name": "Yogourt Liberté",
+"unit": "pot",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "yogourt-liberte"
+},
+{
+"id": "croute-a-tarte--unite",
+"name": "croute a tarte",
+"unit": "unité",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "croute-a-tarte"
+},
+{
+"id": "pates-ravioli--boite",
+"name": "Pâtes ravioli",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-ravioli"
+},
+{
+"id": "pain-tranche-multigrain--pain",
+"name": "Pain tranché multigrain",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-tranche-multigrain"
+},
+{
+"id": "pommes-honeycrisp--unite",
+"name": "Pommes Honeycrisp",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-honeycrisp"
+},
+{
+"id": "laitue--unite",
+"name": "Laitue",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "laitue"
+},
+{
+"id": "craquelins--boite",
+"name": "Craquelins",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "craquelins"
+},
+{
+"id": "croutons--sac",
+"name": "Croûtons",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "croutons"
+},
+{
+"id": "vinaigrette--bouteille",
+"name": "Vinaigrette",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "vinaigrette"
+},
+{
+"id": "pommes-honeycrisp--sac",
+"name": "Pommes Honeycrisp",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-honeycrisp"
+},
+{
+"id": "olives-farcies--pot",
+"name": "Olives farcies",
+"unit": "pot",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "olives-farcies"
+},
+{
+"id": "gaufres--boite",
+"name": "Gaufres",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "gaufres"
+},
+{
+"id": "creme-15--unite",
+"name": "creme 15%",
+"unit": "unité",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "creme-15"
+},
+{
+"id": "gingembre-moulu--contenant",
+"name": "Gingembre moulu",
+"unit": "contenant",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "gingembre-moulu"
+},
+{
+"id": "pain-tranche-avoine--pain",
+"name": "Pain tranché avoine",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-tranche-avoine"
+},
+{
+"id": "sauce-tomate-pesto--pot",
+"name": "Sauce tomate pesto",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-tomate-pesto"
+},
+{
+"id": "sac-reutilisable--unite",
+"name": "Sac réutilisable",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "sac-reutilisable"
+},
+{
+"id": "tomates--unite",
+"name": "Tomates",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "tomates"
+},
+{
+"id": "framboises-congelees--sac",
+"name": "Framboises congelées",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Surgelés",
+"type": "framboises-congelees"
+},
+{
+"id": "fraises-congelees--sac",
+"name": "Fraises congelées",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Surgelés",
+"type": "fraises-congelees"
+},
+{
+"id": "pamplemousse--unite",
+"name": "Pamplemousse",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pamplemousse"
+},
+{
+"id": "barres-granola--boite",
+"name": "Barres granola",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "barres-granola"
+},
+{
+"id": "sauce-leekkee--bouteille",
+"name": "Sauce Leekkee",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-leekkee"
+},
+{
+"id": "crocqart-cer--unite",
+"name": "CrocQart.Cer.",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "crocqart-cer"
+},
+{
+"id": "lpc-p-tites-jaunes--unite",
+"name": "lpc p tites jaunes",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "lpc-p-tites-jaunes"
+},
+{
+"id": "miche--pain",
+"name": "Miche",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "miche"
+},
+{
+"id": "assurance-lacoste--mois",
+"name": "Assurance Lacoste",
+"unit": "mois",
+"category": "hors",
+"legacyCategory": "Services & abonnements",
+"type": "assurance-lacoste"
+},
+{
+"id": "tisane-celestial-seasonings--boite",
+"name": "Tisane Celestial Seasonings",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "tisane-celestial-seasonings"
+},
+{
+"id": "mangues-congelees--sac",
+"name": "Mangues congelées",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Surgelés",
+"type": "mangues-congelees"
+},
+{
+"id": "baies-congelees--sac",
+"name": "Baies congelées",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Surgelés",
+"type": "baies-congelees"
+},
+{
+"id": "lentilles--sac",
+"name": "Lentilles",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "lentilles"
+},
+{
+"id": "chocolat-lindt--tablette",
+"name": "Chocolat Lindt",
+"unit": "tablette",
+"category": "autres",
+"legacyCategory": "Chocolat & confiseries",
+"type": "chocolat-lindt"
+},
+{
+"id": "sauce-tomate-classico--pot",
+"name": "Sauce tomate Classico",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-tomate-classico"
+},
+{
+"id": "vinaigre-balsamique--bouteille",
+"name": "Vinaigre balsamique",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "vinaigre-balsamique"
+},
+{
+"id": "algues--contenant",
+"name": "Algues",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "algues"
+},
+{
+"id": "dattes--sac",
+"name": "Dattes",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "dattes"
+},
+{
+"id": "celeri-rave--kg",
+"name": "Céleri-rave",
+"unit": "kg",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "celeri-rave"
+},
+{
+"id": "capres--pot",
+"name": "Câpres",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "capres"
+},
+{
+"id": "bicarbonate-de-soude--boite",
+"name": "Bicarbonate de soude",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "bicarbonate-de-soude"
+},
+{
+"id": "thym--botte",
+"name": "Thym",
+"unit": "botte",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "thym"
+},
+{
+"id": "creme-sure--contenant",
+"name": "Crème sure",
+"unit": "contenant",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "creme-sure"
+},
+{
+"id": "fruit-de-la-passion--unite",
+"name": "Fruit de la passion",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "fruit-de-la-passion"
+},
+{
+"id": "chocolat-tablette--tablette",
+"name": "Chocolat tablette",
+"unit": "tablette",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "chocolat-tablette"
+},
+{
+"id": "pois-chiches--cuit--boite",
+"name": "Pois chiches (cuit)",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "pois-chiches--cuit"
+},
+{
+"id": "pommes-delicieuses-jaunes--kg",
+"name": "Pommes Délicieuses jaunes",
+"unit": "kg",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-delicieuses-jaunes"
+},
+{
+"id": "courgette--kg",
+"name": "Courgette",
+"unit": "kg",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "courgette"
+},
+{
+"id": "blette--contenant",
+"name": "Blette",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "blette"
+},
+{
+"id": "betteraves--unite",
+"name": "Betteraves",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "betteraves"
+},
+{
+"id": "fruit--unite",
+"name": "Fruit",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "fruit"
+},
+{
+"id": "mures--contenant",
+"name": "Mûres",
+"unit": "contenant",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "mures"
+},
+{
+"id": "haut-de-cuisse-poulet--kg",
+"name": "Haut de cuisse poulet",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "haut-de-cuisse-poulet"
+},
+{
+"id": "sauce-tomate--pot",
+"name": "Sauce tomate",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sauce-tomate"
+},
+{
+"id": "pizza-mike-s--boite",
+"name": "Pizza Mike's",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Surgelés",
+"type": "pizza-mike-s"
+},
+{
+"id": "bouillon--carton",
+"name": "Bouillon",
+"unit": "carton",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "bouillon"
+},
+{
+"id": "bouillon-cube-boeuf--boite",
+"name": "Bouillon cube boeuf",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "bouillon-cube-boeuf"
+},
+{
+"id": "jus-d-ananas--carton",
+"name": "Jus d'ananas",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-d-ananas"
+},
+{
+"id": "jus-tropicana--carton",
+"name": "Jus Tropicana",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-tropicana"
+},
+{
+"id": "pommes-de-terre-grelots--sac",
+"name": "Pommes de terre grelots",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-de-terre-grelots"
+},
+{
+"id": "7up--bouteille",
+"name": "7UP",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "7up"
+},
+{
+"id": "vinaigre--bouteille",
+"name": "Vinaigre",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "vinaigre"
+},
+{
+"id": "chou-fleur--unite",
+"name": "Chou-fleur",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "chou-fleur"
+},
+{
+"id": "ciboulette--botte",
+"name": "Ciboulette",
+"unit": "botte",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "ciboulette"
+},
+{
+"id": "haricots-verts--contenant",
+"name": "Haricots verts",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "haricots-verts"
+},
+{
+"id": "pates-aux-oeufs-aurora--boite",
+"name": "Pâtes aux oeufs Aurora",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "pates-aux-oeufs-aurora"
+},
+{
+"id": "m-coll--unite",
+"name": "M Coll",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "m-coll"
+},
+{
+"id": "saucisse-roma--paquet",
+"name": "Saucisse Roma",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "saucisse-roma"
+},
+{
+"id": "fruit-exotique--unite",
+"name": "Fruit exotique",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "fruit-exotique"
+},
+{
+"id": "tofu-nature--unite",
+"name": "Tofu nature",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Fruits & légumes",
+"type": "tofu-nature"
+},
+{
+"id": "pommes-delicieuses-rouges--unite",
+"name": "Pommes Délicieuses rouges",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-delicieuses-rouges"
+},
+{
+"id": "buf-bourguignon--kg",
+"name": "Bœuf bourguignon",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "buf-bourguignon"
+},
+{
+"id": "muffins-anglais--sac",
+"name": "Muffins anglais",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "muffins-anglais"
+},
+{
+"id": "pain-autrichien--pain",
+"name": "Pain autrichien",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-autrichien"
+},
+{
+"id": "mandarines--sac",
+"name": "Mandarines",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "mandarines"
+},
+{
+"id": "fromage-de-chevre--buche",
+"name": "Fromage de chèvre",
+"unit": "bûche",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-de-chevre"
+},
+{
+"id": "fromage-cheddar-marbre--paquet",
+"name": "Fromage cheddar marbré",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-cheddar-marbre"
+},
+{
+"id": "curcuma-moulu--contenant",
+"name": "Curcuma moulu",
+"unit": "contenant",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "curcuma-moulu"
+},
+{
+"id": "raisins-verts--kg",
+"name": "Raisins verts",
+"unit": "kg",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "raisins-verts"
+},
+{
+"id": "banane-bio--kg",
+"name": "Banane bio",
+"unit": "kg",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "banane-bio"
+},
+{
+"id": "melon-santa-claus--2-145-kg--unite",
+"name": "Melon Santa Claus (2,145 kg)",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "melon-santa-claus--2-145-kg"
+},
+{
+"id": "saucisses-de-poulet-fumees--paquet",
+"name": "Saucisses de poulet fumées",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "saucisses-de-poulet-fumees"
+},
+{
+"id": "buf-hache-extra-maigre--kg",
+"name": "Bœuf haché extra maigre",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "buf-hache-extra-maigre"
+},
+{
+"id": "consigne-bouteille--unite",
+"name": "Consigne bouteille",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Autre",
+"type": "consigne-bouteille"
+},
+{
+"id": "pain-tranche-blanc--pain",
+"name": "Pain tranché blanc",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-tranche-blanc"
+},
+{
+"id": "prunes--kg",
+"name": "Prunes",
+"unit": "kg",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "prunes"
+},
+{
+"id": "pains-hot-dog--sac",
+"name": "Pains hot-dog",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pains-hot-dog"
+},
+{
+"id": "pommes-cortland--kg",
+"name": "Pommes Cortland",
+"unit": "kg",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-cortland"
+},
+{
+"id": "bouillon-cube--boite",
+"name": "Bouillon cube",
+"unit": "boîte",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "bouillon-cube"
+},
+{
+"id": "legumineuses--boite",
+"name": "Légumineuses",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "legumineuses"
+},
+{
+"id": "jus-fruitzoo--carton",
+"name": "Jus Fruitzoo",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-fruitzoo"
+},
+{
+"id": "concombre-mini--sac",
+"name": "Concombre mini",
+"unit": "sac",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "concombre-mini"
+},
+{
+"id": "porc-hache-maigre--kg",
+"name": "Porc haché maigre",
+"unit": "kg",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "porc-hache-maigre"
+},
+{
+"id": "pain-au-levain--pain",
+"name": "Pain au levain",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pain-au-levain"
+},
+{
+"id": "produit-laitier-non-identifie--unite",
+"name": "Produit laitier non identifié",
+"unit": "unité",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "produit-laitier-non-identifie"
+},
+{
+"id": "boisson-d-avoine-silk--carton",
+"name": "Boisson d'avoine Silk",
+"unit": "carton",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "boisson-d-avoine-silk"
+},
+{
+"id": "farine-de-sarrasin--sac",
+"name": "Farine de sarrasin",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "farine-de-sarrasin"
+},
+{
+"id": "sucre-redpath--sac",
+"name": "Sucre Redpath",
+"unit": "sac",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "sucre-redpath"
+},
+{
+"id": "the-glace--bouteille",
+"name": "Thé glacé",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "the-glace"
+},
+{
+"id": "goyave--unite",
+"name": "Goyave",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "goyave"
+},
+{
+"id": "assurance-habitation--mois",
+"name": "Assurance habitation",
+"unit": "mois",
+"category": "hors",
+"legacyCategory": "Services & abonnements",
+"type": "assurance-habitation"
+},
+{
+"id": "tchou-tchou--repas",
+"name": "Tchou-Tchou",
+"unit": "repas",
+"category": "hors",
+"legacyCategory": "Resto & livraison",
+"type": "tchou-tchou"
+},
+{
+"id": "assurance-sherlock--mois",
+"name": "Assurance Sherlock",
+"unit": "mois",
+"category": "hors",
+"legacyCategory": "Services & abonnements",
+"type": "assurance-sherlock"
+},
+{
+"id": "la-cantine-pour-tous--repas",
+"name": "La Cantine pour tous",
+"unit": "repas",
+"category": "hors",
+"legacyCategory": "Resto & livraison",
+"type": "la-cantine-pour-tous"
+},
+{
+"id": "abonnement-le-monde--mois",
+"name": "Abonnement Le Monde",
+"unit": "mois",
+"category": "hors",
+"legacyCategory": "Services & abonnements",
+"type": "abonnement-le-monde"
+},
+{
+"id": "telephone-fizz--mois",
+"name": "Téléphone Fizz",
+"unit": "mois",
+"category": "hors",
+"legacyCategory": "Services & abonnements",
+"type": "telephone-fizz"
+},
+{
+"id": "cpe-clementine-et-timothee--mois",
+"name": "CPE Clémentine et Timothée",
+"unit": "mois",
+"category": "hors",
+"legacyCategory": "Services & abonnements",
+"type": "cpe-clementine-et-timothee"
+},
+{
+"id": "puree-de-citrouille--boite",
+"name": "Purée de citrouille",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "puree-de-citrouille"
+},
+{
+"id": "medicament--otite--unite",
+"name": "Médicament (otite)",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Santé & pharmacie",
+"type": "medicament--otite"
+},
+{
+"id": "gouttes-nasales-enfants--boite",
+"name": "Gouttes nasales enfants",
+"unit": "boîte",
+"category": "hors",
+"legacyCategory": "Santé & pharmacie",
+"type": "gouttes-nasales-enfants"
+},
+{
+"id": "pains-hamburger--sac",
+"name": "Pains hamburger",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pains-hamburger"
+},
+{
+"id": "croissants--sac",
+"name": "Croissants",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "croissants"
+},
+{
+"id": "poires--unite",
+"name": "Poires",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "poires"
+},
+{
+"id": "pommes-golden--sac",
+"name": "Pommes Golden",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-golden"
+},
+{
+"id": "cafe-espresso--paquet",
+"name": "Café espresso",
+"unit": "paquet",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "cafe-espresso"
+},
+{
+"id": "artichauts--unite",
+"name": "Artichauts",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "artichauts"
+},
+{
+"id": "unibroue--biere--bouteille",
+"name": "Unibroue (bière)",
+"unit": "bouteille",
+"category": "hors",
+"legacyCategory": "Alcool & boissons",
+"type": "unibroue--biere"
+},
+{
+"id": "tomates--kg",
+"name": "Tomates",
+"unit": "kg",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "tomates"
+},
+{
+"id": "rabais-membre--unite",
+"name": "Rabais membre",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Autre",
+"type": "rabais-membre"
+},
+{
+"id": "aubergine--kg",
+"name": "Aubergine",
+"unit": "kg",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "aubergine"
+},
+{
+"id": "limes--unite",
+"name": "Limes",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "limes"
+},
+{
+"id": "haricots-verts--kg",
+"name": "Haricots verts",
+"unit": "kg",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "haricots-verts"
+},
+{
+"id": "barres-clif--unite",
+"name": "Barres Clif",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "barres-clif"
+},
+{
+"id": "pommes-gala--kg",
+"name": "Pommes Gala",
+"unit": "kg",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "pommes-gala"
+},
+{
+"id": "rabais--unite",
+"name": "Rabais",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Autre",
+"type": "rabais"
+},
+{
+"id": "raclette--paquet",
+"name": "Raclette",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "raclette"
+},
+{
+"id": "creme-10--carton",
+"name": "Crème 10%",
+"unit": "carton",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "creme-10"
+},
+{
+"id": "jus-refrigere--carton",
+"name": "Jus réfrigéré",
+"unit": "carton",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "jus-refrigere"
+},
+{
+"id": "yogourt-classique--pot",
+"name": "Yogourt classique",
+"unit": "pot",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "yogourt-classique"
+},
+{
+"id": "yogourt-astro--pot",
+"name": "Yogourt Astro",
+"unit": "pot",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "yogourt-astro"
+},
+{
+"id": "choux-de-bruxelles--contenant",
+"name": "Choux de Bruxelles",
+"unit": "contenant",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "choux-de-bruxelles"
+},
+{
+"id": "mortadelle--paquet",
+"name": "Mortadelle",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "mortadelle"
+},
+{
+"id": "fruits-et-legumes--assortis--unite",
+"name": "Fruits et légumes (assortis)",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "fruits-et-legumes--assortis"
+},
+{
+"id": "cotes-levees-bbq--paquet",
+"name": "Côtes levées BBQ",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "cotes-levees-bbq"
+},
+{
+"id": "eau-tonique-schweppes--bouteille",
+"name": "Eau tonique Schweppes",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "eau-tonique-schweppes"
+},
+{
+"id": "baguette--pain",
+"name": "Baguette",
+"unit": "pain",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "baguette"
+},
+{
+"id": "promotioncd--unite",
+"name": "PromotionCD",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "promotioncd"
+},
+{
+"id": "bick-s-cornichons--unite",
+"name": "Bick's Cornichons",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "bick-s-cornichons"
+},
+{
+"id": "catelli-pates-alimentaires--unite",
+"name": "Catelli Pâtes alimentaires",
+"unit": "unité",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "catelli-pates-alimentaires"
+},
+{
+"id": "thon-en-conserve--boite",
+"name": "Thon en conserve",
+"unit": "boîte",
+"category": "poisson",
+"legacyCategory": "Épicerie",
+"type": "thon-en-conserve"
+},
+{
+"id": "epices--g",
+"name": "Épices",
+"unit": "g",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "epices"
+},
+{
+"id": "jambon-cru--paquet",
+"name": "Jambon cru",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "jambon-cru"
+},
+{
+"id": "coupon-fantino---mondello--unite",
+"name": "Coupon Fantino & Mondello",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Viandes & poissons",
+"type": "coupon-fantino---mondello"
+},
+{
+"id": "jambon-emince--paquet",
+"name": "Jambon émincé",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "jambon-emince"
+},
+{
+"id": "salami--paquet",
+"name": "Salami",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "salami"
+},
+{
+"id": "mayonnaise--pot",
+"name": "Mayonnaise",
+"unit": "pot",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "mayonnaise"
+},
+{
+"id": "salami-soppressata--paquet",
+"name": "Salami soppressata",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "salami-soppressata"
+},
+{
+"id": "fin-du-monde--biere--bouteille",
+"name": "Fin du Monde (bière)",
+"unit": "bouteille",
+"category": "hors",
+"legacyCategory": "Alcool & boissons",
+"type": "fin-du-monde--biere"
+},
+{
+"id": "biscuits-pc--unite",
+"name": "Biscuits PC",
+"unit": "unité",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "biscuits-pc"
+},
+{
+"id": "creme-a-main--tube",
+"name": "Crème à main",
+"unit": "tube",
+"category": "hors",
+"legacyCategory": "Santé & pharmacie",
+"type": "creme-a-main"
+},
+{
+"id": "fruit-pack--unite",
+"name": "Fruit pack",
+"unit": "unité",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "fruit-pack"
+},
+{
+"id": "poivron-vert--unite",
+"name": "Poivron vert",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "poivron-vert"
+},
+{
+"id": "coriandre--botte",
+"name": "Coriandre",
+"unit": "botte",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "coriandre"
+},
+{
+"id": "endive--unite",
+"name": "Endive",
+"unit": "unité",
+"category": "legumes",
+"legacyCategory": "Fruits & légumes",
+"type": "endive"
+},
+{
+"id": "saucisses-de-poulet--paquet",
+"name": "Saucisses de poulet",
+"unit": "paquet",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "saucisses-de-poulet"
+},
+{
+"id": "coquilles-st-jacques--paquet",
+"name": "Coquilles St-Jacques",
+"unit": "paquet",
+"category": "poisson",
+"legacyCategory": "Viandes & poissons",
+"type": "coquilles-st-jacques"
+},
+{
+"id": "boulangerie--unite",
+"name": "Boulangerie",
+"unit": "unité",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "boulangerie"
+},
+{
+"id": "pc-chocolatine--unite",
+"name": "PC Chocolatine",
+"unit": "unité",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "pc-chocolatine"
+},
+{
+"id": "bagels--sac",
+"name": "Bagels",
+"unit": "sac",
+"category": "boulangerie",
+"legacyCategory": "Boulangerie",
+"type": "bagels"
+},
+{
+"id": "pec-cimelette--unite",
+"name": "Pec cimelette",
+"unit": "unité",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "pec-cimelette"
+},
+{
+"id": "filets-de-poulet-panes--sac",
+"name": "Filets de poulet panés",
+"unit": "sac",
+"category": "viande",
+"legacyCategory": "Viandes & poissons",
+"type": "filets-de-poulet-panes"
+},
+{
+"id": "brise-du-lac--biere--bouteille",
+"name": "Brise du Lac (bière)",
+"unit": "bouteille",
+"category": "hors",
+"legacyCategory": "Alcool & boissons",
+"type": "brise-du-lac--biere"
+},
+{
+"id": "raisins-secs--boite",
+"name": "Raisins secs",
+"unit": "boîte",
+"category": "fruits",
+"legacyCategory": "Épicerie",
+"type": "raisins-secs"
+},
+{
+"id": "legume-jardin-dare--unite",
+"name": "Legume Jardin Dare",
+"unit": "unité",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "legume-jardin-dare"
+},
+{
+"id": "consigne--unite",
+"name": "Consigne",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Autre",
+"type": "consigne"
+},
+{
+"id": "cereales-kellogg-s--boite",
+"name": "Céréales Kellogg's",
+"unit": "boîte",
+"category": "boulangerie",
+"legacyCategory": "Épicerie",
+"type": "cereales-kellogg-s"
+},
+{
+"id": "fromage-a-pates--paquet",
+"name": "Fromage à pâtes",
+"unit": "paquet",
+"category": "laitiers",
+"legacyCategory": "Laitiers & œufs",
+"type": "fromage-a-pates"
+},
+{
+"id": "huile-de-tournesol--bouteille",
+"name": "Huile de tournesol",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "huile-de-tournesol"
+},
+{
+"id": "canneberges--sac",
+"name": "Canneberges",
+"unit": "sac",
+"category": "fruits",
+"legacyCategory": "Fruits & légumes",
+"type": "canneberges"
+},
+{
+"id": "pepsi--bouteille",
+"name": "Pepsi",
+"unit": "bouteille",
+"category": "autres",
+"legacyCategory": "Épicerie",
+"type": "pepsi"
+},
+{
+"id": "haricots-en-conserve--boite",
+"name": "Haricots en conserve",
+"unit": "boîte",
+"category": "legumes",
+"legacyCategory": "Épicerie",
+"type": "haricots-en-conserve"
+},
+{
+"id": "ge-pa--unite",
+"name": "GE PA",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Quincaillerie",
+"type": "ge-pa"
+},
+{
+"id": "boete--unite",
+"name": "Boete",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Quincaillerie",
+"type": "boete"
+},
+{
+"id": "plinthe--unite",
+"name": "Plinthe",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "plinthe"
+},
+{
+"id": "debouchoir--unite",
+"name": "Débouchoir",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "debouchoir"
+},
+{
+"id": "coupe-froid--unite",
+"name": "Coupe Froid",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Quincaillerie",
+"type": "coupe-froid"
+},
+{
+"id": "nettoyant-cuvette--unite",
+"name": "Nettoyant cuvette",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "nettoyant-cuvette"
+},
+{
+"id": "mastic-rebouche-trous--tube",
+"name": "Mastic rebouche-trous",
+"unit": "tube",
+"category": "hors",
+"legacyCategory": "Nettoyage & maison",
+"type": "mastic-rebouche-trous"
+},
+{
+"id": "15003--unite",
+"name": "15003",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Quincaillerie",
+"type": "15003"
+},
+{
+"id": "pampers-swaddlers--paquet",
+"name": "Pampers Swaddlers",
+"unit": "paquet",
+"category": "hors",
+"legacyCategory": "Bébé",
+"type": "pampers-swaddlers"
+},
+{
+"id": "pampers-cruisers--paquet",
+"name": "Pampers Cruisers",
+"unit": "paquet",
+"category": "hors",
+"legacyCategory": "Bébé",
+"type": "pampers-cruisers"
+},
+{
+"id": "livre-photo--unite",
+"name": "Livre photo",
+"unit": "unité",
+"category": "hors",
+"legacyCategory": "Loisirs",
+"type": "livre-photo"
+}
+],
+"receipts": [
+{
+"id": "mig-2023-12-01-super-c",
+"date": "2023-12-01",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-01-steam",
+"date": "2023-12-01",
+"storeId": "steam",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-01-saq",
+"date": "2023-12-01",
+"storeId": "saq",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-09-super-c",
+"date": "2023-12-09",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-16-super-c",
+"date": "2023-12-16",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-16-mondou",
+"date": "2023-12-16",
+"storeId": "mondou",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-19-pharmaprix",
+"date": "2023-12-19",
+"storeId": "pharmaprix",
+"source": "migration"
+},
+{
+"id": "mig-2023-12-19-saq",
+"date": "2023-12-19",
+"storeId": "saq",
+"source": "migration"
+},
+{
+"id": "mig-2024-08-18-super-c",
+"date": "2024-08-18",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-08-25-super-c",
+"date": "2024-08-25",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-09-21-super-c",
+"date": "2024-09-21",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-09-21-maxi",
+"date": "2024-09-21",
+"storeId": "maxi",
+"source": "migration"
+},
+{
+"id": "mig-2024-09-27-super-c",
+"date": "2024-09-27",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-09-27-mondou",
+"date": "2024-09-27",
+"storeId": "mondou",
+"source": "migration"
+},
+{
+"id": "mig-2024-09-28-maxi",
+"date": "2024-09-28",
+"storeId": "maxi",
+"source": "migration"
+},
+{
+"id": "mig-2024-10-05-super-c",
+"date": "2024-10-05",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-10-19-super-c",
+"date": "2024-10-19",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-10-26-super-c",
+"date": "2024-10-26",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-11-02-super-c",
+"date": "2024-11-02",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-11-09-super-c",
+"date": "2024-11-09",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-11-16-super-c",
+"date": "2024-11-16",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2024-12-01-super-c",
+"date": "2024-12-01",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-01-05-super-c",
+"date": "2025-01-05",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-01-25-maxi",
+"date": "2025-01-25",
+"storeId": "maxi",
+"source": "migration"
+},
+{
+"id": "mig-2025-01-25-super-c",
+"date": "2025-01-25",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-01-28-super-c",
+"date": "2025-01-28",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-02-03-super-c",
+"date": "2025-02-03",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-02-09-super-c",
+"date": "2025-02-09",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-02-11-maxi",
+"date": "2025-02-11",
+"storeId": "maxi",
+"source": "migration"
+},
+{
+"id": "mig-2025-02-12-maxi",
+"date": "2025-02-12",
+"storeId": "maxi",
+"source": "migration"
+},
+{
+"id": "mig-2025-03-15-super-c",
+"date": "2025-03-15",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-04-05-super-c",
+"date": "2025-04-05",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2025-09-01-desjardins",
+"date": "2025-09-01",
+"storeId": "desjardins",
+"source": "migration"
+},
+{
+"id": "mig-2025-09-02-cpe",
+"date": "2025-09-02",
+"storeId": "cpe",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-01-petline",
+"date": "2026-01-01",
+"storeId": "petline",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-01-la-cantine",
+"date": "2026-01-01",
+"storeId": "la-cantine",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-02-provigo",
+"date": "2026-01-02",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-02-le-monde",
+"date": "2026-01-02",
+"storeId": "le-monde",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-02-fizz",
+"date": "2026-01-02",
+"storeId": "fizz",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-02-tchou-tchou",
+"date": "2026-01-02",
+"storeId": "tchou-tchou",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-03-pharmaprix",
+"date": "2026-01-03",
+"storeId": "pharmaprix",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-04-provigo",
+"date": "2026-01-04",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-06-myriade",
+"date": "2026-01-06",
+"storeId": "myriade",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-07-provigo",
+"date": "2026-01-07",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-10-super-c",
+"date": "2026-01-10",
+"storeId": "super-c",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-10-provigo",
+"date": "2026-01-10",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-12-provigo",
+"date": "2026-01-12",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-13-provigo",
+"date": "2026-01-13",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-14-provigo",
+"date": "2026-01-14",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-16-pharmaprix",
+"date": "2026-01-16",
+"storeId": "pharmaprix",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-17-provigo",
+"date": "2026-01-17",
+"storeId": "provigo",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-18-home-depot",
+"date": "2026-01-18",
+"storeId": "home-depot",
+"source": "migration"
+},
+{
+"id": "mig-2026-01-19-jean-coutu",
+"date": "2026-01-19",
+"storeId": "jean-coutu",
+"source": "migration"
+}
+],
+"lines": [
+{
+"id": "mig-l0000",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "mangue-ataulfo--unite",
+"qty": 2.0,
+"amount": 2.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0001",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0002",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0003",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "pitas-blancs--sac",
+"qty": 2.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0004",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "pates-tagliatelles--boite",
+"qty": 1.0,
+"amount": 3.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0005",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "framboises--contenant",
+"qty": 2.0,
+"amount": 3.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0006",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "yogourt-oikos-nature--pot",
+"qty": 2.0,
+"amount": 10.92,
+"regularPrice": null
+},
+{
+"id": "mig-l0007",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "raisins-rouges--sac",
+"qty": 1.0,
+"amount": 8.71,
+"regularPrice": null
+},
+{
+"id": "mig-l0008",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "courgette--unite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0009",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "pain-tranche-9-grains--pain",
+"qty": 2.0,
+"amount": 8.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0010",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "parmigiano-reggiano--paquet",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0011",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "pommes-cortland--sac",
+"qty": 4.0,
+"amount": 4.17,
+"regularPrice": null
+},
+{
+"id": "mig-l0012",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "pesto-basilic--pot",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0013",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "feta--contenant",
+"qty": 1.0,
+"amount": 9.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0014",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.48,
+"regularPrice": null
+},
+{
+"id": "mig-l0015",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "pommes-de-terre-russet--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0016",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "hummus-humm--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0017",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "riz-basmati--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0018",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "hummus-humm--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0019",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "poivron-rouge--unite",
+"qty": 1.0,
+"amount": 2.64,
+"regularPrice": null
+},
+{
+"id": "mig-l0020",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "citrons--unite",
+"qty": 2.0,
+"amount": 1.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0021",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "tomates-en-des--boite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0022",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "poireaux--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0023",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0024",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "sauce-soya--bouteille",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0025",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "cereales-bebe--boite",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0026",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "poivron-jaune--unite",
+"qty": 1.0,
+"amount": 2.64,
+"regularPrice": null
+},
+{
+"id": "mig-l0027",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "banane-bio--unite",
+"qty": 5.0,
+"amount": 2.07,
+"regularPrice": null
+},
+{
+"id": "mig-l0028",
+"receiptId": "mig-2023-12-01-steam",
+"productId": "jeu-video-terra-nil--unite",
+"qty": 1.0,
+"amount": 26.55,
+"regularPrice": null
+},
+{
+"id": "mig-l0029",
+"receiptId": "mig-2023-12-01-saq",
+"productId": "josh-cellars-cabernet--vin--bouteille",
+"qty": 1.0,
+"amount": 20.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0030",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "cereales-bebe-gerber--boite",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0031",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "epinards--contenant",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0032",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "tomates-sechees--pot",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0033",
+"receiptId": "mig-2023-12-01-super-c",
+"productId": "cereales-bebe-gerber--boite",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0034",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "detergent-lessive--boite",
+"qty": 1.0,
+"amount": 8.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0035",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0036",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "jus-d-orange--carton",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0037",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "moutarde-dijon--pot",
+"qty": 1.0,
+"amount": 8.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0038",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "epinards--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0039",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0040",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 2.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0041",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 2.0,
+"amount": 1.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0042",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 3.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0043",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.48,
+"regularPrice": null
+},
+{
+"id": "mig-l0044",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0045",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "detergent-vaisselle--bouteille",
+"qty": 1.0,
+"amount": 2.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0046",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.26,
+"regularPrice": null
+},
+{
+"id": "mig-l0047",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "pates-alimentaires--boite",
+"qty": 1.0,
+"amount": 2.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0048",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "lait-de-coco--boite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0049",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "pommes-cortland--sac",
+"qty": 1.0,
+"amount": 2.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0050",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0051",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "chou--unite",
+"qty": 1.0,
+"amount": 3.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0052",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "fecule-de-mais--boite",
+"qty": 1.0,
+"amount": 3.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0053",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "kiwis--unite",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0054",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "framboises--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0055",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "huile-d-olive--bouteille",
+"qty": 1.0,
+"amount": 10.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0056",
+"receiptId": "mig-2023-12-09-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0057",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "tortellini--sac",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0058",
+"receiptId": "mig-2023-12-16-mondou",
+"productId": "pate-saumon-mondou--paquet",
+"qty": 1.0,
+"amount": 48.85,
+"regularPrice": null
+},
+{
+"id": "mig-l0059",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "fruits-congeles-assortis--sac",
+"qty": 1.0,
+"amount": 12.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0060",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 1.0,
+"amount": 15.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0061",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0062",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "veggie-dogs--paquet",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0063",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "fromage-bloc--paquet",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0064",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "courge-musquee--unite",
+"qty": 1.0,
+"amount": 5.18,
+"regularPrice": null
+},
+{
+"id": "mig-l0065",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0066",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "asperges--botte",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0067",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "mout-de-pomme--bouteille",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0068",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.48,
+"regularPrice": null
+},
+{
+"id": "mig-l0069",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "pommes-empire--sac",
+"qty": 1.0,
+"amount": 4.42,
+"regularPrice": null
+},
+{
+"id": "mig-l0070",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "grana-padano--paquet",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0071",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "poisson-pane-pangasius--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0072",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "bleuets--contenant",
+"qty": 2.0,
+"amount": 3.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0073",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "patate-douce--unite",
+"qty": 2.0,
+"amount": 2.61,
+"regularPrice": null
+},
+{
+"id": "mig-l0074",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0075",
+"receiptId": "mig-2023-12-16-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0076",
+"receiptId": "mig-2023-12-19-pharmaprix",
+"productId": "test-de-grossesse--unite",
+"qty": 1.0,
+"amount": 21.59,
+"regularPrice": null
+},
+{
+"id": "mig-l0077",
+"receiptId": "mig-2023-12-19-pharmaprix",
+"productId": "chocolat-orange--tablette",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0078",
+"receiptId": "mig-2023-12-19-saq",
+"productId": "bread---butter--vin--bouteille",
+"qty": 1.0,
+"amount": 19.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0079",
+"receiptId": "mig-2023-12-19-pharmaprix",
+"productId": "ferrero-rocher--boite",
+"qty": 1.0,
+"amount": 9.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0080",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "fromage-mozzarella--paquet",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0081",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "fromage-suisse--paquet",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0082",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "pates-lasagne--boite",
+"qty": 2.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0083",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "epinards--contenant",
+"qty": 2.0,
+"amount": 5.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0084",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0085",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "tomates-brulees--boite",
+"qty": 3.0,
+"amount": 5.37,
+"regularPrice": null
+},
+{
+"id": "mig-l0086",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 9.86,
+"regularPrice": null
+},
+{
+"id": "mig-l0087",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "miche-campagnolo--pain",
+"qty": 2.0,
+"amount": 9.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0088",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "melange-porc-et-buf-hache--kg",
+"qty": 1.0,
+"amount": 12.26,
+"regularPrice": null
+},
+{
+"id": "mig-l0089",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 4.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0090",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "confiture-bonne-maman--pot",
+"qty": 1.0,
+"amount": 4.44,
+"regularPrice": null
+},
+{
+"id": "mig-l0091",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "pommes-de-terre-russet--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0092",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "hummus--contenant",
+"qty": 2.0,
+"amount": 2.92,
+"regularPrice": null
+},
+{
+"id": "mig-l0093",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 2.0,
+"amount": 14.38,
+"regularPrice": null
+},
+{
+"id": "mig-l0094",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "miel--pot",
+"qty": 1.0,
+"amount": 14.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0095",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "celeri--pied",
+"qty": 1.0,
+"amount": 0.72,
+"regularPrice": null
+},
+{
+"id": "mig-l0096",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "pommes-granny-smith--sac",
+"qty": 5.0,
+"amount": 1.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0097",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "sardines-a-l-eau--boite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0098",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 1.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0099",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "sardines-a-l-huile--boite",
+"qty": 1.0,
+"amount": 2.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0100",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 3.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0101",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0102",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "grana-padano--paquet",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0103",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "kiwis--sac",
+"qty": 1.0,
+"amount": 2.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0104",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0105",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "limes--sac",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0106",
+"receiptId": "mig-2024-08-18-super-c",
+"productId": "moules--boite",
+"qty": 1.0,
+"amount": 2.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0107",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "viande--unite",
+"qty": 1.0,
+"amount": 9.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0108",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "nourriture-lily-s-kitchen--sac",
+"qty": 1.0,
+"amount": 14.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0109",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "tisane-twinings--boite",
+"qty": 2.0,
+"amount": 11.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0110",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "tartinades-flax--pot",
+"qty": 3.0,
+"amount": 11.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0111",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "sirop-d-erable--bouteille",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0112",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 1.0,
+"amount": 14.04,
+"regularPrice": null
+},
+{
+"id": "mig-l0113",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "fromage-bloc--paquet",
+"qty": 1.0,
+"amount": 9.17,
+"regularPrice": null
+},
+{
+"id": "mig-l0114",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0115",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "pates-classico--boite",
+"qty": 2.0,
+"amount": 6.54,
+"regularPrice": null
+},
+{
+"id": "mig-l0116",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 1.0,
+"amount": 7.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0117",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "perso-cot-tige-p--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0118",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 3.0,
+"amount": 4.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0119",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "pommes-de-terre-cheyenne--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0120",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "oignon-vidalia--unite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0121",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.68,
+"regularPrice": null
+},
+{
+"id": "mig-l0122",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "bacon-tranche-epais--paquet",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0123",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "pommes-granny-smith--sac",
+"qty": 1.0,
+"amount": 5.12,
+"regularPrice": null
+},
+{
+"id": "mig-l0124",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "lait-3-25--litre",
+"qty": 3.0,
+"amount": 5.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0125",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "champignons--contenant",
+"qty": 2.0,
+"amount": 5.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0126",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "prunes--sac",
+"qty": 1.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0127",
+"receiptId": "mig-2024-08-25-super-c",
+"productId": "raisins-rouges--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0128",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "creme-35--carton",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0129",
+"receiptId": "mig-2024-09-21-maxi",
+"productId": "philadelphia--paquet",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0130",
+"receiptId": "mig-2024-09-21-maxi",
+"productId": "jus-de-pomme--carton",
+"qty": 1.0,
+"amount": 4.54,
+"regularPrice": null
+},
+{
+"id": "mig-l0131",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.64,
+"regularPrice": null
+},
+{
+"id": "mig-l0132",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "limes--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0133",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 3.0,
+"amount": 5.01,
+"regularPrice": null
+},
+{
+"id": "mig-l0134",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "farine--sac",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0135",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.89,
+"regularPrice": null
+},
+{
+"id": "mig-l0136",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "patate-douce--unite",
+"qty": 3.0,
+"amount": 5.9,
+"regularPrice": null
+},
+{
+"id": "mig-l0137",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "prunes--sac",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0138",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "filet-de-saumon--kg",
+"qty": 1.0,
+"amount": 12.63,
+"regularPrice": null
+},
+{
+"id": "mig-l0139",
+"receiptId": "mig-2024-09-21-maxi",
+"productId": "saucisse-toulouse--paquet",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0140",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "pommes-delicieuses-jaunes--sac",
+"qty": 8.0,
+"amount": 8.04,
+"regularPrice": null
+},
+{
+"id": "mig-l0141",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "filet-de-saumon--kg",
+"qty": 1.0,
+"amount": 9.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0142",
+"receiptId": "mig-2024-09-21-maxi",
+"productId": "saumon-fume--paquet",
+"qty": 1.0,
+"amount": 11.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0143",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "sirop-d-erable--bouteille",
+"qty": 2.0,
+"amount": 15.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0144",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "lily---jack--sac",
+"qty": 1.0,
+"amount": 16.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0145",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "lily---jack--sac",
+"qty": 1.0,
+"amount": 16.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0146",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "bifteck--paquet",
+"qty": 1.0,
+"amount": 18.71,
+"regularPrice": null
+},
+{
+"id": "mig-l0147",
+"receiptId": "mig-2024-09-21-maxi",
+"productId": "philadelphia--paquet",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0148",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "epinards--contenant",
+"qty": 3.0,
+"amount": 7.47,
+"regularPrice": null
+},
+{
+"id": "mig-l0149",
+"receiptId": "mig-2024-09-21-maxi",
+"productId": "perrier--bouteille",
+"qty": 2.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0150",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "couches--paquet",
+"qty": 1.0,
+"amount": 32.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0151",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0152",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "confiture-selection--pot",
+"qty": 1.0,
+"amount": 3.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0153",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "papier-mouchoirs--boite",
+"qty": 1.0,
+"amount": 2.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0154",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "avocat--unite",
+"qty": 3.0,
+"amount": 2.64,
+"regularPrice": null
+},
+{
+"id": "mig-l0155",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "oignons-verts--botte",
+"qty": 1.0,
+"amount": 1.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0156",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "legumes-en-conserve--boite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0157",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "chips-samosa--sac",
+"qty": 1.0,
+"amount": 2.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0158",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "mais--unite",
+"qty": 6.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0159",
+"receiptId": "mig-2024-09-21-super-c",
+"productId": "pepites-de-chocolat--sac",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0160",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "charcuterie-assortie--paquet",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0161",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0162",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 6.89,
+"regularPrice": null
+},
+{
+"id": "mig-l0163",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0164",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "glacage-betty-crocker--unite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0165",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 2.61,
+"regularPrice": null
+},
+{
+"id": "mig-l0166",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "glacage-betty-crocker--unite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0167",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 7.08,
+"regularPrice": null
+},
+{
+"id": "mig-l0168",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "avocat--unite",
+"qty": 2.0,
+"amount": 3.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0169",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "oignon-rouge--unite",
+"qty": 1.0,
+"amount": 2.08,
+"regularPrice": null
+},
+{
+"id": "mig-l0170",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "miel--pot",
+"qty": 1.0,
+"amount": 9.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0171",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 3.0,
+"amount": 11.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0172",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "banane-plantain--unite",
+"qty": 2.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0173",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "sauce-poutine-st-hubert--boite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0174",
+"receiptId": "mig-2024-09-27-mondou",
+"productId": "os-pour-bouillon--paquet",
+"qty": 1.0,
+"amount": 13.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0175",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "pates-alimentaires--boite",
+"qty": 1.0,
+"amount": 1.67,
+"regularPrice": null
+},
+{
+"id": "mig-l0176",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "gingembre-frais--unite",
+"qty": 1.0,
+"amount": 0.3,
+"regularPrice": null
+},
+{
+"id": "mig-l0177",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "oignon-blanc--unite",
+"qty": 1.0,
+"amount": 2.37,
+"regularPrice": null
+},
+{
+"id": "mig-l0178",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "poivron-rouge--unite",
+"qty": 1.0,
+"amount": 5.83,
+"regularPrice": null
+},
+{
+"id": "mig-l0179",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "tortellini-viande--sac",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0180",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "basilic--pot",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0181",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "echalotes--unite",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0182",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "fromage-suisse--paquet",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0183",
+"receiptId": "mig-2024-09-27-mondou",
+"productId": "friandises-mondou--sac",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0184",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "concombre-sans-pepin--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0185",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "tortillas--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0186",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "pates-linguine--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0187",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0188",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "brocoli--unite",
+"qty": 2.0,
+"amount": 4.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0189",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "pain-italien--pain",
+"qty": 1.0,
+"amount": 3.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0190",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0191",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0192",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0193",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0194",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0195",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 2.64,
+"regularPrice": null
+},
+{
+"id": "mig-l0196",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "mais--unite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0197",
+"receiptId": "mig-2024-09-27-mondou",
+"productId": "lanieres-de-viande--chien--sac",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0198",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "pommes-delicieuses-jaunes--sac",
+"qty": 6.0,
+"amount": 5.73,
+"regularPrice": null
+},
+{
+"id": "mig-l0199",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0200",
+"receiptId": "mig-2024-09-27-super-c",
+"productId": "jus-oasis--carton",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0201",
+"receiptId": "mig-2024-09-28-maxi",
+"productId": "courge-musquee--unite",
+"qty": 1.0,
+"amount": 3.68,
+"regularPrice": null
+},
+{
+"id": "mig-l0202",
+"receiptId": "mig-2024-09-28-maxi",
+"productId": "framboises--contenant",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0203",
+"receiptId": "mig-2024-09-28-maxi",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0204",
+"receiptId": "mig-2024-09-28-maxi",
+"productId": "pepites-de-chocolat--sac",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0205",
+"receiptId": "mig-2024-09-28-maxi",
+"productId": "compote-de-pommes--pot",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0206",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "lait-de-coco--boite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0207",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "selection-creme--unite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0208",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 8.83,
+"regularPrice": null
+},
+{
+"id": "mig-l0209",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "fromage--unite",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0210",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 1.0,
+"amount": 4.41,
+"regularPrice": null
+},
+{
+"id": "mig-l0211",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.09,
+"regularPrice": null
+},
+{
+"id": "mig-l0212",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "hot-dogs--paquet",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0213",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "tortillas-pesto--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0214",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "miche-campagnolo--pain",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0215",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "saumon-fume-bbq--paquet",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0216",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0217",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "limes--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0218",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "riz-basmati--sac",
+"qty": 1.0,
+"amount": 4.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0219",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0220",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0221",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "garam-masala--contenant",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0222",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "creme-35--carton",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0223",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0224",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 1.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0225",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 1.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0226",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "cassonade--sac",
+"qty": 1.0,
+"amount": 10.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0227",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 4.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0228",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0229",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "ananas--unite",
+"qty": 1.0,
+"amount": 1.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0230",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "pates-catelli--boite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0231",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0232",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0233",
+"receiptId": "mig-2024-10-05-super-c",
+"productId": "epinards--contenant",
+"qty": 1.0,
+"amount": 3.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0234",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 3.0,
+"amount": 4.41,
+"regularPrice": null
+},
+{
+"id": "mig-l0235",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0236",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0237",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "jus--unite",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0238",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "buf-hache-maigre--kg",
+"qty": 1.0,
+"amount": 14.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0239",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "kiwis--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0240",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "laitue-romaine--unite",
+"qty": 1.0,
+"amount": 1.24,
+"regularPrice": null
+},
+{
+"id": "mig-l0241",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 2.0,
+"amount": 11.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0242",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0243",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "hummus--contenant",
+"qty": 2.0,
+"amount": 9.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0244",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "ananas--unite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0245",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.61,
+"regularPrice": null
+},
+{
+"id": "mig-l0246",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "pommes-mcintosh--unite",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0247",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "tomates-en-des--boite",
+"qty": 1.0,
+"amount": 2.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0248",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "avocat--unite",
+"qty": 3.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0249",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0250",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0251",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "jus-de-raisin--carton",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0252",
+"receiptId": "mig-2024-10-19-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0253",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "fromage--unite",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0254",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 6.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0255",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "raisins-rouges--sac",
+"qty": 1.0,
+"amount": 11.38,
+"regularPrice": null
+},
+{
+"id": "mig-l0256",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "oranges--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0257",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "vinaigre-de-cidre--bouteille",
+"qty": 1.0,
+"amount": 12.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0258",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0259",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0260",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "persil--botte",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0261",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "selection--unite",
+"qty": 1.0,
+"amount": 13.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0262",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "the--boite",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0263",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "basilic--pot",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0264",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "celeri--pied",
+"qty": 1.0,
+"amount": 0.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0265",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "ananas--unite",
+"qty": 1.0,
+"amount": 1.77,
+"regularPrice": null
+},
+{
+"id": "mig-l0266",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "sardines-a-l-huile--boite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0267",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.07,
+"regularPrice": null
+},
+{
+"id": "mig-l0268",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "poivron-jaune--unite",
+"qty": 1.0,
+"amount": 2.09,
+"regularPrice": null
+},
+{
+"id": "mig-l0269",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "moules--boite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0270",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "poivron-rouge--unite",
+"qty": 1.0,
+"amount": 2.75,
+"regularPrice": null
+},
+{
+"id": "mig-l0271",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 2.0,
+"amount": 2.94,
+"regularPrice": null
+},
+{
+"id": "mig-l0272",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "pate-de-tomate--boite",
+"qty": 1.0,
+"amount": 0.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0273",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "sucre--sac",
+"qty": 1.0,
+"amount": 3.27,
+"regularPrice": null
+},
+{
+"id": "mig-l0274",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "fenouil--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0275",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0276",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "tomates-cerises--contenant",
+"qty": 1.0,
+"amount": 4.47,
+"regularPrice": null
+},
+{
+"id": "mig-l0277",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "fromage-suisse--paquet",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0278",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0279",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "legumes-en-conserve--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0280",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "asperges--botte",
+"qty": 1.0,
+"amount": 3.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0281",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "olives-kalamata--pot",
+"qty": 1.0,
+"amount": 3.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0282",
+"receiptId": "mig-2024-10-26-super-c",
+"productId": "miche-campagnolo--pain",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0283",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "pommes-de-terre--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0284",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "barres-tendres--boite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0285",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "barres-tendres--boite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0286",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "barres-tendres--boite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0287",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0288",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "mangue-ataulfo--unite",
+"qty": 4.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0289",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0290",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0291",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "citrons--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0292",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0293",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "bleuets--contenant",
+"qty": 2.0,
+"amount": 4.94,
+"regularPrice": null
+},
+{
+"id": "mig-l0294",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "olives-kalamata--pot",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0295",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "philadelphia--paquet",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0296",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0297",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 5.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0298",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "sauce-tomate-4-fromages--pot",
+"qty": 2.0,
+"amount": 6.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0299",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 4.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0300",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "pates-alimentaires--boite",
+"qty": 1.0,
+"amount": 1.27,
+"regularPrice": null
+},
+{
+"id": "mig-l0301",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.14,
+"regularPrice": null
+},
+{
+"id": "mig-l0302",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "banane-plantain--unite",
+"qty": 1.0,
+"amount": 1.41,
+"regularPrice": null
+},
+{
+"id": "mig-l0303",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "pizza-surgelee--boite",
+"qty": 3.0,
+"amount": 11.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0304",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "pitas-blancs--sac",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0305",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "miche-campagnolo--pain",
+"qty": 2.0,
+"amount": 9.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0306",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0307",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0308",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 1.7,
+"regularPrice": null
+},
+{
+"id": "mig-l0309",
+"receiptId": "mig-2024-11-02-super-c",
+"productId": "yogourt-liberte--pot",
+"qty": 2.0,
+"amount": 9.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0310",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0311",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "filet-de-saumon--kg",
+"qty": 1.0,
+"amount": 21.75,
+"regularPrice": null
+},
+{
+"id": "mig-l0312",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "lily---jack--sac",
+"qty": 1.0,
+"amount": 14.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0313",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "croute-a-tarte--unite",
+"qty": 2.0,
+"amount": 4.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0314",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0315",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "bacon-tranche-epais--paquet",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0316",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "the--boite",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0317",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0318",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0319",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "confiture-selection--pot",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0320",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "beurre--paquet",
+"qty": 2.0,
+"amount": 9.76,
+"regularPrice": null
+},
+{
+"id": "mig-l0321",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "pates-ravioli--boite",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0322",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "poivron-rouge--unite",
+"qty": 2.0,
+"amount": 4.82,
+"regularPrice": null
+},
+{
+"id": "mig-l0323",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "pain-tranche-multigrain--pain",
+"qty": 2.0,
+"amount": 8.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0324",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "bleuets--contenant",
+"qty": 2.0,
+"amount": 7.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0325",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0326",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0327",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "philadelphia--paquet",
+"qty": 2.0,
+"amount": 8.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0328",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "yogourt-liberte--pot",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0329",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "pommes-honeycrisp--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0330",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "asperges--botte",
+"qty": 1.0,
+"amount": 2.94,
+"regularPrice": null
+},
+{
+"id": "mig-l0331",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 2.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0332",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "laitue--unite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0333",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.16,
+"regularPrice": null
+},
+{
+"id": "mig-l0334",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "craquelins--boite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0335",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0336",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "persil--botte",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0337",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "croutons--sac",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0338",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "vinaigrette--bouteille",
+"qty": 1.0,
+"amount": 2.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0339",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "fecule-de-mais--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0340",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "patate-douce--unite",
+"qty": 4.0,
+"amount": 3.55,
+"regularPrice": null
+},
+{
+"id": "mig-l0341",
+"receiptId": "mig-2024-11-09-super-c",
+"productId": "mangue-ataulfo--unite",
+"qty": 4.0,
+"amount": 1.47,
+"regularPrice": null
+},
+{
+"id": "mig-l0342",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "filet-de-saumon--kg",
+"qty": 1.0,
+"amount": 14.73,
+"regularPrice": null
+},
+{
+"id": "mig-l0343",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 1.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0344",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "patate-douce--unite",
+"qty": 2.0,
+"amount": 2.68,
+"regularPrice": null
+},
+{
+"id": "mig-l0345",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 1.0,
+"amount": 12.22,
+"regularPrice": null
+},
+{
+"id": "mig-l0346",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0347",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pommes-honeycrisp--sac",
+"qty": 6.0,
+"amount": 9.03,
+"regularPrice": null
+},
+{
+"id": "mig-l0348",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 1.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0349",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 8.3,
+"regularPrice": null
+},
+{
+"id": "mig-l0350",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "olives-farcies--pot",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0351",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pates-tagliatelles--boite",
+"qty": 3.0,
+"amount": 8.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0352",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "gaufres--boite",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0353",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pates-alimentaires--boite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0354",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "poivron-rouge--unite",
+"qty": 2.0,
+"amount": 4.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0355",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "creme-15--unite",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0356",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pitas-blancs--sac",
+"qty": 1.0,
+"amount": 1.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0357",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "gingembre-moulu--contenant",
+"qty": 1.0,
+"amount": 2.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0358",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0359",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pain-tranche-avoine--pain",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0360",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0361",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "sauce-tomate-pesto--pot",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0362",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "mangue-ataulfo--unite",
+"qty": 4.0,
+"amount": 3.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0363",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pepites-de-chocolat--sac",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0364",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0365",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0366",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "sac-reutilisable--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0367",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "tomates--unite",
+"qty": 2.0,
+"amount": 4.09,
+"regularPrice": null
+},
+{
+"id": "mig-l0368",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "farine--sac",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0369",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "framboises-congelees--sac",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0370",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "fraises-congelees--sac",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0371",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "pamplemousse--unite",
+"qty": 3.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0372",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0373",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0374",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0375",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "laitue--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0376",
+"receiptId": "mig-2024-11-16-super-c",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0377",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "sauce-leekkee--bouteille",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0378",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "pommes-honeycrisp--sac",
+"qty": 1.0,
+"amount": 5.31,
+"regularPrice": null
+},
+{
+"id": "mig-l0379",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0380",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0381",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "crocqart-cer--unite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0382",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0383",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "lpc-p-tites-jaunes--unite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0384",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "miche--pain",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0385",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0386",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "pain-tranche-multigrain--pain",
+"qty": 1.0,
+"amount": 4.59,
+"regularPrice": null
+},
+{
+"id": "mig-l0387",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "assurance-lacoste--mois",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0388",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "oignon-rouge--unite",
+"qty": 1.0,
+"amount": 4.15,
+"regularPrice": null
+},
+{
+"id": "mig-l0389",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "pommes-granny-smith--sac",
+"qty": 1.0,
+"amount": 4.02,
+"regularPrice": null
+},
+{
+"id": "mig-l0390",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0391",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "miche-campagnolo--pain",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0392",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "kiwis--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0393",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 1.0,
+"amount": 9.83,
+"regularPrice": null
+},
+{
+"id": "mig-l0394",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0395",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0396",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "huile-d-olive--bouteille",
+"qty": 1.0,
+"amount": 19.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0397",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "lily---jack--sac",
+"qty": 1.0,
+"amount": 16.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0398",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "mangues-congelees--sac",
+"qty": 1.0,
+"amount": 13.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0399",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "fruits-congeles-assortis--sac",
+"qty": 1.0,
+"amount": 13.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0400",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "baies-congelees--sac",
+"qty": 1.0,
+"amount": 13.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0401",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "fromage-bloc--paquet",
+"qty": 2.0,
+"amount": 12.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0402",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 1.0,
+"amount": 9.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0403",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "sauce-soya--bouteille",
+"qty": 1.0,
+"amount": 9.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0404",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "lentilles--sac",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0405",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "chocolat-lindt--tablette",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0406",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "framboises--contenant",
+"qty": 1.0,
+"amount": 7.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0407",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "sauce-tomate-classico--pot",
+"qty": 2.0,
+"amount": 7.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0408",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 7.52,
+"regularPrice": null
+},
+{
+"id": "mig-l0409",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tomates--unite",
+"qty": 4.0,
+"amount": 7.38,
+"regularPrice": null
+},
+{
+"id": "mig-l0410",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "oranges--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0411",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "vinaigre-balsamique--bouteille",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0412",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 3.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0413",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tortillas--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0414",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "legumes-en-conserve--boite",
+"qty": 1.0,
+"amount": 2.55,
+"regularPrice": null
+},
+{
+"id": "mig-l0415",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "algues--contenant",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0416",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "poireaux--unite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0417",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "dattes--sac",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0418",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "celeri-rave--kg",
+"qty": 1.0,
+"amount": 2.39,
+"regularPrice": null
+},
+{
+"id": "mig-l0419",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "capres--pot",
+"qty": 1.0,
+"amount": 2.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0420",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "bicarbonate-de-soude--boite",
+"qty": 1.0,
+"amount": 2.89,
+"regularPrice": null
+},
+{
+"id": "mig-l0421",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.28,
+"regularPrice": null
+},
+{
+"id": "mig-l0422",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0423",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "thym--botte",
+"qty": 1.0,
+"amount": 1.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0424",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "oignons-verts--botte",
+"qty": 1.0,
+"amount": 1.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0425",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 1.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0426",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "celeri-rave--kg",
+"qty": 1.0,
+"amount": 1.62,
+"regularPrice": null
+},
+{
+"id": "mig-l0427",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 1.54,
+"regularPrice": null
+},
+{
+"id": "mig-l0428",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "creme-sure--contenant",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0429",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "citrons--sac",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0430",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "oignons-verts--botte",
+"qty": 1.0,
+"amount": 0.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0431",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "fruit-de-la-passion--unite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0432",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "avocat--unite",
+"qty": 1.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0433",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "bleuets--contenant",
+"qty": 2.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0434",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "chocolat-tablette--tablette",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0435",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tomates-cerises--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0436",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "pois-chiches--cuit--boite",
+"qty": 1.0,
+"amount": 3.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0437",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "pommes-delicieuses-jaunes--kg",
+"qty": 1.0,
+"amount": 3.62,
+"regularPrice": null
+},
+{
+"id": "mig-l0438",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "celeri--pied",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0439",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "tomates-cerises--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0440",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "courgette--kg",
+"qty": 1.0,
+"amount": 3.43,
+"regularPrice": null
+},
+{
+"id": "mig-l0441",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "blette--contenant",
+"qty": 2.0,
+"amount": 3.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0442",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "bleuets--contenant",
+"qty": 2.0,
+"amount": 3.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0443",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "olives-kalamata--pot",
+"qty": 1.0,
+"amount": 3.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0444",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "betteraves--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0445",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "fenouil--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0446",
+"receiptId": "mig-2024-12-01-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0447",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "champignons--contenant",
+"qty": 2.0,
+"amount": 3.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0448",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "jus-de-pomme--carton",
+"qty": 1.0,
+"amount": 4.59,
+"regularPrice": null
+},
+{
+"id": "mig-l0449",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "pommes-delicieuses-jaunes--sac",
+"qty": 5.0,
+"amount": 4.91,
+"regularPrice": null
+},
+{
+"id": "mig-l0450",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "moules--boite",
+"qty": 2.0,
+"amount": 4.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0451",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "kiwis--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0452",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "fruit--unite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0453",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0454",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "mures--contenant",
+"qty": 2.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0455",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0456",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "sardines-a-l-huile--boite",
+"qty": 2.0,
+"amount": 3.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0457",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "tisane-twinings--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0458",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "bifteck--paquet",
+"qty": 1.0,
+"amount": 7.05,
+"regularPrice": null
+},
+{
+"id": "mig-l0459",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "framboises--contenant",
+"qty": 2.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0460",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.76,
+"regularPrice": null
+},
+{
+"id": "mig-l0461",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "basilic--pot",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0462",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "pommes-de-terre--sac",
+"qty": 1.0,
+"amount": 1.48,
+"regularPrice": null
+},
+{
+"id": "mig-l0463",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 1.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0464",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 3.0,
+"amount": 1.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0465",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "fruit-de-la-passion--unite",
+"qty": 3.0,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0466",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "patate-douce--unite",
+"qty": 3.0,
+"amount": 2.46,
+"regularPrice": null
+},
+{
+"id": "mig-l0467",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "haut-de-cuisse-poulet--kg",
+"qty": 1.0,
+"amount": 13.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0468",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "ufs--douzaine",
+"qty": 2.0,
+"amount": 9.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0469",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "sauce-tomate--pot",
+"qty": 1.0,
+"amount": 2.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0470",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 2.0,
+"amount": 7.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0471",
+"receiptId": "mig-2025-01-05-super-c",
+"productId": "parmigiano-reggiano--paquet",
+"qty": 1.0,
+"amount": 9.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0472",
+"receiptId": "mig-2025-01-25-maxi",
+"productId": "pizza-mike-s--boite",
+"qty": 2.0,
+"amount": 21.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0473",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0474",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "legumes-en-conserve--boite",
+"qty": 1.0,
+"amount": 1.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0475",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0476",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "epinards--contenant",
+"qty": 2.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0477",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "celeri--pied",
+"qty": 1.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0478",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "sauce-tomate--pot",
+"qty": 1.0,
+"amount": 3.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0479",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "pommes-honeycrisp--unite",
+"qty": 1.0,
+"amount": 10.52,
+"regularPrice": null
+},
+{
+"id": "mig-l0480",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "bouillon--carton",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0481",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "bouillon-cube-boeuf--boite",
+"qty": 1.0,
+"amount": 17.02,
+"regularPrice": null
+},
+{
+"id": "mig-l0482",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 7.59,
+"regularPrice": null
+},
+{
+"id": "mig-l0483",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "fromage-bloc--paquet",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0484",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "creme-15--unite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0485",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "jus-d-ananas--carton",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0486",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "jus-tropicana--carton",
+"qty": 2.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0487",
+"receiptId": "mig-2025-01-25-maxi",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 5.77,
+"regularPrice": null
+},
+{
+"id": "mig-l0488",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "bouillon-cube-boeuf--boite",
+"qty": 1.0,
+"amount": 18.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0489",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 1.34,
+"regularPrice": null
+},
+{
+"id": "mig-l0490",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "bouillon-cube-boeuf--boite",
+"qty": 1.0,
+"amount": 17.22,
+"regularPrice": null
+},
+{
+"id": "mig-l0491",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0492",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "mures--contenant",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0493",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "framboises--contenant",
+"qty": 3.0,
+"amount": 8.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0494",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "pommes-de-terre-grelots--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0495",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "persil--botte",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0496",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "poivron-rouge--unite",
+"qty": 1.0,
+"amount": 8.12,
+"regularPrice": null
+},
+{
+"id": "mig-l0497",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "concombre-sans-pepin--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0498",
+"receiptId": "mig-2025-01-25-maxi",
+"productId": "7up--bouteille",
+"qty": 1.0,
+"amount": 1.66,
+"regularPrice": null
+},
+{
+"id": "mig-l0499",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "riz-basmati--sac",
+"qty": 1.0,
+"amount": 8.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0500",
+"receiptId": "mig-2025-01-25-maxi",
+"productId": "miel--pot",
+"qty": 1.0,
+"amount": 10.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0501",
+"receiptId": "mig-2025-01-25-maxi",
+"productId": "sirop-d-erable--bouteille",
+"qty": 1.0,
+"amount": 10.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0502",
+"receiptId": "mig-2025-01-25-maxi",
+"productId": "vinaigre--bouteille",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0503",
+"receiptId": "mig-2025-01-25-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0504",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "persil--botte",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0505",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "sardines-a-l-huile--boite",
+"qty": 1.0,
+"amount": 2.09,
+"regularPrice": null
+},
+{
+"id": "mig-l0506",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "moules--boite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0507",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "craquelins--boite",
+"qty": 1.0,
+"amount": 2.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0508",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "chou-fleur--unite",
+"qty": 1.0,
+"amount": 2.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0509",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "ciboulette--botte",
+"qty": 1.0,
+"amount": 2.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0510",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "citrons--unite",
+"qty": 4.0,
+"amount": 3.48,
+"regularPrice": null
+},
+{
+"id": "mig-l0511",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "limes--sac",
+"qty": 5.0,
+"amount": 4.35,
+"regularPrice": null
+},
+{
+"id": "mig-l0512",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0513",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "haricots-verts--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0514",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0515",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 5.01,
+"regularPrice": null
+},
+{
+"id": "mig-l0516",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "basilic--pot",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0517",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "pommes-honeycrisp--unite",
+"qty": 1.0,
+"amount": 8.23,
+"regularPrice": null
+},
+{
+"id": "mig-l0518",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "avocat--unite",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0519",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "parmigiano-reggiano--paquet",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0520",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "yogourt-liberte--pot",
+"qty": 1.0,
+"amount": 6.47,
+"regularPrice": null
+},
+{
+"id": "mig-l0521",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "saumon-fume--paquet",
+"qty": 3.0,
+"amount": 12.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0522",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "pates-aux-oeufs-aurora--boite",
+"qty": 2.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0523",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0524",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0525",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "m-coll--unite",
+"qty": 2.0,
+"amount": 5.38,
+"regularPrice": null
+},
+{
+"id": "mig-l0526",
+"receiptId": "mig-2025-01-28-super-c",
+"productId": "pommes-de-terre--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0527",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "chou-fleur--unite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0528",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0529",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 4.43,
+"regularPrice": null
+},
+{
+"id": "mig-l0530",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0531",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "epinards--contenant",
+"qty": 2.0,
+"amount": 4.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0532",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0533",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "saucisse-roma--paquet",
+"qty": 1.0,
+"amount": 7.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0534",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "poitrine-de-poulet--kg",
+"qty": 1.0,
+"amount": 14.61,
+"regularPrice": null
+},
+{
+"id": "mig-l0535",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 5.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0536",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "poireaux--unite",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0537",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "fruit-exotique--unite",
+"qty": 2.0,
+"amount": 7.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0538",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 5.0,
+"amount": 8.85,
+"regularPrice": null
+},
+{
+"id": "mig-l0539",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "tofu-nature--unite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0540",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0541",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "philadelphia--paquet",
+"qty": 1.0,
+"amount": 3.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0542",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "pommes-delicieuses-rouges--unite",
+"qty": 1.0,
+"amount": 3.14,
+"regularPrice": null
+},
+{
+"id": "mig-l0543",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "buf-hache-maigre--kg",
+"qty": 1.0,
+"amount": 13.84,
+"regularPrice": null
+},
+{
+"id": "mig-l0544",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "courgette--unite",
+"qty": 4.0,
+"amount": 3.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0545",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "avocat--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0546",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "mures--contenant",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0547",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0548",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 3.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0549",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "gingembre-frais--unite",
+"qty": 1.0,
+"amount": 0.6,
+"regularPrice": null
+},
+{
+"id": "mig-l0550",
+"receiptId": "mig-2025-02-03-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.7,
+"regularPrice": null
+},
+{
+"id": "mig-l0551",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 7.61,
+"regularPrice": null
+},
+{
+"id": "mig-l0552",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "buf-bourguignon--kg",
+"qty": 1.0,
+"amount": 15.63,
+"regularPrice": null
+},
+{
+"id": "mig-l0553",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "pommes-honeycrisp--sac",
+"qty": 1.0,
+"amount": 10.56,
+"regularPrice": null
+},
+{
+"id": "mig-l0554",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "mangue-ataulfo--unite",
+"qty": 4.0,
+"amount": 7.16,
+"regularPrice": null
+},
+{
+"id": "mig-l0555",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "prunes--sac",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0556",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "lily---jack--sac",
+"qty": 1.0,
+"amount": 14.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0557",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "kiwis--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0558",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 2.03,
+"regularPrice": null
+},
+{
+"id": "mig-l0559",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 5.89,
+"regularPrice": null
+},
+{
+"id": "mig-l0560",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "jus-oasis--carton",
+"qty": 1.0,
+"amount": 2.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0561",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "bagels-st-viateur--sac",
+"qty": 1.0,
+"amount": 5.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0562",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "farine--sac",
+"qty": 1.0,
+"amount": 3.77,
+"regularPrice": null
+},
+{
+"id": "mig-l0563",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "muffins-anglais--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0564",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "mures--contenant",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0565",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0566",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0567",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 2.77,
+"regularPrice": null
+},
+{
+"id": "mig-l0568",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "tomates-en-des--boite",
+"qty": 1.0,
+"amount": 2.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0569",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0570",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0571",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 2.0,
+"amount": 11.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0572",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "pain-autrichien--pain",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0573",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "lait-de-coco--boite",
+"qty": 1.0,
+"amount": 3.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0574",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "craquelins--boite",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0575",
+"receiptId": "mig-2025-02-09-super-c",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 5.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0576",
+"receiptId": "mig-2025-02-11-maxi",
+"productId": "pates-linguine--boite",
+"qty": 1.0,
+"amount": 2.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0577",
+"receiptId": "mig-2025-02-11-maxi",
+"productId": "mandarines--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0578",
+"receiptId": "mig-2025-02-12-maxi",
+"productId": "fromage-de-chevre--buche",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0579",
+"receiptId": "mig-2025-02-12-maxi",
+"productId": "fromage-cheddar-marbre--paquet",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0580",
+"receiptId": "mig-2025-02-12-maxi",
+"productId": "curcuma-moulu--contenant",
+"qty": 1.0,
+"amount": 6.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0581",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "persil--botte",
+"qty": 1.0,
+"amount": 1.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0582",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "raisins-verts--kg",
+"qty": 1.0,
+"amount": 7.26,
+"regularPrice": null
+},
+{
+"id": "mig-l0583",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "banane-bio--kg",
+"qty": 1.0,
+"amount": 2.39,
+"regularPrice": null
+},
+{
+"id": "mig-l0584",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "ananas--unite",
+"qty": 1.0,
+"amount": 1.74,
+"regularPrice": null
+},
+{
+"id": "mig-l0585",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "melon-santa-claus--2-145-kg--unite",
+"qty": 1.0,
+"amount": 4.68,
+"regularPrice": null
+},
+{
+"id": "mig-l0586",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "tomates-cerises--contenant",
+"qty": 1.0,
+"amount": 1.87,
+"regularPrice": null
+},
+{
+"id": "mig-l0587",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "saucisses-de-poulet-fumees--paquet",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0588",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "buf-hache-extra-maigre--kg",
+"qty": 1.0,
+"amount": 13.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0589",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "fromage-bloc--paquet",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0590",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "jus-oasis--carton",
+"qty": 1.0,
+"amount": 2.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0591",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "consigne-bouteille--unite",
+"qty": 1.0,
+"amount": 0.1,
+"regularPrice": null
+},
+{
+"id": "mig-l0592",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0593",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "pitas-blancs--sac",
+"qty": 1.0,
+"amount": 1.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0594",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "pain-tranche-blanc--pain",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0595",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "prunes--kg",
+"qty": 1.0,
+"amount": 5.59,
+"regularPrice": null
+},
+{
+"id": "mig-l0596",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 6.09,
+"regularPrice": null
+},
+{
+"id": "mig-l0597",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "fruit-de-la-passion--unite",
+"qty": 2.0,
+"amount": 2.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0598",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "pains-hot-dog--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0599",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0600",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "pommes-cortland--kg",
+"qty": 1.0,
+"amount": 5.17,
+"regularPrice": null
+},
+{
+"id": "mig-l0601",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "bouillon-cube--boite",
+"qty": 1.0,
+"amount": 3.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0602",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "tomates-en-des--boite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0603",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "beurre--paquet",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0604",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "legumineuses--boite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0605",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "pates-catelli--boite",
+"qty": 1.0,
+"amount": 2.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0606",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "jus-fruitzoo--carton",
+"qty": 1.0,
+"amount": 2.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0607",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 3.89,
+"regularPrice": null
+},
+{
+"id": "mig-l0608",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0609",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "confiture-bonne-maman--pot",
+"qty": 2.0,
+"amount": 8.88,
+"regularPrice": null
+},
+{
+"id": "mig-l0610",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0611",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "concombre-mini--sac",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0612",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "mangue-rouge--unite",
+"qty": 4.0,
+"amount": 6.76,
+"regularPrice": null
+},
+{
+"id": "mig-l0613",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "citrons--unite",
+"qty": 2.0,
+"amount": 1.74,
+"regularPrice": null
+},
+{
+"id": "mig-l0614",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "brocoli--unite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0615",
+"receiptId": "mig-2025-03-15-super-c",
+"productId": "jus-oasis--carton",
+"qty": 1.0,
+"amount": 2.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0616",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "porc-hache-maigre--kg",
+"qty": 1.0,
+"amount": 10.32,
+"regularPrice": null
+},
+{
+"id": "mig-l0617",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "mures--contenant",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0618",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "raisins-verts--sac",
+"qty": 0.98,
+"amount": 6.46,
+"regularPrice": null
+},
+{
+"id": "mig-l0619",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "kiwis--sac",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0620",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "epinards--contenant",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0621",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "laitue--unite",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0622",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "saucisses-de-poulet-fumees--paquet",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0623",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "yogourt-oikos-grec--pot",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0624",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "hummus--contenant",
+"qty": 2.0,
+"amount": 9.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0625",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "jus-de-pomme--carton",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0626",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "fromage-bloc--paquet",
+"qty": 1.0,
+"amount": 6.89,
+"regularPrice": null
+},
+{
+"id": "mig-l0627",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "tortillas--sac",
+"qty": 2.0,
+"amount": 8.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0628",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "pain-au-levain--pain",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0629",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "sac-reutilisable--unite",
+"qty": 1.0,
+"amount": 0.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0630",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "nourriture-lily-s-kitchen--sac",
+"qty": 1.0,
+"amount": 14.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0631",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "framboises--contenant",
+"qty": 2.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0632",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "produit-laitier-non-identifie--unite",
+"qty": 1.0,
+"amount": 4.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0633",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "banane-bio--unite",
+"qty": 0.88,
+"amount": 1.92,
+"regularPrice": null
+},
+{
+"id": "mig-l0634",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "tisane--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0635",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "mangue-ataulfo--unite",
+"qty": 5.0,
+"amount": 4.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0636",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "lait-de-coco--boite",
+"qty": 1.0,
+"amount": 3.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0637",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "boisson-d-avoine-silk--carton",
+"qty": 1.0,
+"amount": 3.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0638",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "farine-de-sarrasin--sac",
+"qty": 1.0,
+"amount": 4.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0639",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "moules--boite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0640",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "sirop-d-erable--bouteille",
+"qty": 1.0,
+"amount": 9.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0641",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "sardines-a-l-huile--boite",
+"qty": 1.0,
+"amount": 1.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0642",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "olives-farcies--pot",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0643",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "pois-chiches--cuit--boite",
+"qty": 2.0,
+"amount": 1.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0644",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "sucre-redpath--sac",
+"qty": 1.0,
+"amount": 3.47,
+"regularPrice": null
+},
+{
+"id": "mig-l0645",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 6.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0646",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "the-glace--bouteille",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0647",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "champignons--contenant",
+"qty": 2.0,
+"amount": 3.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0648",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "carottes--sac",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0649",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "pommes-honeycrisp--sac",
+"qty": 1.0,
+"amount": 9.24,
+"regularPrice": null
+},
+{
+"id": "mig-l0650",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 1.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0651",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "goyave--unite",
+"qty": 2.0,
+"amount": 1.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0652",
+"receiptId": "mig-2025-04-05-super-c",
+"productId": "tomates--unite",
+"qty": 0.73,
+"amount": 4.04,
+"regularPrice": null
+},
+{
+"id": "mig-l0653",
+"receiptId": "mig-2025-09-01-desjardins",
+"productId": "assurance-habitation--mois",
+"qty": 1.0,
+"amount": 129.63,
+"regularPrice": null
+},
+{
+"id": "mig-l0654",
+"receiptId": "mig-2025-09-02-cpe",
+"productId": "tchou-tchou--repas",
+"qty": 1.0,
+"amount": 301.15,
+"regularPrice": null
+},
+{
+"id": "mig-l0655",
+"receiptId": "mig-2026-01-01-petline",
+"productId": "assurance-sherlock--mois",
+"qty": 1.0,
+"amount": 24.72,
+"regularPrice": null
+},
+{
+"id": "mig-l0656",
+"receiptId": "mig-2026-01-01-la-cantine",
+"productId": "la-cantine-pour-tous--repas",
+"qty": 1.0,
+"amount": 15.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0657",
+"receiptId": "mig-2026-01-02-provigo",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0658",
+"receiptId": "mig-2026-01-02-le-monde",
+"productId": "abonnement-le-monde--mois",
+"qty": 1.0,
+"amount": 19.53,
+"regularPrice": null
+},
+{
+"id": "mig-l0659",
+"receiptId": "mig-2026-01-02-fizz",
+"productId": "telephone-fizz--mois",
+"qty": 1.0,
+"amount": 33.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0660",
+"receiptId": "mig-2026-01-02-tchou-tchou",
+"productId": "cpe-clementine-et-timothee--mois",
+"qty": 2.0,
+"amount": 387.2,
+"regularPrice": null
+},
+{
+"id": "mig-l0661",
+"receiptId": "mig-2026-01-02-provigo",
+"productId": "puree-de-citrouille--boite",
+"qty": 1.0,
+"amount": 6.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0662",
+"receiptId": "mig-2026-01-02-provigo",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0663",
+"receiptId": "mig-2026-01-02-provigo",
+"productId": "pizza-surgelee--boite",
+"qty": 2.0,
+"amount": 6.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0664",
+"receiptId": "mig-2026-01-02-provigo",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0665",
+"receiptId": "mig-2026-01-02-provigo",
+"productId": "mangue-rouge--unite",
+"qty": 3.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0666",
+"receiptId": "mig-2026-01-03-pharmaprix",
+"productId": "medicament--otite--unite",
+"qty": 1.0,
+"amount": 41.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0667",
+"receiptId": "mig-2026-01-03-pharmaprix",
+"productId": "gouttes-nasales-enfants--boite",
+"qty": 1.0,
+"amount": 21.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0668",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "pains-hamburger--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0669",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0670",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "croissants--sac",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0671",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "hummus--contenant",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0672",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 3.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0673",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "poires--unite",
+"qty": 1.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0674",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "tomates--unite",
+"qty": 1.0,
+"amount": 2.48,
+"regularPrice": null
+},
+{
+"id": "mig-l0675",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "pommes-golden--sac",
+"qty": 1.0,
+"amount": 7.6,
+"regularPrice": null
+},
+{
+"id": "mig-l0676",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "jus-d-orange--carton",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0677",
+"receiptId": "mig-2026-01-04-provigo",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0678",
+"receiptId": "mig-2026-01-06-myriade",
+"productId": "cafe-espresso--paquet",
+"qty": 2.0,
+"amount": 50.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0679",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "haut-de-cuisse-poulet--kg",
+"qty": 1.0,
+"amount": 29.96,
+"regularPrice": null
+},
+{
+"id": "mig-l0680",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "fruit-de-la-passion--unite",
+"qty": 1.0,
+"amount": 7.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0681",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "avocat--unite",
+"qty": 1.0,
+"amount": 6.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0682",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "oignon-espagnol--unite",
+"qty": 1.0,
+"amount": 3.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0683",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "citrons--sac",
+"qty": 1.0,
+"amount": 6.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0684",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "sardines-a-l-huile--boite",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0685",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "moules--boite",
+"qty": 1.0,
+"amount": 2.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0686",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "artichauts--unite",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0687",
+"receiptId": "mig-2026-01-07-provigo",
+"productId": "unibroue--biere--bouteille",
+"qty": 1.0,
+"amount": 16.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0688",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "tomates--kg",
+"qty": 0.46,
+"amount": 2.02,
+"regularPrice": null
+},
+{
+"id": "mig-l0689",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "raisins-verts--sac",
+"qty": 1.0,
+"amount": 5.72,
+"regularPrice": null
+},
+{
+"id": "mig-l0690",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "rabais-membre--unite",
+"qty": 1.0,
+"amount": -1.6,
+"regularPrice": null
+},
+{
+"id": "mig-l0691",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "aubergine--kg",
+"qty": 0.65,
+"amount": 5.72,
+"regularPrice": null
+},
+{
+"id": "mig-l0692",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "limes--unite",
+"qty": 5.0,
+"amount": 3.95,
+"regularPrice": null
+},
+{
+"id": "mig-l0693",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "haricots-verts--kg",
+"qty": 0.45,
+"amount": 2.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0694",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "barres-clif--unite",
+"qty": 5.0,
+"amount": 12.45,
+"regularPrice": null
+},
+{
+"id": "mig-l0695",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "pommes-gala--kg",
+"qty": 1.06,
+"amount": 5.85,
+"regularPrice": null
+},
+{
+"id": "mig-l0696",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "ananas--unite",
+"qty": 1.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0697",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "rabais--unite",
+"qty": 1.0,
+"amount": -0.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0698",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "concombre--unite",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0699",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "rabais--unite",
+"qty": 1.0,
+"amount": -1.52,
+"regularPrice": null
+},
+{
+"id": "mig-l0700",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "brocoli--unite",
+"qty": 2.0,
+"amount": 5.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0701",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "fraises--contenant",
+"qty": 2.0,
+"amount": 3.76,
+"regularPrice": null
+},
+{
+"id": "mig-l0702",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "haut-de-cuisse-poulet--kg",
+"qty": 1.0,
+"amount": 16.17,
+"regularPrice": null
+},
+{
+"id": "mig-l0703",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "fromage-de-chevre--buche",
+"qty": 1.0,
+"amount": 8.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0704",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "raclette--paquet",
+"qty": 3.0,
+"amount": 44.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0705",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "creme-10--carton",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0706",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "jus-refrigere--carton",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0707",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "yogourt-classique--pot",
+"qty": 1.0,
+"amount": 5.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0708",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "yogourt-astro--pot",
+"qty": 1.0,
+"amount": 3.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0709",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "tortillas--sac",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0710",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "pain-tranche-blanc--pain",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0711",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "lily---jack--sac",
+"qty": 2.0,
+"amount": 28.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0712",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "choux-de-bruxelles--contenant",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0713",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "clementines--sac",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0714",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "mortadelle--paquet",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0715",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "fruits-et-legumes--assortis--unite",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0716",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "champignons--contenant",
+"qty": 1.0,
+"amount": 2.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0717",
+"receiptId": "mig-2026-01-10-provigo",
+"productId": "cotes-levees-bbq--paquet",
+"qty": 3.0,
+"amount": 29.31,
+"regularPrice": null
+},
+{
+"id": "mig-l0718",
+"receiptId": "mig-2026-01-10-provigo",
+"productId": "eau-tonique-schweppes--bouteille",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0719",
+"receiptId": "mig-2026-01-10-provigo",
+"productId": "baguette--pain",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0720",
+"receiptId": "mig-2026-01-10-provigo",
+"productId": "promotioncd--unite",
+"qty": 1.0,
+"amount": 9.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0721",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "bick-s-cornichons--unite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0722",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "sauce-tomate-classico--pot",
+"qty": 1.0,
+"amount": 3.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0723",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "pate-de-tomate--boite",
+"qty": 1.0,
+"amount": 1.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0724",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "sauce-tomate--pot",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0725",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "catelli-pates-alimentaires--unite",
+"qty": 2.0,
+"amount": 4.58,
+"regularPrice": null
+},
+{
+"id": "mig-l0726",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0727",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "thon-en-conserve--boite",
+"qty": 3.0,
+"amount": 5.97,
+"regularPrice": null
+},
+{
+"id": "mig-l0728",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 3.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0729",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "epices--g",
+"qty": 1.0,
+"amount": 2.59,
+"regularPrice": null
+},
+{
+"id": "mig-l0730",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "jambon-cru--paquet",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0731",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "coupon-fantino---mondello--unite",
+"qty": 1.0,
+"amount": -1.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0732",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "rabais--unite",
+"qty": 1.0,
+"amount": -0.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0733",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "jambon-emince--paquet",
+"qty": 1.0,
+"amount": 8.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0734",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "salami--paquet",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0735",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 1.0,
+"amount": 4.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0736",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "mayonnaise--pot",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0737",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "beurre-d-arachide-kraft--pot",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0738",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "rabais--unite",
+"qty": 1.0,
+"amount": -0.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0739",
+"receiptId": "mig-2026-01-10-super-c",
+"productId": "salami-soppressata--paquet",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0740",
+"receiptId": "mig-2026-01-12-provigo",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0741",
+"receiptId": "mig-2026-01-12-provigo",
+"productId": "fecule-de-mais--boite",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0742",
+"receiptId": "mig-2026-01-12-provigo",
+"productId": "fin-du-monde--biere--bouteille",
+"qty": 1.0,
+"amount": 12.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0743",
+"receiptId": "mig-2026-01-12-provigo",
+"productId": "avocat--unite",
+"qty": 1.0,
+"amount": 6.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0744",
+"receiptId": "mig-2026-01-12-provigo",
+"productId": "framboises--contenant",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0745",
+"receiptId": "mig-2026-01-13-provigo",
+"productId": "pain-italien--pain",
+"qty": 1.0,
+"amount": 3.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0746",
+"receiptId": "mig-2026-01-13-provigo",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0747",
+"receiptId": "mig-2026-01-13-provigo",
+"productId": "fraises--contenant",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0748",
+"receiptId": "mig-2026-01-14-provigo",
+"productId": "sauce-tomate--pot",
+"qty": 1.0,
+"amount": 3.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0749",
+"receiptId": "mig-2026-01-16-pharmaprix",
+"productId": "tisane-celestial-seasonings--boite",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0750",
+"receiptId": "mig-2026-01-16-pharmaprix",
+"productId": "biscuits-pc--unite",
+"qty": 1.0,
+"amount": 5.19,
+"regularPrice": null
+},
+{
+"id": "mig-l0751",
+"receiptId": "mig-2026-01-16-pharmaprix",
+"productId": "creme-a-main--tube",
+"qty": 1.0,
+"amount": 11.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0752",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "fruit-pack--unite",
+"qty": 1.0,
+"amount": 7.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0753",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "patate-douce--unite",
+"qty": 1.0,
+"amount": 5.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0754",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "oignon-rouge--unite",
+"qty": 1.0,
+"amount": 1.41,
+"regularPrice": null
+},
+{
+"id": "mig-l0755",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "celeri--pied",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0756",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "framboises--contenant",
+"qty": 1.0,
+"amount": 4.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0757",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "poivron-vert--unite",
+"qty": 1.0,
+"amount": 3.7,
+"regularPrice": null
+},
+{
+"id": "mig-l0758",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "coriandre--botte",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0759",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "citrons--sac",
+"qty": 1.0,
+"amount": 6.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0760",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "limes--sac",
+"qty": 1.0,
+"amount": 5.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0761",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "avocat--unite",
+"qty": 1.0,
+"amount": 7.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0762",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pommes-honeycrisp--sac",
+"qty": 1.0,
+"amount": 4.94,
+"regularPrice": null
+},
+{
+"id": "mig-l0763",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pitas-blancs--sac",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0764",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "bleuets--contenant",
+"qty": 1.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0765",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "endive--unite",
+"qty": 1.0,
+"amount": 7.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0766",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "laitue-romaine--unite",
+"qty": 1.0,
+"amount": 3.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0767",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "banane-bio--unite",
+"qty": 1.0,
+"amount": 4.62,
+"regularPrice": null
+},
+{
+"id": "mig-l0768",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "saucisses-de-poulet--paquet",
+"qty": 1.0,
+"amount": 7.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0769",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "buf-hache-maigre--kg",
+"qty": 1.0,
+"amount": 10.8,
+"regularPrice": null
+},
+{
+"id": "mig-l0770",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "filet-de-saumon--kg",
+"qty": 1.0,
+"amount": 14.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0771",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "coquilles-st-jacques--paquet",
+"qty": 1.0,
+"amount": 8.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0772",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "boulangerie--unite",
+"qty": 1.0,
+"amount": 6.75,
+"regularPrice": null
+},
+{
+"id": "mig-l0773",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pc-chocolatine--unite",
+"qty": 1.0,
+"amount": 6.09,
+"regularPrice": null
+},
+{
+"id": "mig-l0774",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "bagels--sac",
+"qty": 1.0,
+"amount": 5.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0775",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "persil--botte",
+"qty": 1.0,
+"amount": 1.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0776",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pec-cimelette--unite",
+"qty": 1.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0777",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "filets-de-poulet-panes--sac",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0778",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "brise-du-lac--biere--bouteille",
+"qty": 1.0,
+"amount": 15.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0779",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "raisins-secs--boite",
+"qty": 1.0,
+"amount": 6.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0780",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "mangue-rouge--unite",
+"qty": 3.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0781",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "biscuits-pc--unite",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0782",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "legume-jardin-dare--unite",
+"qty": 2.0,
+"amount": 7.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0783",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pois-chiches--cuit--boite",
+"qty": 1.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0784",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "moules--boite",
+"qty": 2.0,
+"amount": 5.98,
+"regularPrice": null
+},
+{
+"id": "mig-l0785",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "consigne--unite",
+"qty": 1.0,
+"amount": 0.4,
+"regularPrice": null
+},
+{
+"id": "mig-l0786",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pates-catelli--boite",
+"qty": 1.0,
+"amount": 3.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0787",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 3.75,
+"regularPrice": null
+},
+{
+"id": "mig-l0788",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 3.44,
+"regularPrice": null
+},
+{
+"id": "mig-l0789",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 3.75,
+"regularPrice": null
+},
+{
+"id": "mig-l0790",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "cereales-kellogg-s--boite",
+"qty": 1.0,
+"amount": 5.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0791",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pate-de-tomate--boite",
+"qty": 1.0,
+"amount": 1.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0792",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "barres-granola--boite",
+"qty": 1.0,
+"amount": 3.75,
+"regularPrice": null
+},
+{
+"id": "mig-l0793",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "fromage-a-pates--paquet",
+"qty": 1.0,
+"amount": 5.5,
+"regularPrice": null
+},
+{
+"id": "mig-l0794",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "huile-de-tournesol--bouteille",
+"qty": 1.0,
+"amount": 6.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0795",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "fromage-cheddar--paquet",
+"qty": 1.0,
+"amount": 6.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0796",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "lait-3-25--litre",
+"qty": 1.0,
+"amount": 4.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0797",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "canneberges--sac",
+"qty": 1.0,
+"amount": 8.0,
+"regularPrice": null
+},
+{
+"id": "mig-l0798",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "ufs--douzaine",
+"qty": 1.0,
+"amount": 4.69,
+"regularPrice": null
+},
+{
+"id": "mig-l0799",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "consigne--unite",
+"qty": 1.0,
+"amount": 0.6,
+"regularPrice": null
+},
+{
+"id": "mig-l0800",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "pepsi--bouteille",
+"qty": 1.0,
+"amount": 5.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0801",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "haricots-en-conserve--boite",
+"qty": 1.0,
+"amount": 2.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0802",
+"receiptId": "mig-2026-01-17-provigo",
+"productId": "philadelphia--paquet",
+"qty": 1.0,
+"amount": 4.29,
+"regularPrice": null
+},
+{
+"id": "mig-l0803",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "ge-pa--unite",
+"qty": 1.0,
+"amount": 11.68,
+"regularPrice": null
+},
+{
+"id": "mig-l0804",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "boete--unite",
+"qty": 1.0,
+"amount": 24.49,
+"regularPrice": null
+},
+{
+"id": "mig-l0805",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "plinthe--unite",
+"qty": 1.0,
+"amount": 46.08,
+"regularPrice": null
+},
+{
+"id": "mig-l0806",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "debouchoir--unite",
+"qty": 1.0,
+"amount": 1.85,
+"regularPrice": null
+},
+{
+"id": "mig-l0807",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "coupe-froid--unite",
+"qty": 1.0,
+"amount": 11.25,
+"regularPrice": null
+},
+{
+"id": "mig-l0808",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "nettoyant-cuvette--unite",
+"qty": 1.0,
+"amount": 16.61,
+"regularPrice": null
+},
+{
+"id": "mig-l0809",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "mastic-rebouche-trous--tube",
+"qty": 1.0,
+"amount": 4.77,
+"regularPrice": null
+},
+{
+"id": "mig-l0810",
+"receiptId": "mig-2026-01-18-home-depot",
+"productId": "15003--unite",
+"qty": 1.0,
+"amount": 23.79,
+"regularPrice": null
+},
+{
+"id": "mig-l0811",
+"receiptId": "mig-2026-01-19-jean-coutu",
+"productId": "pampers-swaddlers--paquet",
+"qty": 1.0,
+"amount": 26.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0812",
+"receiptId": "mig-2026-01-19-jean-coutu",
+"productId": "pampers-cruisers--paquet",
+"qty": 1.0,
+"amount": 26.99,
+"regularPrice": null
+},
+{
+"id": "mig-l0813",
+"receiptId": "mig-2026-01-19-jean-coutu",
+"productId": "livre-photo--unite",
+"qty": 1.0,
+"amount": 40.31,
+"regularPrice": null
+}
+]
+}
