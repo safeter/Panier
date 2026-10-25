@@ -3,7 +3,7 @@ import * as calc from './calc.js';
 import { CATEGORIES, CAT, IN_SCOPE } from './categories.js';
 import { $, $$, esc, fmtMoney, fmtPct, fmtMonth, fmtDate, today, uid, slug, toast, num, parseSize, fmtSize } from './util.js';
 import { indexChart, spendBars, effectBars, priceSpark } from './charts.js';
-import { scanReceipt, DEFAULT_MODEL } from './scan.js';
+import { planImport } from './importer.js';
 import { exportExcel, exportJSON } from './excel.js';
 
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
@@ -11,7 +11,7 @@ const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteill
 const state = {
   data: { stores: [], products: [], receipts: [], lines: [] },
   official: { points: [] },
-  settings: { apiKey: '', model: DEFAULT_MODEL, region: '' },
+  settings: { region: '' },
   view: null,
   draft: null,
 };
@@ -176,16 +176,15 @@ function findProduct(name, unit) {
 }
 
 function viewAdd() {
-  if (!state.draft) state.draft = { date: today(), store: '', lines: [emptyLine(), emptyLine(), emptyLine()], scanned: false, total: null };
+  if (!state.draft) state.draft = { date: today(), store: '', lines: [emptyLine(), emptyLine(), emptyLine()] };
   const d = state.draft;
   const names = [...new Set(state.data.products.filter((p) => p.category !== 'hors').map((p) => p.name))].sort((a, b) => a.localeCompare(b, 'fr'));
   state.after = () => bindAdd();
   return `
   <header class="page-head"><h1>Ajouter un reçu</h1></header>
   <section class="scan-box">
-    <label class="btn primary file"><input type="file" id="scan-file" accept="image/*,application/pdf" capture="environment">Scanner un reçu</label>
-    <label class="btn file"><input type="file" id="scan-pdf" accept="application/pdf,image/*">Importer un PDF ou une photo</label>
-    <p class="muted small" id="scan-status">${state.settings.apiKey ? 'Claude lit le reçu ; tu vérifies avant d’enregistrer.' : 'Pour scanner, ajoute ta clé API Claude dans <a href="#/reglages">Réglages</a>. La saisie manuelle fonctionne sans.'}</p>
+    <label class="btn primary file"><input type="file" id="import-file" accept="application/json,.json">Importer des reçus</label>
+    <p class="muted small" id="import-status">Envoie tes photos ou PDF de reçus à Claude dans le projet Panier : il te renvoie un fichier à importer ici. Sinon, saisis le reçu ci-dessous.</p>
   </section>
   <form id="receipt-form" class="block" autocomplete="off">
     <div class="row2">
@@ -194,10 +193,10 @@ function viewAdd() {
     </div>
     <datalist id="stores">${state.data.stores.map((s) => `<option value="${esc(s.name)}">`).join('')}</datalist>
     <datalist id="products">${names.map((n) => `<option value="${esc(n)}">`).join('')}</datalist>
+    ${frequentChips()}
     <div id="lines">${d.lines.map(lineRow).join('')}</div>
     <button type="button" class="btn ghost" id="add-line">Ajouter une ligne</button>
     <div class="total-line"><span>Total des lignes</span><strong id="sum">${fmtMoney(sumDraft())}</strong></div>
-    ${d.total ? `<p class="muted small" id="total-check">Total imprimé sur le reçu : ${fmtMoney(d.total)} (taxes comprises).</p>` : ''}
     <button class="btn primary wide" type="submit">Enregistrer le reçu</button>
   </form>`;
 }
@@ -258,44 +257,66 @@ function bindAdd() {
     e.preventDefault();
     try { await saveDraft(); } catch (err) { toast(err.message, 'error'); }
   });
-  for (const id of ['scan-file', 'scan-pdf']) $(`#${id}`).addEventListener('change', onScanFile);
+  $('#import-file').addEventListener('change', onImportFile);
+  $$('.chip[data-pid]').forEach((c) => c.addEventListener('click', () => addFrequent(c.dataset.pid)));
 }
 
-async function onScanFile(e) {
+// Achats fréquents : un toucher ajoute la ligne avec la dernière quantité et le dernier prix payés.
+function frequentProducts(limit = 16) {
+  const { byProduct } = state.derived;
+  return [...byProduct.entries()]
+    .map(([id, ls]) => ({ id, n: ls.length, last: ls.reduce((a, l) => (l.date > a.date ? l : a)) }))
+    .sort((a, b) => b.n - a.n)
+    .slice(0, limit);
+}
+
+function frequentChips() {
+  const used = new Set(state.draft.lines.map((l) => l.productId).filter(Boolean));
+  const items = frequentProducts().filter((f) => !used.has(f.id));
+  if (!items.length) return '';
+  return `<div class="chips" aria-label="Achats fréquents"><p class="hint">Achats fréquents : touche pour ajouter avec le dernier prix payé.</p>
+    ${items.map((f) => `<button type="button" class="chip" data-pid="${esc(f.id)}">${esc(f.last.product.name)}</button>`).join('')}</div>`;
+}
+
+function addFrequent(pid) {
+  const f = frequentProducts(100).find((x) => x.id === pid);
+  if (!f) return;
+  const l = f.last;
+  const line = { ...emptyLine(), name: l.product.name, productId: pid, unit: l.product.unit, category: l.product.category,
+    qty: String(l.qty).replace('.', ','), amount: l.amount.toFixed(2).replace('.', ',') };
+  const empty = state.draft.lines.findIndex((x) => !x.name.trim());
+  if (empty >= 0) state.draft.lines[empty] = line; else state.draft.lines.push(line);
+  render();
+}
+
+async function onImportFile(e) {
   const file = e.target.files?.[0];
   if (!file) return;
-  const status = $('#scan-status');
-  status.textContent = 'Lecture du reçu par Claude…';
-  status.classList.add('busy');
+  const status = $('#import-status');
   try {
-    const res = await scanReceipt(file, {
-      apiKey: state.settings.apiKey, model: state.settings.model,
-      products: state.data.products, stores: state.data.stores,
-    });
-    const P = new Map(state.data.products.map((p) => [p.id, p]));
-    state.draft = {
-      date: /^\d{4}-\d{2}-\d{2}$/.test(res.date || '') ? res.date : today(),
-      store: res.store || '',
-      total: num(res.total),
-      scanned: true,
-      lines: (res.lines || []).filter((l) => num(l.amount) > 0).map((l) => {
-        const p = l.matchId && P.get(l.matchId);
-        return {
-          name: p ? p.name : (l.name || l.raw || ''), productId: p ? p.id : null,
-          qty: String(num(l.qty) || 1).replace('.', ','), amount: String(num(l.amount)).replace('.', ','),
-          size: l.size || '', regularPrice: l.regularPrice ? String(l.regularPrice).replace('.', ',') : '',
-          category: CAT[l.category] ? l.category : 'autres', unit: p ? p.unit : 'unité',
-          confidence: typeof l.confidence === 'number' ? l.confidence : null, raw: l.raw || '',
-        };
-      }),
-    };
-    render();
-    const low = state.draft.lines.filter((l) => l.confidence !== null && l.confidence < 0.7).length;
-    toast(`${state.draft.lines.length} lignes lues${low ? `, ${low} à vérifier` : ''}.`);
+    const payload = JSON.parse(await file.text());
+    const plan = planImport(state.data, payload, uid);
+    if (!plan.receipts.length) {
+      status.textContent = `Rien à importer : ${plan.skipped.length} reçu(s) déjà présents.`;
+      return;
+    }
+    const total = plan.lines.reduce((a, l) => a + l.amount, 0);
+    const msg = `Importer ${plan.receipts.length} reçu(s), ${plan.lines.length} articles, ${fmtMoney(total)}`
+      + `${plan.products.length ? `, dont ${plan.products.length} nouveaux produits` : ''}`
+      + `${plan.skipped.length ? ` (${plan.skipped.length} déjà présents, ignorés)` : ''} ?`;
+    if (!confirm(msg)) return;
+    if (plan.stores.length) await db.put('stores', plan.stores);
+    if (plan.products.length) await db.put('products', plan.products);
+    await db.put('receipts', plan.receipts);
+    await db.put('lines', plan.lines);
+    await reload();
+    toast(`${plan.receipts.length} reçu(s) importé(s).`, 'ok');
+    location.hash = '#/';
   } catch (err) {
-    status.textContent = err.message;
-    status.classList.remove('busy');
+    status.textContent = err instanceof SyntaxError ? 'Ce fichier n’est pas un fichier de reçus valide.' : err.message;
     status.classList.add('error');
+  } finally {
+    e.target.value = '';
   }
 }
 
@@ -307,7 +328,7 @@ async function saveDraft() {
   let store = state.data.stores.find((s) => slug(s.name) === slug(d.store));
   const newStores = [];
   if (!store) { store = { id: slug(d.store), name: d.store.trim() }; newStores.push(store); }
-  const receipt = { id: uid('r'), date: d.date, storeId: store.id, source: d.scanned ? 'scan' : 'manuel', total: d.total ?? null, createdAt: new Date().toISOString() };
+  const receipt = { id: uid('r'), date: d.date, storeId: store.id, source: 'manuel', total: null, createdAt: new Date().toISOString() };
   const newProducts = [];
   const outLines = lines.map((l) => {
     let p = (l.productId && state.data.products.find((x) => x.id === l.productId)) || findProduct(l.name, l.unit);
@@ -457,7 +478,7 @@ function viewSettings() {
     $('#sform').addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = new FormData(e.target);
-      state.settings = { apiKey: f.get('apiKey').trim(), model: f.get('model').trim() || DEFAULT_MODEL, region: f.get('region').trim().toUpperCase().slice(0, 3) };
+      state.settings = { region: f.get('region').trim().toUpperCase().slice(0, 3) };
       await db.setMeta('settings', state.settings);
       toast('Réglages enregistrés.', 'ok');
     });
@@ -492,10 +513,7 @@ function viewSettings() {
   const added = d.receipts.filter((r) => r.source !== 'migration').length;
   return `<header class="page-head"><h1>Réglages</h1></header>
   <form id="sform" class="block" autocomplete="off">
-    <h2>Scan des reçus</h2>
-    <label>Clé API Claude<input name="apiKey" type="password" value="${esc(state.settings.apiKey)}" placeholder="sk-ant-…"></label>
-    <p class="hint">Gardée uniquement sur ce téléphone. Crée-la sur console.anthropic.com ; chaque scan coûte quelques cents.</p>
-    <label>Modèle<input name="model" value="${esc(state.settings.model)}"></label>
+    <h2>Profil</h2>
     <label>Code régional (3 premiers caractères du code postal)<input name="region" value="${esc(state.settings.region)}" maxlength="3" placeholder="H4L"></label>
     <button class="btn primary" type="submit">Enregistrer les réglages</button>
   </form>

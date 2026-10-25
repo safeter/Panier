@@ -1,9 +1,9 @@
 // Service worker : l'app se lance hors ligne ; la série officielle est rafraîchie dès que possible.
-const VERSION = 'panier-v2.0.0';
+const VERSION = 'panier-v2.1.0';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
   './js/app.js', './js/calc.js', './js/db.js', './js/util.js', './js/charts.js',
-  './js/categories.js', './js/scan.js', './js/excel.js',
+  './js/categories.js', './js/importer.js', './js/excel.js',
   './data/seed.json', './data/ipc-quebec.json', './icons/icon-192.png',
 ];
 
@@ -20,7 +20,6 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
   if (e.request.method !== 'GET') return;
-  if (url.hostname === 'api.anthropic.com') return;
 
   // Série officielle : réseau d'abord, cache en secours.
   if (url.pathname.endsWith('/data/ipc-quebec.json')) {

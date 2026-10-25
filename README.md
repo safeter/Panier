@@ -16,7 +16,7 @@ Application web installable (PWA), en français, pensée pour le téléphone.
 
 - Toutes les données restent sur le téléphone (IndexedDB). Sauvegarde et restauration par fichier JSON dans Réglages ; export Excel.
 - L'historique de décembre 2023 à janvier 2026 (814 lignes, Google Sheet « Suivi_depenses_V2 ») est chargé au premier lancement depuis `data/seed.json`.
-- Le scan de reçus appelle Claude directement avec une clé API personnelle saisie dans Réglages. Avant toute publication, cet appel passera par une fonction serveur.
+- Aucune clé API. Les reçus sont saisis à la main (avec raccourcis d'achats fréquents) ou importés depuis un fichier préparé par Claude dans le projet Panier : voir [FORMAT-IMPORT.md](FORMAT-IMPORT.md).
 
 ## Développement
 
@@ -33,6 +33,6 @@ node scripts/update-ipc.mjs      # met à jour data/ipc-quebec.json
 | `js/calc.js` | Calculs purs (indice, décomposition, alertes), testés |
 | `js/db.js` | Stockage local IndexedDB |
 | `js/app.js` | Écrans et navigation |
-| `js/scan.js` | Lecture des reçus par Claude |
+| `js/importer.js` | Import de reçus (fichier JSON), testé |
 | `data/seed.json` | Historique migré |
 | `data/ipc-quebec.json` | IPC officiel du Québec |
