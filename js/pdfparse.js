@@ -6,14 +6,14 @@ const MOIS_EN = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 
 
 const STORES = [
   [/lufa/i, 'Fermes Lufa'], [/super\s?c\b/i, 'Super C'], [/\bmaxi\b/i, 'Maxi'], [/\biga\b/i, 'IGA'],
-  [/provigo/i, 'Provigo'], [/\bmetro\b/i, 'Metro'], [/adonis/i, 'Adonis'], [/costco/i, 'Costco'],
+  [/provi[gq]/i, 'Provigo'], [/\bmetro\b/i, 'Metro'], [/adonis/i, 'Adonis'], [/costco/i, 'Costco'],
   [/walmart/i, 'Walmart'], [/jean coutu/i, 'Jean Coutu'], [/pharmaprix/i, 'Pharmaprix'], [/marché tau|tau\b/i, 'Marché Tau'],
 ];
 
 const MONEY = /(-?\d{1,4}(?:[  ]?\d{3})*[,.]\d{2})\s*\$?/g;
 const SKIP = /(sous[- ]?total|^total|\btotal\b|\btps\b|\btvq\b|\bhst\b|\bgst\b|\bqst\b|taxe|\btax\b|livraison|frais|pourboire|paiement|visa|mastercard|amex|interac|débit|crédit|credit|solde|monnaie|change\b|économi|points?\b|consigne|subtotal|delivery|shipping|\btip\b|montant|balance|remboursement|carte cadeau|n° de commande|commande n|order #)/i;
 const TAX_LINE = /^\s*(?:\*+\s*)?(?:tps|tvq|tvh|tax(?:e|es)?|hst|gst|qst|pst)\b/i;
-const DISCOUNT = /(rabais|escompte|promo|coupon|discount|réduction|reduction|économie)/i;
+const DISCOUNT = /(rabais|escompte|promo|coupon|discount|réduction|reduction|économie|prix des membres|prix membre|membre)/i;
 
 const num = (s) => parseFloat(String(s).replace(/[  ]/g, '').replace(',', '.'));
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -87,16 +87,19 @@ function parseLufa(lines) {
  */
 export function parseReceiptText(lines) {
   const text = lines.join('\n');
-  const out = { date: findDate(text), store: findStore(text), total: null, lines: [] };
+  const out = { date: findDate(text), store: findStore(text), total: null, subtotal: null, lines: [] };
   if (out.store === 'Fermes Lufa') {
     out.lines = parseLufa(lines);
     const t = text.match(/\bTOTAL\s+(\d+[,.]\d{2})\s*\$/);
     out.total = t ? num(t[1]) : null;
     if (out.lines.length) return out;
   }
+  let section = '';
   for (const rawLine of lines) {
     const raw = rawLine.replace(/\s+/g, ' ').trim();
     if (!raw) continue;
+    const sec = raw.match(/^\[Section\]\s*(.*)$/);
+    if (sec) { section = sec[1]; continue; }
     const prices = [...raw.matchAll(MONEY)];
     if (!prices.length) continue;
     const last = prices[prices.length - 1];
@@ -104,13 +107,15 @@ export function parseReceiptText(lines) {
     // Après le montant, seuls des codes de taxe sont admis (« 4,99 FP », « 2,49 T », « 3,99 * »).
     if (!/^[\s$]*[A-Z*]{0,4}\s*$/.test(raw.slice(last.index + last[0].length))) continue;
     const amount = num(last[1]);
+    if (/(?:sous|sub|[a-z]?ous)[\s-]*total/i.test(raw)) { out.subtotal = Math.abs(amount); continue; }
     if (/^\s*total\b/i.test(raw) || /\btotal\b/i.test(raw) && !/sous/i.test(raw)) {
-      if (!/sous|sub/i.test(raw)) out.total = Math.abs(amount);
+      out.total = Math.abs(amount);
       continue;
     }
     if (DISCOUNT.test(raw) || amount < 0) {
       const prev = out.lines[out.lines.length - 1];
-      if (prev) {
+      // Un rabais égal ou supérieur au prix est une mauvaise lecture : on ne l'applique pas.
+      if (prev && Math.abs(amount) < prev.amount) {
         const before = prev.amount;
         prev.amount = Math.round((prev.amount - Math.abs(amount)) * 100) / 100;
         prev.regularPrice = Math.round((before / prev.qty) * 100) / 100;
@@ -145,7 +150,7 @@ export function parseReceiptText(lines) {
 
     name = clean(name);
     if (name.length < 2 || /^\d+$/.test(name)) continue;
-    out.lines.push({ raw, name, qty, amount, size: sizeOf(name), unit: kg ? 'kg' : 'unité' });
+    out.lines.push({ raw, name, qty, amount, size: sizeOf(name), unit: kg ? 'kg' : 'unité', ...(section ? { section } : {}) });
   }
   return out;
 }
@@ -160,8 +165,15 @@ const CAT_WORDS = [
   ['legumes', /tomate|laitue|chou|bok choy|kale|[ée]pinard|roquette|oignon|[ée]chalote|ail\b|carotte|navet|rutabaga|panais|betterave|radis|c[ée]leri|concombre|courgette|courge|citrouille|aubergine|poivron|piment|brocoli|asperge|haricot|pois|lentille|f[èe]ve|ma[ïi]s|patate|pomme de terre|champignon|poireau|fenouil|herbe|basilic|persil|coriandre|menthe|ciboulette|aneth|thym|germe|pousse|micro-?pousse|olive|cornichon/],
 ];
 
-export function guessCategory(name) {
+// Rayons imprimés sur certains reçus (« 22-PRODUITS LAITIERS », « 35-CHARCUTERIE ») : indice de catégorie.
+const SECTION_CAT = [
+  [/laiti|fromage|cr[eé]merie/i, 'laitiers'], [/charcut|viande|boucher|volaille/i, 'viande'], [/poisson|mer\b/i, 'poisson'],
+  [/boulang|p[aâ]tiss|pain/i, 'boulangerie'],
+];
+
+export function guessCategory(name, section = '') {
   const n = name.toLowerCase();
   for (const [cat, re] of CAT_WORDS) if (re.test(n)) return cat;
+  for (const [re, cat] of SECTION_CAT) if (re.test(section)) return cat;
   return 'autres';
 }

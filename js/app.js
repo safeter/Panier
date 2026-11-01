@@ -10,7 +10,7 @@ import { planCatalogue } from './catalogue.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
-export const APP_VERSION = '2.9.0';
+export const APP_VERSION = '2.10.0';
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
 
 const state = {
@@ -306,7 +306,7 @@ function viewAdd() {
     <label class="btn file"><input type="file" id="photo-gallery" accept="image/*">Choisir une photo existante</label>
     <label class="btn file"><input type="file" id="pdf-file" accept="application/pdf,.pdf">Lire un PDF (Lufa, reçu en ligne…)</label>
     <label class="btn file"><input type="file" id="import-file" accept="application/json,.json">Importer un fichier de reçus préparé par Claude</label>
-    <p class="muted small" id="import-status">La photo et le PDF sont lus sur ce téléphone, rien n’est envoyé. Une photo se lit moins bien qu’un PDF : vérifie chaque ligne avant d’enregistrer. Les noms que tu corriges sont retenus pour les prochaines fois.</p>
+    <p class="muted small" id="import-status">La photo et le PDF sont lus sur ce téléphone, rien n’est envoyé. Pour une photo : reçu à plat, bien éclairé, qui remplit l’écran (un long reçu peut se prendre en deux photos). Vérifie chaque ligne avant d’enregistrer. Les noms que tu corriges sont retenus pour les prochaines fois.</p>
   </section>
   ${receiptForm(d, names)}`;
 }
@@ -440,8 +440,8 @@ async function onPhotoFile(e) {
   const status = () => $('#import-status');
   await readDocument(e, 'photo', async () => {
     const { photoToLines } = await import('./ocr.js');
-    return photoToLines(e.target.files[0], (p) => {
-      if (status()) status().textContent = `Lecture de la photo… ${Math.round(p * 100)} %`;
+    return photoToLines(e.target.files[0], (p, pass) => {
+      if (status()) status().textContent = `${pass > 1 ? 'Deuxième lecture, plus fine' : 'Lecture de la photo'}… ${Math.round(p * 100)} %`;
     });
   }, 'Aucun texte lisible sur cette photo. Reprends-la bien à plat, avec un bon éclairage, le reçu entier dans le cadre.');
 }
@@ -493,7 +493,7 @@ function applyParsed(parsed, label) {
         return {
           ...emptyLine(),
           name: (known || guess) ? (known || guess).name : l.name, productId: (known || guess)?.id || null, rawName: l.name,
-          unit: (known || guess) ? (known || guess).unit : l.unit, category: (known || guess) ? (known || guess).category : guessCategory(l.name),
+          unit: (known || guess) ? (known || guess).unit : l.unit, category: (known || guess) ? (known || guess).category : guessCategory(l.name, l.section),
           qty: String(l.qty).replace('.', ','), amount: l.amount.toFixed(2).replace('.', ','),
           size: l.size || '', regularPrice: l.regularPrice ? String(l.regularPrice).replace('.', ',') : '',
           raw: l.raw, confidence: Math.min(cap, known ? 0.9 : guess ? 0.6 : 0.5),
@@ -503,7 +503,13 @@ function applyParsed(parsed, label) {
     const sum = parsed.lines.reduce((a, l) => a + l.amount, 0);
     render();
     const todo = state.draft.lines.filter((l) => !l.productId).length;
-    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${parsed.total ? ` · articles ${fmtMoney(sum)} (total du document avec taxes et frais : ${fmtMoney(parsed.total)})` : ''}.${label === 'photo' ? ' Vérifie les montants : la lecture d’une photo peut se tromper.' : ''}`);
+    // Le sous-total imprimé sert de contrôle : s'il ne concorde pas, une ligne manque ou un montant est mal lu.
+    const ref = parsed.subtotal ?? (label === 'photo' ? parsed.total : null);
+    const gap = ref != null ? Math.round((ref - sum) * 100) / 100 : null;
+    const check = gap == null ? (parsed.total ? ` · articles ${fmtMoney(sum)} (total du document avec taxes et frais : ${fmtMoney(parsed.total)})` : '')
+      : Math.abs(gap) <= 0.05 ? ` · la somme concorde avec le sous-total du reçu (${fmtMoney(ref)})`
+      : ` · attention : les lignes font ${fmtMoney(sum)}, le reçu ${fmtMoney(ref)} (écart ${fmtMoney(gap)}) ; une ligne manque ou un montant est mal lu`;
+    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${check}.${label === 'photo' && (gap == null || Math.abs(gap) > 0.05) ? ' Vérifie les montants.' : ''}`);
   }
 }
 
