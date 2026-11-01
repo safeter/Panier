@@ -24,7 +24,7 @@ Application web installable (PWA), en français, pensée pour le téléphone.
 - Toutes les données restent sur le téléphone (IndexedDB). Sauvegarde et restauration par fichier JSON dans Réglages ; export Excel.
 - L'historique de décembre 2023 à janvier 2026 (Google Sheet « Suivi_depenses_V2 ») est chargé au premier lancement depuis `data/seed.json`, sans les dépenses hors épicerie (assurances, garderie, téléphone…). Les reçus de mai 2026 de l'ancienne app et le nettoyage du catalogue s'appliquent ensuite une seule fois (`data/patches/`).
 - Catalogue : noms au format « Générique précision (Marque) » ; un ancien nom reste reconnu aux saisies et aux PDF. Chaque reçu enregistré peut être corrigé (Reçus → Modifier ce reçu).
-- Aucune clé API. Les reçus sont saisis à la main (raccourcis d'achats fréquents), lus depuis un PDF sur le téléphone (commandes Lufa, reçus en ligne ; pdf.js intégré dans `vendor/`), ou importés depuis un fichier préparé par Claude : voir [FORMAT-IMPORT.md](FORMAT-IMPORT.md). Les libellés corrigés sont retenus.
+- Aucune clé API. Les reçus sont saisis à la main (raccourcis d'achats fréquents), lus depuis un PDF sur le téléphone (commandes Lufa, reçus en ligne ; pdf.js intégré dans `vendor/`), lus depuis une photo (OCR Tesseract.js, français, intégré dans `vendor/tesseract/` ; moins précis qu'un PDF, chaque ligne est à vérifier), ou importés depuis un fichier préparé par Claude : voir [FORMAT-IMPORT.md](FORMAT-IMPORT.md). Les libellés corrigés sont retenus.
 
 ## Développement
 

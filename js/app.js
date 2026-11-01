@@ -10,7 +10,7 @@ import { planCatalogue } from './catalogue.js';
 import { pushPending, pushDelete, pendingLines, newToken } from './sync.js';
 import { exportExcel, exportJSON } from './excel.js';
 
-export const APP_VERSION = '2.8.0';
+export const APP_VERSION = '2.9.0';
 const UNITS = ['unité', 'kg', 'sac', 'paquet', 'boîte', 'contenant', 'bouteille', 'pot', 'litre', 'carton', 'botte', 'pain', 'douzaine', 'tablette'];
 
 const state = {
@@ -302,9 +302,11 @@ function viewAdd() {
   return `
   <header class="page-head"><h1>Ajouter un reçu</h1></header>
   <section class="scan-box">
-    <label class="btn primary file"><input type="file" id="pdf-file" accept="application/pdf,.pdf">Lire un PDF (Lufa, reçu en ligne…)</label>
+    <label class="btn primary file"><input type="file" id="photo-file" accept="image/*" capture="environment">Prendre une photo du reçu</label>
+    <label class="btn file"><input type="file" id="photo-gallery" accept="image/*">Choisir une photo existante</label>
+    <label class="btn file"><input type="file" id="pdf-file" accept="application/pdf,.pdf">Lire un PDF (Lufa, reçu en ligne…)</label>
     <label class="btn file"><input type="file" id="import-file" accept="application/json,.json">Importer un fichier de reçus préparé par Claude</label>
-    <p class="muted small" id="import-status">Le PDF est lu sur ce téléphone ; tu vérifies les lignes avant d’enregistrer. Les noms que tu corriges sont retenus pour les prochaines fois.</p>
+    <p class="muted small" id="import-status">La photo et le PDF sont lus sur ce téléphone, rien n’est envoyé. Une photo se lit moins bien qu’un PDF : vérifie chaque ligne avant d’enregistrer. Les noms que tu corriges sont retenus pour les prochaines fois.</p>
   </section>
   ${receiptForm(d, names)}`;
 }
@@ -391,6 +393,8 @@ function bindAdd() {
   });
   $('#import-file')?.addEventListener('change', onImportFile);
   $('#pdf-file')?.addEventListener('change', onPdfFile);
+  $('#photo-file')?.addEventListener('change', onPhotoFile);
+  $('#photo-gallery')?.addEventListener('change', onPhotoFile);
   $('#cancel-edit')?.addEventListener('click', () => { state.draft = null; });
   $$('.chip[data-pid]').forEach((c) => c.addEventListener('click', () => addFrequent(c.dataset.pid)));
 }
@@ -424,28 +428,59 @@ function addFrequent(pid) {
   render();
 }
 
-// Lecture d'un PDF : texte extrait sur l'appareil, lignes proposées, libellés appris au fil des corrections.
+// Lecture d'un PDF ou d'une photo : texte extrait sur l'appareil, lignes proposées, libellés appris au fil des corrections.
 async function onPdfFile(e) {
+  await readDocument(e, 'PDF', async () => {
+    const { pdfToLines } = await import('./pdfimport.js');
+    return pdfToLines(e.target.files[0]);
+  }, 'Ce PDF ne contient pas de texte (c’est une image numérisée). Prends-le plutôt en photo, ou envoie-le à Claude dans le projet Panier.');
+}
+
+async function onPhotoFile(e) {
+  const status = () => $('#import-status');
+  await readDocument(e, 'photo', async () => {
+    const { photoToLines } = await import('./ocr.js');
+    return photoToLines(e.target.files[0], (p) => {
+      if (status()) status().textContent = `Lecture de la photo… ${Math.round(p * 100)} %`;
+    });
+  }, 'Aucun texte lisible sur cette photo. Reprends-la bien à plat, avec un bon éclairage, le reçu entier dans le cadre.');
+}
+
+async function readDocument(e, label, getLines, emptyMsg) {
   const file = e.target.files?.[0];
   if (!file) return;
   const status = $('#import-status');
-  status.textContent = 'Lecture du PDF…';
+  status.textContent = label === 'photo' ? 'Lecture de la photo… (la première fois, le moteur se prépare)' : 'Lecture du PDF…';
   status.classList.remove('error');
+  status.classList.add('busy');
   try {
-    const { pdfToLines } = await import('./pdfimport.js');
-    const text = await pdfToLines(file);
+    const text = await getLines();
     const parsed = parseReceiptText(text);
     if (!parsed.lines.length) {
       status.textContent = text.length
-        ? 'Aucune ligne de produit reconnue dans ce PDF. Envoie-le à Claude dans le projet Panier, ou saisis-le ci-dessous.'
-        : 'Ce PDF ne contient pas de texte (c’est une image numérisée). Envoie-le à Claude dans le projet Panier.';
+        ? `Aucune ligne de produit reconnue dans ${label === 'photo' ? 'cette photo' : 'ce PDF'}. Reprends-la plus nette, ou saisis le reçu ci-dessous.`
+        : emptyMsg;
       status.classList.add('error');
       return;
     }
+    applyParsed(parsed, label);
+  } catch (err) {
+    status.textContent = `Lecture de la ${label === 'photo' ? 'photo' : 'PDF'} impossible : ${err.message}`.replace('de la PDF', 'du PDF');
+    status.classList.add('error');
+  } finally {
+    status.classList?.remove('busy');
+    e.target.value = '';
+  }
+}
+
+function applyParsed(parsed, label) {
+  {
     const aliases = state.aliases;
     const P = new Map(state.data.products.map((p) => [p.id, p]));
     const kg = (l) => (l.unit === 'kg' ? { unit: 'kg', strict: true } : {});
     const find = (name, l) => findProduct(name, kg(l).unit, kg(l));
+    // Une photo se lit moins bien : les lignes restent « à confirmer » (confiance plus basse).
+    const cap = label === 'photo' ? 0.69 : 1;
     state.draft = {
       date: parsed.date || today(),
       store: parsed.store || '',
@@ -461,19 +496,14 @@ async function onPdfFile(e) {
           unit: (known || guess) ? (known || guess).unit : l.unit, category: (known || guess) ? (known || guess).category : guessCategory(l.name),
           qty: String(l.qty).replace('.', ','), amount: l.amount.toFixed(2).replace('.', ','),
           size: l.size || '', regularPrice: l.regularPrice ? String(l.regularPrice).replace('.', ',') : '',
-          raw: l.raw, confidence: known ? 0.9 : guess ? 0.6 : 0.5,
+          raw: l.raw, confidence: Math.min(cap, known ? 0.9 : guess ? 0.6 : 0.5),
         };
       }),
     };
     const sum = parsed.lines.reduce((a, l) => a + l.amount, 0);
     render();
     const todo = state.draft.lines.filter((l) => !l.productId).length;
-    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${parsed.total ? ` · articles ${fmtMoney(sum)} (total du document avec taxes et frais : ${fmtMoney(parsed.total)})` : ''}.`);
-  } catch (err) {
-    status.textContent = `Lecture du PDF impossible : ${err.message}`;
-    status.classList.add('error');
-  } finally {
-    e.target.value = '';
+    toast(`${parsed.lines.length} lignes lues${todo ? `, ${todo} nouveaux produits à vérifier` : ''}${parsed.total ? ` · articles ${fmtMoney(sum)} (total du document avec taxes et frais : ${fmtMoney(parsed.total)})` : ''}.${label === 'photo' ? ' Vérifie les montants : la lecture d’une photo peut se tromper.' : ''}`);
   }
 }
 
